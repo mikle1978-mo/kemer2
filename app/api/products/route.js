@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProducts } from "@/backend/controllers/productControllers";
 import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
@@ -8,11 +10,11 @@ export async function GET(req) {
         dbConnect();
         const data = await getProducts(req);
 
-        return NextResponse.json(data, { status: 200 });
+        return NextResponse.json(data);
     } catch (error) {
         // В случае ошибки вызываем middleware для обработки ошибок
-        onError(error, req, res);
+        onError(error, req);
     }
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data);
 }

@@ -1,5 +1,4 @@
 import { deleteProduct } from "@/backend/controllers/productControllers";
-import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
 import { isAuthenticatedUser } from "@/backend/middlewares/auth";
 

@@ -11,7 +11,7 @@ export async function GET(req) {
 
     // Дождитесь завершения аутентификации и проверки ролей
     await isAuthenticatedUser(req);
-    await Promise.resolve(authorizeRoles("admin"));
+    authorizeRoles("admin");
 
     const data = await getAdminProduct(req);
 

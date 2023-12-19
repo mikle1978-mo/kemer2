@@ -1,13 +1,15 @@
-import nc from "next-connect";
-import dbConnect from "@/backend/config/dbConnect";
 import { createProductReview } from "@/backend/controllers/productControllers";
-import onError from "@/backend/middlewares/errors";
 import { isAuthenticatedUser } from "@/backend/middlewares/auth";
+import { NextResponse } from "next/server";
 
-const handler = nc({ onError });
+export async function PUT(req) {
+    dbConnect();
 
-dbConnect();
+    // Дождитесь завершения аутентификации и проверки ролей
+    await isAuthenticatedUser(req);
+    await Promise.resolve(authorizeRoles("admin"));
 
-handler.use(isAuthenticatedUser).put(createProductReview);
+    const data = await createProductReview(req);
 
-export default handler;
+    return NextResponse.json(data, { status: 200 });
+}

@@ -1,5 +1,4 @@
 import { getAdminProducts } from "@/backend/controllers/productControllers";
-import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
 import {
     isAuthenticatedUser,
@@ -12,7 +11,7 @@ export async function GET(req) {
 
     // Дождитесь завершения аутентификации и проверки ролей
     await isAuthenticatedUser(req);
-    await Promise.resolve(authorizeRoles("admin"));
+    authorizeRoles("admin");
 
     const data = await getAdminProducts(req);
 

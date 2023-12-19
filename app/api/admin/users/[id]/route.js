@@ -1,22 +1,18 @@
-import nc from "next-connect";
-import dbConnect from "@/backend/config/dbConnect";
-import onError from "@/backend/middlewares/errors";
 import {
-  authorizeRoles,
-  isAuthenticatedUser,
+    authorizeRoles,
+    isAuthenticatedUser,
 } from "@/backend/middlewares/auth";
-import {
-  deleteUser,
-  getUser,
-  updateUser,
-} from "@/backend/controllers/authControllers";
+import { getUser } from "@/backend/controllers/authControllers";
+import { NextResponse } from "next/server";
 
-const handler = nc({ onError });
+export async function GET(req) {
+    dbConnect();
 
-dbConnect();
+    // Дождитесь завершения аутентификации и проверки ролей
+    await isAuthenticatedUser(req);
+    await Promise.resolve(authorizeRoles("admin"));
 
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).get(getUser);
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).put(updateUser);
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).delete(deleteUser);
+    const data = await getUser(req);
 
-export default handler;
+    return NextResponse.json(data, { status: 200 });
+}

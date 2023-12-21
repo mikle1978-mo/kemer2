@@ -37,7 +37,7 @@ const ProductItem = ({ product }) => {
                   ? product?.images[0].url
                   : "/images/default_product.png"
               }
-              alt="product anme"
+              alt={product?.name}
               height="240"
               width="240"
             />

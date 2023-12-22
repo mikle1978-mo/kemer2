@@ -17,7 +17,7 @@ const ProductDetails = ({ product }) => {
   const imgRef = useRef(null);
 
   const setImgPreview = (url) => {
-    imgRef.current.srcset = url;
+    imgRef.current.src = url;
   };
 
   useEffect(() => {

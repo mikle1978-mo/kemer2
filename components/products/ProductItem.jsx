@@ -31,15 +31,15 @@ const ProductItem = ({ product }) => {
               position: "relative",
             }}
           >
-            <Image
+            <img
               src={
                 product?.images[0]
                   ? product?.images[0].url
                   : "/images/default_product.png"
               }
               alt={product?.name}
-              height="240"
-              width="240"
+            // height="240"
+            // width="240"
             />
           </div>
         </div>

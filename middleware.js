@@ -20,12 +20,15 @@ export default withAuth(
     {
         callbacks: {
             authorized: ({ token }) => {
+                console.log("middlewaer cb-autorise/token-------: ", token);
                 if (!token) {
                     return false;
                 }
                 return true;
             },
             async jwt(token, user) {
+                console.log("middlewaer cb-jwt/token-------: ", token);
+                console.log("middlewaer cb-jwt/user-------: ", user);
                 if (token) {
                     return token;
                 } else {
@@ -34,6 +37,8 @@ export default withAuth(
             },
 
             async session(session, user) {
+                console.log("middlewaer cb-session/session-------: ", session);
+                console.log("middlewaer cb-session/user-------: ", user);
                 if (session) {
                     return session;
                 } else {

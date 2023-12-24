@@ -3,7 +3,7 @@ import User from "@/backend/models/user";
 import bcrypt from "bcryptjs";
 import { dbConnect } from "@/backend/config/dbConnect";
 
-export const authConfig = {
+export const AuthOptions = {
     session: {
         strategy: "jwt",
     },
@@ -50,6 +50,7 @@ export const authConfig = {
         },
         session: async ({ session, token }) => {
             session.user = token.user;
+            console.log("authoptions/cb-session:-------", session.user);
 
             // delete password from session
             delete session?.user?.password;

@@ -3,7 +3,6 @@ import {
     isAuthenticatedUser,
     authorizeRoles,
 } from "@/backend/middlewares/auth";
-import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
 

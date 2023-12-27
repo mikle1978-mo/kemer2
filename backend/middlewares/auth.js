@@ -8,7 +8,7 @@ const isAuthenticatedUser = async (req, res) => {
 
     if (!session) {
         console.log(
-            "There is no session in middlewarer isAuthentificatedUser!!!!!"
+            "There is no session in middleware isAuthentificatedUser!!!!!"
         );
         return NextResponse.redirect(new URL("/login", req.url));
     }

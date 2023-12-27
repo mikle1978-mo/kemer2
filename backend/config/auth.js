@@ -50,7 +50,6 @@ export const AuthOptions = {
         },
         session: async ({ session, token }) => {
             session.user = token.user;
-            console.log("authoptions/cb-session:-------", session.user);
 
             // delete password from session
             delete session?.user?.password;

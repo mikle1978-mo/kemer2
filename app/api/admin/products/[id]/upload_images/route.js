@@ -12,7 +12,7 @@ export async function POST(req, { params }) {
     dbConnect();
     try {
         await isAuthenticatedUser(req); // Проверяем авторизацию
-        authorizeRoles("admin"); // Проверяем роль админа
+        authorizeRoles(req, "admin"); // Проверяем роль админа
 
         // Используем upload.array, чтобы получить middleware для обработки файлов
         const uploadMiddleware = upload.array("image");

@@ -88,23 +88,11 @@ export const getAdminProducts = async (req, res, next) => {
     };
 };
 
-export const getProduct = async (req, id, next) => {
+export const getProduct = async (req, id) => {
     const product = await Product.findById(id);
 
     if (!product) {
-        return next(new ErrorHandler("Product not found.", 404));
-    }
-
-    return {
-        product,
-    };
-};
-
-export const getAdminProduct = async (req, id, next) => {
-    const product = await Product.findById(id);
-
-    if (!product) {
-        return next(new ErrorHandler("Product not found.", 404));
+        return new ErrorHandler("Product not found.", 404);
     }
 
     return {
@@ -163,11 +151,11 @@ export const uploadProductImages = async (req, id) => {
     }
 };
 
-export const updateProduct = async (req, id, next) => {
+export const updateProduct = async (req, id) => {
     let product = await Product.findById(id);
 
     if (!product) {
-        return next(new ErrorHandler("Product not found.", 404));
+        return new ErrorHandler("Product not found.", 404);
     }
 
     const body = await req.json();

@@ -1,4 +1,4 @@
-import { getAdminProduct } from "@/backend/controllers/productControllers";
+import { getProduct } from "@/backend/controllers/productControllers";
 import { NextResponse } from "next/server";
 import {
     isAuthenticatedUser,
@@ -6,14 +6,13 @@ import {
 } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/config/dbConnect";
 
-export async function GET(req) {
+export async function GET(req, { params }) {
     dbConnect();
 
-    // Дождитесь завершения аутентификации и проверки ролей
     await isAuthenticatedUser(req);
-    authorizeRoles("admin");
+    authorizeRoles(req, "admin");
 
-    const data = await getAdminProduct(req);
+    const data = await getProduct(req, params.id);
 
     return NextResponse.json(data, { status: 200 });
 }

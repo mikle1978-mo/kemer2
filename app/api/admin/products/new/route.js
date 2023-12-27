@@ -11,7 +11,7 @@ export async function POST(req) {
 
     // Дождитесь завершения аутентификации и проверки ролей
     await isAuthenticatedUser(req);
-    await Promise.resolve(authorizeRoles("admin"));
+    authorizeRoles(req, "admin");
 
     const data = await newProduct(req);
 

@@ -59,7 +59,7 @@ const Users = ({ data }) => {
                     className="px-2 py-2 inline-block text-red-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer"
                     onClick={() => deleteHandler(user?._id)}
                   >
-                    <i className="fa fa-trash" aria-hidden="true"></i>
+                    <i className="fa fa-trash" aria-hidden="true">x</i>
                   </a>
                 </div>
               </td>

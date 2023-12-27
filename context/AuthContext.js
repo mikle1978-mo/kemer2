@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
     const updateUser = async (id, userData) => {
         try {
             const { data } = await axios.put(
-                `${process.env.API_URL}/api/admin/users/${id}`,
+                `${process.env.API_URL}/api/admin/users/${id}/update`,
                 {
                     userData,
                 }
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children }) => {
     const deleteUser = async (id) => {
         try {
             const { data } = await axios.delete(
-                `${process.env.API_URL}/api/admin/users/${id}`
+                `${process.env.API_URL}/api/admin/users/${id}/delete`
             );
 
             if (data?.success) {

@@ -104,44 +104,55 @@ export const getUsers = async (req, res) => {
     };
 };
 
-export const getUser = async (req, res) => {
-    let user = await User.findById(req.query.id);
+export const getUser = async (req, id) => {
+    let user = await User.findById(id);
 
     if (!user) {
-        return next(new ErrorHandler("No user found with this ID", 404));
+        return new ErrorHandler("No user found with this ID", 404);
     }
 
-    res.status(200).json({
+    return {
         success: true,
         user,
-    });
+    };
 };
 
-export const updateUser = async (req, res) => {
-    let user = await User.findById(req.query.id);
+export const updateUser = async (req, id) => {
+    let user = await User.findById(id);
 
     if (!user) {
-        return next(new ErrorHandler("No user found with this ID", 404));
+        return {
+            success: false,
+            error: new ErrorHandler("No user found with this ID", 404),
+        };
     }
+    const body = await req.json();
 
-    user = await User.findByIdAndUpdate(req.query.id, req.body.userData);
-
-    res.status(200).json({
-        success: true,
-        user,
-    });
+    try {
+        user = await User.findByIdAndUpdate(id, body.userData, { new: true });
+        return {
+            success: true,
+            user,
+        };
+    } catch (error) {
+        console.error("Error updating user:", error);
+        return {
+            success: false,
+            error: new ErrorHandler("Error updating user", 500),
+        };
+    }
 };
 
-export const deleteUser = async (req, res) => {
-    let user = await User.findById(req.query.id);
+export const deleteUser = async (req, id) => {
+    let user = await User.findById(id);
 
     if (!user) {
-        return next(new ErrorHandler("No User found with this ID", 404));
+        return new ErrorHandler("No User found with this ID", 404);
     }
 
     await user.deleteOne();
 
-    res.status(200).json({
+    return {
         success: true,
-    });
+    };
 };

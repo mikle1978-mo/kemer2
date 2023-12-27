@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function GET(req) {
-    await dbConnect();
+    dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
 

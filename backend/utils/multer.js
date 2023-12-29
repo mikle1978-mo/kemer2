@@ -1,8 +1,15 @@
 import multer from "multer";
 
+const uploadDirectory = "public/uploads";
+
+// Проверка и создание директории, если её нет
+if (!fs.existsSync(uploadDirectory)) {
+    fs.mkdirSync(uploadDirectory);
+}
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "public/uploads");
+        cb(null, uploadDirectory);
     },
     filename: function (req, file, cb) {
         cb(null, new Date().toISOString() + "-" + file.originalname);

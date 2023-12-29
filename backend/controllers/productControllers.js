@@ -130,7 +130,7 @@ export const uploadProductImages = async (req, id) => {
             }
         };
 
-        const urls = [];
+        let urls = [];
 
         const uploadPromises = files.map(async (file) => {
             const destinationDirPath = path.join(

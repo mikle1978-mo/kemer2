@@ -13,6 +13,14 @@ export async function POST(req, { params }) {
     try {
         await isAuthenticatedUser(req); // Проверяем авторизацию
         authorizeRoles(req, "admin"); // Проверяем роль админа
+        console.log(
+            "route api/admin/products/[id]/upload image  req::::::",
+            req
+        );
+        console.log(
+            "route api/admin/products/[id]/upload image params::::::",
+            params
+        );
 
         // Используем upload.array, чтобы получить middleware для обработки файлов
         const uploadMiddleware = upload.array("image");
@@ -26,7 +34,7 @@ export async function POST(req, { params }) {
                         params.id
                     );
                     console.log(
-                        "route api/admin/products/[id]/upload image::::::",
+                        "route api/admin/products/[id]/upload image productionData::::::",
                         productData
                     );
                     if (!productData) {

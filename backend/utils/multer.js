@@ -1,4 +1,5 @@
 import multer from "multer";
+import fs from "fs";
 
 const uploadDirectory = "public/uploads";
 

@@ -7,6 +7,7 @@ cloudinary.config({
 });
 
 const uploads = async (file, folder) => {
+    console.log("uploads folder", folder); // Добавьте эту строку для отладки
     try {
         const result = await cloudinary.v2.uploader.upload(file, {
             resource_type: "auto",

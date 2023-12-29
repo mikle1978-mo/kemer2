@@ -111,32 +111,55 @@ export const uploadProductImages = async (req, id) => {
             return new ErrorHandler("Product not found.", 404);
         }
 
-        const uploader = async (destinationDirPath) =>
-            await uploads(destinationDirPath, "ecomm/products");
+        const uploader = async (destinationDirPath) => {
+            try {
+                const result = await cloudinary.v2.uploader.upload(
+                    destinationDirPath,
+                    {
+                        resource_type: "auto",
+                        folder: "ecomm/products", // Можете настроить этот путь по вашему усмотрению
+                    }
+                );
+
+                return {
+                    public_id: result.public_id,
+                    url: result.url,
+                };
+            } catch (error) {
+                throw error;
+            }
+        };
 
         const urls = [];
 
-        for (const file of files) {
+        const uploadPromises = files.map(async (file) => {
             const destinationDirPath = path.join(
                 process.cwd(),
                 "public/images/uploads",
                 file.name
             );
 
-            // Сохраняем файл в локальную папку
-            const fileBuffer = await file.arrayBuffer(); // Используйте arrayBuffer() для получения буфера файла
-            fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
+            const destinationDir = path.dirname(destinationDirPath);
 
-            // Вызываем вашу функцию загрузки в Cloudinary
+            // Проверка и создание директории, если её нет
+            if (!fs.existsSync(destinationDir)) {
+                fs.mkdirSync(destinationDir, { recursive: true });
+            }
+
+            const fileBuffer = await file.arrayBuffer();
+            fs.writeFileSync(destinationDirPath, Buffer.from(fileBuffer));
+
             const imgUrl = await uploader(destinationDirPath);
 
-            urls.push(imgUrl);
+            // Удаляем локальный файл после успешной загрузки в Cloudinary
+            await fs.unlink(destinationDirPath);
 
-            await fs.unlink(destinationDirPath); // Удаляем локальный файл после загрузки в Cloudinary
-        }
+            return imgUrl;
+        });
+
+        urls = await Promise.all(uploadPromises);
 
         // Обновляем информацию о продукте в базе данных с использованием полученных URL-адресов
-
         product = await Product.findByIdAndUpdate(id, {
             images: urls,
         });

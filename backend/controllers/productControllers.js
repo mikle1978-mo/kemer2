@@ -100,6 +100,10 @@ export const getProduct = async (req, id) => {
     };
 };
 
+import fs from "fs/promises";
+import path from "path";
+import { ErrorHandler } from "path-to-your-error-handler"; // Подставьте путь к вашему обработчику ошибок
+
 export const uploadProductImages = async (req, id) => {
     let product = await Product.findById(id);
 
@@ -119,7 +123,7 @@ export const uploadProductImages = async (req, id) => {
 
         const uploadPromises = files.map(async (file) => {
             const destinationDirPath = path.join(
-                process.cwd(),
+                "/tmp",
                 "public/images/uploads",
                 file.name
             );

@@ -112,22 +112,7 @@ export const uploadProductImages = async (req, id) => {
         }
 
         const uploader = async (destinationDirPath) => {
-            try {
-                const result = await cloudinary.v2.uploader.upload(
-                    destinationDirPath,
-                    {
-                        resource_type: "auto",
-                        folder: "ecomm/products", // Можете настроить этот путь по вашему усмотрению
-                    }
-                );
-
-                return {
-                    public_id: result.public_id,
-                    url: result.url,
-                };
-            } catch (error) {
-                throw error;
-            }
+            // Ваш код для загрузки в Cloudinary
         };
 
         let urls = [];
@@ -142,12 +127,20 @@ export const uploadProductImages = async (req, id) => {
             const destinationDir = path.dirname(destinationDirPath);
 
             // Проверка и создание директории, если её нет
-            if (!fs.existsSync(destinationDir)) {
-                fs.mkdirSync(destinationDir, { recursive: true });
+            try {
+                await fs.access(destinationDir);
+            } catch (error) {
+                if (error.code === "ENOENT") {
+                    // Директория не существует, создаем её
+                    await fs.mkdir(destinationDir, { recursive: true });
+                } else {
+                    // Другая ошибка, обрабатываем по вашему усмотрению
+                    throw error;
+                }
             }
 
             const fileBuffer = await file.arrayBuffer();
-            fs.writeFileSync(destinationDirPath, Buffer.from(fileBuffer));
+            await fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
 
             const imgUrl = await uploader(destinationDirPath);
 

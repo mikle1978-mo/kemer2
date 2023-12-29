@@ -10,7 +10,8 @@ import { dbConnect } from "@/backend/config/dbConnect";
 export async function PUT(req, { params }) {
     dbConnect();
     await isAuthenticatedUser(req);
-    await Promise.resolve(authorizeRoles("admin"));
+    authorizeRoles(req, "admin");
+
     const data = await updateProduct(req, params.id);
 
     return NextResponse.json(data, { status: 200 });

@@ -25,6 +25,10 @@ export async function POST(req, { params }) {
                         req,
                         params.id
                     );
+                    console.log(
+                        "route api/admin/products/[id]/upload image::::::",
+                        productData
+                    );
                     if (!productData) {
                         reject(
                             new Error(

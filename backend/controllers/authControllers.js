@@ -119,6 +119,8 @@ export const getUser = async (req, id) => {
 
 export const updateUser = async (req, id) => {
     let user = await User.findById(id);
+    console.log("authcontroller update user req", req);
+    console.log("authcontroller update user id", id);
 
     if (!user) {
         return {

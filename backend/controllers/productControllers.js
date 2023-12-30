@@ -101,8 +101,6 @@ export const getProduct = async (req, id) => {
 };
 
 export const uploadProductImages = async (req, id) => {
-    console.log("productController uploadProductsImage req:::", req);
-    console.log("productController uploadProductsImage id:::", id);
     let product = await Product.findById(id);
 
     try {
@@ -114,8 +112,19 @@ export const uploadProductImages = async (req, id) => {
         }
 
         const uploader = async (destinationDirPath) => {
-            // Ваш код для загрузки в Cloudinary
-            await uploads(destinationDirPath, "ecomm/products");
+            try {
+                // Ваш код для загрузки в Cloudinary
+                const result = await uploads(
+                    destinationDirPath,
+                    "ecomm/products"
+                );
+                console.log("productsController uploader uploads", result);
+
+                return result; // Вернуть результат загрузки
+            } catch (error) {
+                console.error("Error uploading to Cloudinary:", error);
+                throw error; // Пробросить ошибку дальше
+            }
         };
 
         let urls = [];
@@ -136,9 +145,6 @@ export const uploadProductImages = async (req, id) => {
                 if (error.code === "ENOENT") {
                     // Директория не существует, создаем её
                     await fs.mkdir(destinationDir, { recursive: true });
-                } else {
-                    // Другая ошибка, обрабатываем по вашему усмотрению
-                    throw error;
                 }
             }
 
@@ -146,14 +152,19 @@ export const uploadProductImages = async (req, id) => {
             await fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
 
             const imgUrl = await uploader(destinationDirPath);
-
             // Удаляем локальный файл после успешной загрузки в Cloudinary
             await fs.unlink(destinationDirPath);
+
+            console.log(
+                "productController uploadProductsImage imgUrl:::",
+                imgUrl
+            );
 
             return imgUrl;
         });
 
         urls = await Promise.all(uploadPromises);
+        console.log("productController uploadProductsImage urls:::", urls);
 
         // Обновляем информацию о продукте в базе данных с использованием полученных URL-адресов
         product = await Product.findByIdAndUpdate(id, {

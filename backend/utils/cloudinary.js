@@ -7,13 +7,13 @@ cloudinary.config({
 });
 
 const uploads = async (file, folder) => {
-    console.log("uploads folder", folder); // Добавьте эту строку для отладки
+    console.log("cloudinary uploads folder", folder); // Добавьте эту строку для отладки
     try {
         const result = await cloudinary.v2.uploader.upload(file, {
             resource_type: "auto",
             folder: folder,
         });
-
+        console.log("cloudinary uploads result", result);
         return {
             public_id: result.public_id,
             url: result.url,

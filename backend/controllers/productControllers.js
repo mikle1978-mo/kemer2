@@ -115,7 +115,7 @@ export const uploadProductImages = async (req, id) => {
 
         const uploader = async (destinationDirPath) => {
             // Ваш код для загрузки в Cloudinary
-            await uploads(destinationDirPath, "buyitnow/products");
+            await uploads(destinationDirPath, "ecomm/products");
         };
 
         let urls = [];

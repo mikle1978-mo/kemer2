@@ -101,6 +101,8 @@ export const getProduct = async (req, id) => {
 };
 
 export const uploadProductImages = async (req, id) => {
+    console.log("productController uploadProductsImage req:::", req);
+    console.log("productController uploadProductsImage id:::", id);
     let product = await Product.findById(id);
 
     try {
@@ -113,6 +115,7 @@ export const uploadProductImages = async (req, id) => {
 
         const uploader = async (destinationDirPath) => {
             // Ваш код для загрузки в Cloudinary
+            await uploads(destinationDirPath, "buyitnow/products");
         };
 
         let urls = [];

@@ -114,6 +114,7 @@ export const uploadProductImages = async (req, id) => {
         const uploader = async (destinationDirPath) => {
             try {
                 // Ваш код для загрузки в Cloudinary
+                console.log("Before Cloudinary upload");
                 const result = await uploads(
                     destinationDirPath,
                     "ecomm/products"
@@ -135,7 +136,7 @@ export const uploadProductImages = async (req, id) => {
                 "public/images/uploads",
                 file.name
             );
-
+            console.log("Local image path:", destinationDirPath);
             const destinationDir = path.dirname(destinationDirPath);
 
             // Проверка и создание директории, если её нет
@@ -150,6 +151,16 @@ export const uploadProductImages = async (req, id) => {
 
             const fileBuffer = await file.arrayBuffer();
             await fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
+
+            // Проверьте, существует ли файл после сохранения
+            if (fs.existsSync(destinationDirPath)) {
+                console.log("Local image saved successfully!");
+            } else {
+                console.error(
+                    "Local image not saved. Path:",
+                    destinationDirPath
+                );
+            }
 
             const imgUrl = await uploader(destinationDirPath);
             // Удаляем локальный файл после успешной загрузки в Cloudinary

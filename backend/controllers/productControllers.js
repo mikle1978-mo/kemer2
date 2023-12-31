@@ -2,6 +2,7 @@ import Product from "../models/product";
 import APIFilters from "../utils/APIFilters";
 import { cloudinary, uploads } from "../utils/cloudinary";
 import fs from "fs";
+import { promises as fsPromises, existsSync } from "fs";
 import path from "path";
 import ErrorHandler from "../utils/errorHandler";
 import { NextResponse } from "next/server";
@@ -118,18 +119,16 @@ export const uploadProductImages = async (req, id) => {
 
         const uploader = async (destinationDirPath) => {
             try {
-                // Ваш код для загрузки в Cloudinary
                 console.log("Before Cloudinary upload");
                 const result = await uploads(
                     destinationDirPath,
                     "ecomm/products"
                 );
                 console.log("productsController uploader uploads", result);
-
-                return result; // Вернуть результат загрузки
+                return result;
             } catch (error) {
                 console.error("Error uploading to Cloudinary:", error);
-                throw error; // Пробросить ошибку дальше
+                throw error;
             }
         };
 
@@ -144,21 +143,23 @@ export const uploadProductImages = async (req, id) => {
             console.log("Local image path:", destinationDirPath);
             const destinationDir = path.dirname(destinationDirPath);
 
-            // Проверка и создание директории, если её нет
             try {
-                await fs.access(destinationDir);
+                await fsPromises.access(destinationDir);
             } catch (error) {
                 if (error.code === "ENOENT") {
-                    // Директория не существует, создаем её
-                    await fs.mkdir(destinationDir, { recursive: true });
+                    await fsPromises.mkdir(destinationDir, { recursive: true });
+                } else {
+                    throw error;
                 }
             }
 
             const fileBuffer = await file.arrayBuffer();
-            await fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
+            await fsPromises.writeFile(
+                destinationDirPath,
+                Buffer.from(fileBuffer)
+            );
 
-            // Проверьте, существует ли файл после сохранения
-            if (fs.existsSync(destinationDirPath)) {
+            if (existsSync(destinationDirPath)) {
                 console.log("Local image saved successfully!");
             } else {
                 console.error(
@@ -168,8 +169,7 @@ export const uploadProductImages = async (req, id) => {
             }
 
             const imgUrl = await uploader(destinationDirPath);
-            // Удаляем локальный файл после успешной загрузки в Cloudinary
-            await fs.unlink(destinationDirPath);
+            await fsPromises.unlink(destinationDirPath);
 
             console.log(
                 "productController uploadProductsImage imgUrl:::",
@@ -182,7 +182,6 @@ export const uploadProductImages = async (req, id) => {
         urls = await Promise.all(uploadPromises);
         console.log("productController uploadProductsImage urls:::", urls);
 
-        // Обновляем информацию о продукте в базе данных с использованием полученных URL-адресов
         product = await Product.findByIdAndUpdate(id, {
             images: urls,
         });

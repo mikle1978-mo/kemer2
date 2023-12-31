@@ -19,6 +19,13 @@ const uploads = async (file, folder) => {
             url: result.url,
         };
     } catch (error) {
+        console.error("Error uploading to Cloudinary:", error);
+        console.error(
+            "Error details:",
+            error.message,
+            error.name,
+            error.http_code
+        );
         throw error;
     }
 };

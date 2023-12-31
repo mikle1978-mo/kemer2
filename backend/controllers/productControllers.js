@@ -1,7 +1,7 @@
 import Product from "../models/product";
 import APIFilters from "../utils/APIFilters";
 import { cloudinary, uploads } from "../utils/cloudinary";
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
 import ErrorHandler from "../utils/errorHandler";
 import { NextResponse } from "next/server";
@@ -106,6 +106,11 @@ export const uploadProductImages = async (req, id) => {
     try {
         const formData = await req.formData();
         const files = formData.getAll("image");
+        console.log("Number of files:", files.length);
+        if (files.length === 0) {
+            console.error("No images found in form data");
+            return new ErrorHandler("No images found in form data", 400);
+        }
 
         if (!product) {
             return new ErrorHandler("Product not found.", 404);

@@ -1,7 +1,6 @@
 import User from "../models/user";
-import { uploads } from "../utils/cloudinary";
-import fs from "fs/promises";
-import path from "path";
+import { uploadToCloudinary } from "../utils/cloudinary";
+import fs from "fs";
 import ErrorHandler from "../utils/errorHandler";
 import bcrypt from "bcryptjs";
 import APIFilters from "../utils/APIFilters";
@@ -16,32 +15,30 @@ export const registerUser = async (req, res) => {
 };
 
 export const updateProfile = async (req, res) => {
-    const formData = await req.formData();
-    const file = formData.get("image");
-    const name = formData.get("name");
-    const email = formData.get("email");
+    const data = await req.formData();
+    const name = await data.get("name");
+    const email = await data.get("email");
+    const image = await data.get("image");
+    const fileBuffer = await image.arrayBuffer();
     const newUserData = {
         name: name,
         email: email,
     };
-    if (file) {
-        const destinationDirPath = path.join(
-            process.cwd(),
-            "public/images/uploads",
-            file.name
-        );
-        const uploader = async (destinationDirPath) =>
-            await uploads(destinationDirPath, "ecomm/avatars");
-        // Сохраняем файл в локальную папку
-        const fileBuffer = await file.arrayBuffer(); // Используйте arrayBuffer() для получения буфера файла
-        fs.writeFile(destinationDirPath, Buffer.from(fileBuffer));
-        // Вызываем функцию загрузки в Cloudinary
-        const avatarResponse = await uploader(destinationDirPath);
-
-        await fs.unlink(destinationDirPath); // Удаляем локальный файл после загрузки в Cloudinary
-
-        newUserData.avatar = avatarResponse;
+    if (image) {
+        let mime = image.type;
+        let encoding = "base64";
+        let base64Data = Buffer.from(fileBuffer).toString("base64");
+        let fileUri = "data:" + mime + ";" + encoding + "," + base64Data;
+        const uploader = async (fileUri) =>
+            await uploadToCloudinary(fileUri, "ecomm/avatars");
+        try {
+            const avatarResponse = await uploader(fileUri);
+            newUserData.avatar = avatarResponse;
+        } catch (error) {
+            console.error(error);
+        }
     }
+
     const user = await User.findByIdAndUpdate(req.user._id, newUserData, {
         new: true,
     });

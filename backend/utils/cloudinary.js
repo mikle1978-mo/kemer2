@@ -1,33 +1,29 @@
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
 });
 
-const uploads = async (file, folder) => {
-    console.log("cloudinary uploads folder", folder); // Добавьте эту строку для отладки
+const uploadToCloudinary = async (fileUri, folder) => {
     try {
-        const result = await cloudinary.v2.uploader.upload(file, {
+        const result = await cloudinary.uploader.upload(fileUri, {
+            invalidate: true,
             resource_type: "auto",
             folder: folder,
         });
-        console.log("cloudinary uploads result", result);
+        console.log(result);
         return {
             public_id: result.public_id,
             url: result.url,
         };
     } catch (error) {
-        console.error("Error uploading to Cloudinary:", error);
-        console.error(
-            "Error details:",
-            error.message,
-            error.name,
-            error.http_code
-        );
-        throw error;
+        console.error("Произошла ошибка при загрузке в Cloudinary:", error);
+        // Возвращаем ошибку для обработки в вызывающем коде
+        throw new Error("Произошла ошибка при загрузке в Cloudinary.");
     }
 };
 
-export { uploads, cloudinary };
+export { uploadToCloudinary, cloudinary };

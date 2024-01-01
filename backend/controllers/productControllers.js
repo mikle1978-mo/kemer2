@@ -105,82 +105,39 @@ export const uploadProductImages = async (req, id) => {
     let product = await Product.findById(id);
 
     try {
-        const formData = await req.formData();
-        const files = formData.getAll("image");
-        console.log("Number of files:", files.length);
+        const data = await req.formData();
+        const files = await data.getAll("image");
+        console.log("Количество изображений:", files.length);
         if (files.length === 0) {
-            console.error("No images found in form data");
-            return new ErrorHandler("No images found in form data", 400);
+            console.error("Нет прикрепленных изображений");
+            return new ErrorHandler("Нет прикрепленных изображений", 400);
         }
 
         if (!product) {
-            return new ErrorHandler("Product not found.", 404);
+            return new ErrorHandler("Продукт не найден.", 404);
         }
 
-        const uploader = async (destinationDirPath) => {
-            try {
-                console.log("Before Cloudinary upload");
-                const result = await uploads(
-                    destinationDirPath,
-                    "ecomm/products"
-                );
-                console.log("productsController uploader uploads", result);
-                return result;
-            } catch (error) {
-                console.error("Error uploading to Cloudinary:", error);
-                throw error;
-            }
-        };
+        const uploader = async (fileUri) =>
+            await uploadToCloudinary(fileUri, "ecomm/products");
 
         let urls = [];
 
-        const uploadPromises = files.map(async (file) => {
-            const destinationDirPath = path.join(
-                "/tmp",
-                "public/images/uploads",
-                file.name
-            );
-            console.log("Local image path:", destinationDirPath);
-            const destinationDir = path.dirname(destinationDirPath);
+        const uploadPromises = files.map(async (image) => {
+            const fileBuffer = await image.arrayBuffer();
+            let mime = image.type;
+            let encoding = "base64";
+            let base64Data = Buffer.from(fileBuffer).toString("base64");
+            let fileUri = "data:" + mime + ";" + encoding + "," + base64Data;
 
             try {
-                await fsPromises.access(destinationDir);
+                const imgUrl = await uploader(fileUri);
+                return imgUrl;
             } catch (error) {
-                if (error.code === "ENOENT") {
-                    await fsPromises.mkdir(destinationDir, { recursive: true });
-                } else {
-                    throw error;
-                }
+                console.error(error);
             }
-
-            const fileBuffer = await file.arrayBuffer();
-            await fsPromises.writeFile(
-                destinationDirPath,
-                Buffer.from(fileBuffer)
-            );
-
-            if (existsSync(destinationDirPath)) {
-                console.log("Local image saved successfully!");
-            } else {
-                console.error(
-                    "Local image not saved. Path:",
-                    destinationDirPath
-                );
-            }
-
-            const imgUrl = await uploader(destinationDirPath);
-            await fsPromises.unlink(destinationDirPath);
-
-            console.log(
-                "productController uploadProductsImage imgUrl:::",
-                imgUrl
-            );
-
-            return imgUrl;
         });
 
         urls = await Promise.all(uploadPromises);
-        console.log("productController uploadProductsImage urls:::", urls);
 
         product = await Product.findByIdAndUpdate(id, {
             images: urls,
@@ -200,7 +157,7 @@ export const updateProduct = async (req, id) => {
     let product = await Product.findById(id);
 
     if (!product) {
-        return new ErrorHandler("Product not found.", 404);
+        return new ErrorHandler("Продукт не найден.", 404);
     }
 
     const body = await req.json();

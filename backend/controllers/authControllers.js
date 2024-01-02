@@ -1,6 +1,5 @@
 import User from "../models/user";
 import { uploadToCloudinary } from "../utils/cloudinary";
-import fs from "fs";
 import ErrorHandler from "../utils/errorHandler";
 import bcrypt from "bcryptjs";
 import APIFilters from "../utils/APIFilters";
@@ -19,12 +18,12 @@ export const updateProfile = async (req, res) => {
     const name = await data.get("name");
     const email = await data.get("email");
     const image = await data.get("image");
-    const fileBuffer = await image.arrayBuffer();
     const newUserData = {
         name: name,
         email: email,
     };
     if (image) {
+        const fileBuffer = await image.arrayBuffer();
         let mime = image.type;
         let encoding = "base64";
         let base64Data = Buffer.from(fileBuffer).toString("base64");
@@ -48,24 +47,24 @@ export const updateProfile = async (req, res) => {
     };
 };
 
-export const updatePassword = async (req, res, next) => {
+export const updatePassword = async (req, res) => {
+    const body = await req.json();
     const user = await User.findById(req.user._id).select("+password");
 
     const isPasswordMatched = await bcrypt.compare(
-        req.body.currentPassword,
+        body.currentPassword,
         user.password
     );
-
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Old password is incorrect", 400));
+        return new ErrorHandler("Old password is incorrect", 400);
     }
 
-    user.password = req.body.newPassword;
+    user.password = body.newPassword;
     await user.save();
 
-    res.status(200).json({
-        sucess: true,
-    });
+    return {
+        success: true,
+    };
 };
 
 export const getUsers = async (req, res) => {
@@ -116,8 +115,6 @@ export const getUser = async (req, id) => {
 
 export const updateUser = async (req, id) => {
     let user = await User.findById(id);
-    console.log("authcontroller update user req", req);
-    console.log("authcontroller update user id", id);
 
     if (!user) {
         return {

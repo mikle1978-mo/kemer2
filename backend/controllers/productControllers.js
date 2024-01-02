@@ -1,9 +1,6 @@
 import Product from "../models/product";
 import APIFilters from "../utils/APIFilters";
 import { cloudinary, uploadToCloudinary } from "../utils/cloudinary";
-import fs from "fs";
-import { promises as fsPromises, existsSync } from "fs";
-import path from "path";
 import ErrorHandler from "../utils/errorHandler";
 import { NextResponse } from "next/server";
 

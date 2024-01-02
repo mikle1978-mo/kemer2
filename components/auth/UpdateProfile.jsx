@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
 const UpdateProfile = () => {
-  const { user, error, loading, updateProfile, clearErrors } =
+  const { user, error, loading, updateProfile, clearErrors, updated, setUpdated } =
     useContext(AuthContext);
 
   const [name, setName] = useState("");
@@ -14,6 +14,10 @@ const UpdateProfile = () => {
   const [avatarPreview, setAvatarPreview] = useState("/images/default.png");
 
   useEffect(() => {
+    if (updated) {
+      toast.success("Профиль обновлен");
+      setUpdated(false);
+    }
     if (user) {
       setName(user.name);
       setEmail(user.email);
@@ -59,44 +63,53 @@ const UpdateProfile = () => {
           <h2 className="mb-5 text-2xl font-semibold">Update Profile</h2>
 
           <div className="mb-4">
-            <label className="block mb-1"> Full Name </label>
-            <input
-              className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-              type="text"
-              placeholder="Type your name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <label className="block mb-1"> Full Name
+              <input
+                id="name"
+                name="fullname"
+                className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                type="text"
+                placeholder="Type your name"
+                required
+                autoComplete="off"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
           </div>
 
           <div className="mb-4">
-            <label className="block mb-1"> Email </label>
-            <input
-              className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-              type="text"
-              placeholder="Type your email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <label className="block mb-1"> Email
+              <input
+                id="email"
+                name="email"
+                autoComplete="off"
+                className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                type="text"
+                placeholder="Type your email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
           </div>
 
           <div className="mb-4">
-            <label className="block mb-1"> Avatar </label>
-            <div className="mb-4 flex flex-col md:flex-row">
-              <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer md:w-1/5 lg:w-1/4">
-                <img className="w-14 h-14 rounded-full" src={avatarPreview} />
+            <label className="block mb-1"> Avatar
+              <div className="mb-4 flex flex-col md:flex-row">
+                <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer md:w-1/5 lg:w-1/4">
+                  <img className="w-14 h-14 rounded-full" src={avatarPreview} />
+                </div>
+                <div className="md:w-2/3 lg:w-80">
+                  <input
+                    className="form-control block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-6"
+                    type="file"
+                    id="formFile"
+                    onChange={onChange}
+                  />
+                </div>
               </div>
-              <div className="md:w-2/3 lg:w-80">
-                <input
-                  className="form-control block w-full px-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-6"
-                  type="file"
-                  id="formFile"
-                  onChange={onChange}
-                />
-              </div>
-            </div>
+            </label>
           </div>
 
           <button

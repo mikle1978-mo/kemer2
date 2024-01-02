@@ -6,11 +6,8 @@ import { getCookieName } from "@/helpers/helpers";
 const ProfilePage = async () => {
 
   const nextCookies = cookies();
-  console.log("page me front cokies================:", nextCookies);
   const cookieName = getCookieName();
-  console.log("page me front================:", cookieName);
   const nextAuthSessionToken = nextCookies.get(cookieName);
-  console.log("page me front nextAuthSessionToken================:", nextAuthSessionToken);
 
   const { data } = await axios.get(`${process.env.API_URL}/api/address`, {
     headers: {

@@ -78,13 +78,13 @@ const ProductItem = ({ product }) => {
               {mark}{product?.price.toFixed(2)}
             </span>
 
-            <p className="text-green-500">Free Shipping</p>
+            <p className="text-green-500">Бесплатная доставка</p>
             <div className="my-3">
               <a
                 className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 cursor-pointer"
                 onClick={addToCartHandler}
               >
-                Add to Cart
+                В Корзину
               </a>
             </div>
           </div>

@@ -29,7 +29,7 @@ export default withAuth(
                 if (token) {
                     return token;
                 } else {
-                    console.error("JWT Token is missing");
+                    console.error("Токен отсутствует");
                 }
             },
 
@@ -37,7 +37,7 @@ export default withAuth(
                 if (session) {
                     return session;
                 } else {
-                    console.error("Session is missing");
+                    console.error("Сессия отсутствует");
                 }
             },
         },

@@ -12,8 +12,6 @@ export const newAddress = async (req, res) => {
 };
 
 export const getAddresses = async (req, res) => {
-    console.log("getSddresses controller=========: ", req);
-
     const addresses = await Address.find({ user: req.user._id });
 
     return {

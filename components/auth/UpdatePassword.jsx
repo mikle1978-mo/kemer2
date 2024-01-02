@@ -5,17 +5,21 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const UpdatePassword = () => {
-  const { error, updatePassword, clearErrors } = useContext(AuthContext);
+  const { error, updatePassword, updated, setUpdated, clearErrors } = useContext(AuthContext);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
+    if (updated) {
+      toast.success("Пароль обновлен");
+      setUpdated(false);
+    }
     if (error) {
       toast.error(error);
       clearErrors();
     }
-  }, [error]);
+  }, [error, updated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

@@ -131,14 +131,14 @@ const ProductDetails = ({ product }) => {
                   {" "}
                   <b className="font-medium w-36 inline-block">Stock</b>
                   {inStock ? (
-                    <span className="text-green-500">In Stock</span>
+                    <span className="text-green-500">В наличии</span>
                   ) : (
-                    <span className="text-red-500">Out of Stock</span>
+                    <span className="text-red-500">Отсутвует</span>
                   )}
                 </li>
                 <li className="mb-1">
                   {" "}
-                  <b className="font-medium w-36 inline-block">Category:</b>
+                  <b className="font-medium w-36 inline-block">Категория:</b>
                   <span className="text-gray-500">{product?.category}</span>
                 </li>
                 <li className="mb-1">
@@ -157,7 +157,7 @@ const ProductDetails = ({ product }) => {
 
           <div className="font-semibold">
             <h1 className="text-gray-500 review-title mb-6 mt-10 text-2xl">
-              Other Customers Reviews
+              Отзывы
             </h1>
             <Reviews reviews={product?.reviews} />
           </div>

@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }) => {
             );
             if (data?.user) {
                 await loadUser();
+                setUpdated(true);
                 setLoading(false);
             }
         } catch (error) {
@@ -80,8 +81,8 @@ export const AuthProvider = ({ children }) => {
                     newPassword,
                 }
             );
-
             if (data?.success) {
+                setUpdated(true);
                 router.replace("/me");
             }
         } catch (error) {

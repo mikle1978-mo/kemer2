@@ -1,11 +1,12 @@
 "use client";
 
 import ProductContext from "@/context/ProductContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { categories } from "@/lib/categoty/category";
+import { toast } from "react-toastify";
 
 const NewProduct = () => {
-  const { newProduct } = useContext(ProductContext);
+  const { newProduct, updated, setUpdated, loading, error } = useContext(ProductContext);
 
   const [product, setProduct] = useState({
     name: "",
@@ -15,6 +16,18 @@ const NewProduct = () => {
     stock: "",
     category: "",
   });
+
+  useEffect(() => {
+    if (updated) {
+      toast.success("Продукт создан");
+      setUpdated(false);
+    }
+
+    if (error) {
+      toast.error(error);
+      clearErrors();
+    }
+  }, [error, updated]);
 
   const { name, description, seller, price, stock, category } = product;
 
@@ -160,8 +173,9 @@ const NewProduct = () => {
         <button
           type="submit"
           className="my-2 px-4 py-2 text-center inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 w-full"
+          disabled={loading ? true : false}
         >
-          Создать продукт
+          {loading ? "Создание..." : "Создать продукт"}
         </button>
       </form>
     </section>

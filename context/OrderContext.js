@@ -2,82 +2,101 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
-  const [error, setError] = useState(null);
-  const [updated, setUpdated] = useState(false);
-  const [canReview, setCanReview] = useState(false);
+    const [tempOrder, setTempOrder] = useState({});
+    const [error, setError] = useState(null);
+    const [updated, setUpdated] = useState(false);
+    const [canReview, setCanReview] = useState(false);
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const updateOrder = async (id, orderData) => {
-    try {
-      const { data } = await axios.put(
-        `${process.env.API_URL}/api/admin/orders/${id}`,
-        orderData
-      );
+    useEffect(() => {
+        setTempOrderToState();
+    }, []);
 
-      if (data.success) {
-        setUpdated(true);
-        router.replace(`/admin/orders/${id}`);
-      }
-    } catch (error) {
-      setError(error?.response?.data?.message);
-    }
-  };
+    const setTempOrderToState = () => {
+        setTempOrder(
+            sessionStorage.getItem("tempOrder")
+                ? JSON.parse(sessionStorage.getItem("tempOrder"))
+                : {}
+        );
+    };
 
-  const deleteOrder = async (id) => {
-    try {
-      const { data } = await axios.delete(
-        `${process.env.API_URL}/api/admin/orders/${id}`
-      );
+    const addTempOrderToStore = async (order) => {
+        sessionStorage.setItem("tempOrder", JSON.stringify(order));
+        setTempOrderToState();
+    };
 
-      if (data?.success) {
-        router.replace(`/admin/orders`);
-      }
-    } catch (error) {
-      setError(error?.response?.data?.message);
-    }
-  };
+    const updateOrder = async (id, orderData) => {
+        try {
+            const { data } = await axios.put(
+                `${process.env.API_URL}/api/admin/orders/${id}`,
+                orderData
+            );
 
-  const canUserReview = async (id) => {
-    try {
-      const { data } = await axios.get(
-        `${process.env.API_URL}/api/orders/can_review?productId=${id}`
-      );
+            if (data.success) {
+                setUpdated(true);
+                router.replace(`/admin/orders/${id}`);
+            }
+        } catch (error) {
+            setError(error?.response?.data?.message);
+        }
+    };
 
-      if (data?.canReview) {
-        setCanReview(data?.canReview);
-      }
-    } catch (error) {
-      setError(error?.response?.data?.message);
-    }
-  };
+    const deleteOrder = async (id) => {
+        try {
+            const { data } = await axios.delete(
+                `${process.env.API_URL}/api/admin/orders/${id}`
+            );
 
-  const clearErrors = () => {
-    setError(null);
-  };
+            if (data?.success) {
+                router.replace(`/admin/orders`);
+            }
+        } catch (error) {
+            setError(error?.response?.data?.message);
+        }
+    };
 
-  return (
-    <OrderContext.Provider
-      value={{
-        error,
-        updated,
-        canReview,
-        setUpdated,
-        updateOrder,
-        deleteOrder,
-        canUserReview,
+    const canUserReview = async (id) => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.API_URL}/api/orders/can_review?productId=${id}`
+            );
 
-        clearErrors,
-      }}
-    >
-      {children}
-    </OrderContext.Provider>
-  );
+            if (data?.canReview) {
+                setCanReview(data?.canReview);
+            }
+        } catch (error) {
+            setError(error?.response?.data?.message);
+        }
+    };
+
+    const clearErrors = () => {
+        setError(null);
+    };
+
+    return (
+        <OrderContext.Provider
+            value={{
+                tempOrder,
+                error,
+                updated,
+                canReview,
+                addTempOrderToStore,
+                setUpdated,
+                updateOrder,
+                deleteOrder,
+                canUserReview,
+                clearErrors,
+            }}
+        >
+            {children}
+        </OrderContext.Provider>
+    );
 };
 
 export default OrderContext;

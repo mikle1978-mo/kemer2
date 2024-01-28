@@ -1,44 +1,72 @@
 "use client";
 
 import CartContext from "@/context/CartContext";
+import OrderContext from "@/context/OrderContext";
 import axios from "axios";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import BreadCrumbs from "../layouts/BreadCrumbs";
 
 const Shipping = ({ addresses }) => {
   const { cart } = useContext(CartContext);
+  const { addTempOrderToStore } = useContext(OrderContext);
 
   const [shippingInfo, setShippinInfo] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+
+  const router = useRouter();
+  const paymentMethods = [
+    {
+      _id: 1,
+      method: "При получении"
+    },
+    {
+      _id: 2,
+      method: "Сразу"
+    }
+  ]
 
   const setShippingAddress = (address) => {
-    setShippinInfo(address._id);
+    setShippinInfo(address);
   };
+  const setMethod = (paymentMethod) => {
+    setPaymentMethod(paymentMethod.method);
+  };
+
+
 
   const checkoutHandler = async () => {
     if (!shippingInfo) {
-      return toast.error("Пожалуйста выберите адрес доставки");
+      return toast.error("Выберите адрес доставки");
     }
-    // move to stripe checkoutpage
+    if (!paymentMethod) {
+      return toast.error("Выберите способ оплаты");
+    }
+
     try {
       const { data } = await axios.post(
-        `${process.env.API_URL}/api/orders/checkout_session`,
+        `${process.env.API_URL}/api/orders/checkoutSession`,
         {
           items: cart?.cartItems,
+          checkoutInfo: cart?.checkoutInfo,
           shippingInfo,
+          paymentMethod,
         }
       );
 
-      window.location.href = data.url;
+      addTempOrderToStore(data)
+      router.push("/paying")
+
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
   const breadCrumbs = [
-    { name: "Home", url: "/" },
-    { name: "Cart", url: "/cart" },
+    { name: "Home >", url: "/" },
+    { name: "Cart >", url: "/cart" },
     { name: "Order", url: "" },
   ];
 
@@ -50,36 +78,40 @@ const Shipping = ({ addresses }) => {
           <div className="flex flex-col md:flex-row gap-4 lg:gap-8">
             <main className="md:w-2/3">
               <article className="border border-gray-200 bg-white shadow-sm rounded p-4 lg:p-6 mb-5">
-                <h2 className="text-xl font-semibold mb-5">Информация о доставке</h2>
+                <h2 className="text-xl font-semibold mb-5">Адрес доставки</h2>
 
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  {addresses?.map((address) => (
-                    <label
-                      key={address._id}
-                      className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
-                      onClick={() => setShippingAddress(address)}
-                    >
-                      <span>
-                        <input
-                          id={address._id}
-                          name="shipping"
-                          type="radio"
-                          className="h-4 w-4 mt-1"
-                        />
-                      </span>
-                      <p className="ml-2">
-                        <span>{address.street}</span>
-                        <small className="block text-sm text-gray-400">
-                          {address.city}, {address.state}, {address.zipCode}
-                          <br />
-                          {address.country}
-                          <br />
-                          {address.phoneNo}
-                        </small>
-                      </p>
-                    </label>
-                  ))}
-                </div>
+                <form>
+                  <fieldset>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                      {addresses?.map((address) => (
+                        <label
+                          key={address._id}
+                          className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
+                          onClick={() => setShippingAddress(address)}
+                        >
+                          <span>
+                            <input
+                              id={address._id}
+                              name="shipping"
+                              type="radio"
+                              className="h-4 w-4 mt-1"
+                            />
+                          </span>
+                          <p className="ml-2">
+                            <span>{address.street}</span>
+                            <small className="block text-sm text-gray-400">
+                              {address.city}, {address.state}, {address.zipCode}
+                              <br />
+                              {address.country}
+                              <br />
+                              {address.phoneNo}
+                            </small>
+                          </p>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                </form>
 
                 <Link
                   href="/address/new"
@@ -87,6 +119,35 @@ const Shipping = ({ addresses }) => {
                 >
                   <i className="mr-1 fa fa-plus"></i> Добавить новый адрес
                 </Link>
+
+                <h2 className="text-xl font-semibold my-5">Способ оплаты</h2>
+                <form>
+                  <fieldset>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                      {paymentMethods?.map((paymentMethod) => (
+                        <label
+                          key={paymentMethod._id}
+                          className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
+                          onClick={() => setMethod(paymentMethod)}
+                        >
+                          <span>
+                            <input
+                              id={paymentMethod._id}
+                              name="method"
+                              type="radio"
+                              className="h-4 w-4 mt-1"
+                            />
+                          </span>
+                          <p className="ml-2">
+                            <span>{paymentMethod.method}</span>
+                            <small className="block text-sm text-gray-400">
+                            </small>
+                          </p>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                </form>
 
                 <div className="flex justify-end space-x-2 mt-10">
                   <Link
@@ -99,7 +160,7 @@ const Shipping = ({ addresses }) => {
                     className="px-5 py-2 inline-block text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
                     onClick={checkoutHandler}
                   >
-                    Checkout
+                    Далее
                   </a>
                 </div>
               </article>

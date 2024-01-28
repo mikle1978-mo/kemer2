@@ -15,6 +15,7 @@ export const ProductProvider = ({ children }) => {
 
     const updateProduct = async (product, id) => {
         try {
+            setLoading(true);
             const { data } = await axios.put(
                 `${process.env.API_URL}/api/admin/products/${id}/update`,
                 product
@@ -22,6 +23,7 @@ export const ProductProvider = ({ children }) => {
 
             if (data) {
                 setUpdated(true);
+                setLoading(false);
                 router.replace(`/admin/products/${id}`);
             }
         } catch (error) {
@@ -31,12 +33,15 @@ export const ProductProvider = ({ children }) => {
 
     const newProduct = async (product) => {
         try {
+            setLoading(true);
             const { data } = await axios.post(
                 `${process.env.API_URL}/api/admin/products/new`,
                 product
             );
 
             if (data) {
+                setUpdated(true);
+                setLoading(false);
                 router.replace("/admin/products");
             }
         } catch (error) {
@@ -58,6 +63,7 @@ export const ProductProvider = ({ children }) => {
                 }
             );
             if (data?.data) {
+                setUpdated(true);
                 setLoading(false);
                 router.replace("/admin/products");
             }
@@ -68,11 +74,14 @@ export const ProductProvider = ({ children }) => {
 
     const deleteProduct = async (id) => {
         try {
+            setLoading(true);
             const { data } = await axios.delete(
                 `${process.env.API_URL}/api/admin/products/${id}/delete`
             );
 
             if (data?.success) {
+                setUpdated(true);
+                setLoading(false);
                 router.replace(`/admin/products`);
             }
         } catch (error) {
@@ -82,12 +91,15 @@ export const ProductProvider = ({ children }) => {
 
     const postReview = async (reviewData) => {
         try {
+            setLoading(true);
             const { data } = await axios.put(
                 `${process.env.API_URL}/api/products/review`,
                 reviewData
             );
 
             if (data?.success) {
+                setUpdated(true);
+                setLoading(false);
                 router.replace(`/product/${reviewData?.productId}`);
             }
         } catch (error) {

@@ -12,8 +12,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
-  const params = useSearchParams();
-  const callBackUrl = params.get("callbackUrl");
+  // const params = useSearchParams();
+  // const callBackUrl = params.get("callbackUrl");
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Login = () => {
     const data = await signIn("credentials", {
       email,
       password,
-      callbackUrl: callBackUrl ? parseCallbackUrl(callBackUrl) : "/",
+      callbackUrl: "/",
     });
 
     if (data?.error) {
@@ -32,6 +33,9 @@ const Login = () => {
       router.push("/");
     }
   };
+
+
+
 
   return (
     <div

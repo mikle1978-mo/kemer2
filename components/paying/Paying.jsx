@@ -9,7 +9,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import axios from "axios";
 import TGMessage from "@/backend/utils/tgMessage";
-import PayingInfo from "./payingInfo";
+import PayingInfo from "./PayingInfo";
 
 
 

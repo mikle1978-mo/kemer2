@@ -2,19 +2,23 @@
 
 import OrderContext from "@/context/OrderContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const UpdateOrder = ({ order }) => {
+
   const { updateOrder, error, clearErrors, updated, setUpdated } =
     useContext(OrderContext);
+  const router = useRouter()
 
   const [orderStatus, setOrderStatus] = useState(order?.orderStatus);
 
   useEffect(() => {
     if (updated) {
       setUpdated(false);
-      toast.success("Order Updated");
+      toast.success("Заказ успешно обовлен");
+      router.push("/admin/orders")
     }
 
     if (error) {
@@ -41,7 +45,7 @@ const UpdateOrder = ({ order }) => {
               </span>
             ) : (
               <span className="text-green-500">
-                • {order?.orderStatus.toUpperCase()}
+                • {order?.orderStatus?.toUpperCase()}
               </span>
             )}
           </p>
@@ -84,7 +88,7 @@ const UpdateOrder = ({ order }) => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
         {order?.orderItems?.map((item) => (
-          <figure className="flex flex-row mb-4">
+          <figure key={item._id} className="flex flex-row mb-4">
             <div>
               <div className="block w-20 h-20 rounded border border-gray-200 overflow-hidden p-3">
                 <Image
@@ -107,27 +111,27 @@ const UpdateOrder = ({ order }) => {
 
       <hr />
 
-      <div class="my-8">
-        <label class="block mb-3"> Update Order Status </label>
-        <div class="relative">
+      <div className="my-8">
+        <label className="block mb-3"> Update Order Status </label>
+        <div className="relative">
           <select
-            class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+            className="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
             name="category"
             value={orderStatus}
             onChange={(e) => setOrderStatus(e.target.value)}
             required
           >
-            {["Processing", "Shipped", "Delivered"].map((status) => (
+            {["В процессе", "Отправлено", "Доставлено"].map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>
             ))}
           </select>
-          <i class="absolute inset-y-0 right-0 p-2 text-gray-400">
+          <i className="absolute inset-y-0 right-0 p-2 text-gray-400">
             <svg
               width="22"
               height="22"
-              class="fill-current"
+              className="fill-current"
               viewBox="0 0 20 20"
             >
               <path d="M7 10l5 5 5-5H7z"></path>

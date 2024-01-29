@@ -4,9 +4,11 @@ import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 import CustomPagination from "../layouts/CustomPagination";
 import OrderContext from "@/context/OrderContext";
+import { useRouter } from "next/navigation";
 
 const Orders = ({ orders }) => {
   const { deleteOrder, error, clearErrors } = useContext(OrderContext);
+  const router = useRouter()
 
   useEffect(() => {
     if (error) {
@@ -14,6 +16,10 @@ const Orders = ({ orders }) => {
       clearErrors();
     }
   }, [error]);
+
+  useEffect(() => {
+    router.refresh()
+  }, []);
 
   const deleteHandler = (id) => {
     deleteOrder(id);
@@ -30,6 +36,12 @@ const Orders = ({ orders }) => {
               ID
             </th>
             <th scope="col" className="px-6 py-3">
+              Date
+            </th>
+            <th scope="col" className="px-6 py-3">
+              User name
+            </th>
+            <th scope="col" className="px-6 py-3">
               Amount Paid
             </th>
             <th scope="col" className="px-6 py-3">
@@ -42,8 +54,15 @@ const Orders = ({ orders }) => {
         </thead>
         <tbody>
           {orders?.orders?.map((order) => (
-            <tr className="bg-white">
+            <tr key={order._id} className="bg-white">
               <td className="px-6 py-2">{order?._id}</td>
+              <td className="px-6 py-2">{new Date(order?.createAt).toLocaleDateString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+              })}</td>
+              <td className="px-6 py-2">{order?.user.name}</td>
               <td className="px-6 py-2">${order?.paymentInfo?.amountPaid}</td>
               <td className="px-6 py-2">{order?.orderStatus}</td>
               <td className="px-6 py-2">
@@ -52,13 +71,13 @@ const Orders = ({ orders }) => {
                     href={`/admin/orders/${order?._id}`}
                     className="px-2 py-2 inline-block text-yellow-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer mr-2"
                   >
-                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                    <i className="fa fa-pencil" aria-hidden="true">...</i>
                   </Link>
                   <a
                     className="px-2 py-2 inline-block text-red-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer"
                     onClick={() => deleteHandler(order?._id)}
                   >
-                    <i className="fa fa-trash" aria-hidden="true"></i>
+                    <i className="fa fa-trash" aria-hidden="true">X</i>
                   </a>
                 </div>
               </td>

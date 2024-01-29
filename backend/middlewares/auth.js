@@ -5,7 +5,6 @@ import { getServerSession } from "next-auth";
 
 const isAuthenticatedUser = async (req, res) => {
     const session = await getServerSession(AuthOptions);
-    console.log("authsession", session);
 
     if (!session) {
         console.log(

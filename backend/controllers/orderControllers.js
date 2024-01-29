@@ -12,34 +12,52 @@ export const newOrder = async (req, res) => {
 };
 
 export const getOrders = async (req, res) => {
-    const resPerPage = 2;
+    const resPerPage = 20;
     const ordersCount = await Order.countDocuments();
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.search);
 
-    const apiFilters = new APIFilters(Order.find(), req.query).pagination(
+    const queryParams = {
+        keyword: searchParams.get("keyword"),
+        page: searchParams.get("page"),
+        category: searchParams.get("category"),
+        "price[gte]": searchParams.get("price[gte]"),
+        "price[lte]": searchParams.get("price[lte]"),
+        "ratings[gte]": searchParams.get("ratings[gte]"),
+    };
+
+    let queryStr = Object.fromEntries(
+        Object.entries(queryParams).filter(([_, v]) => v != null)
+    );
+
+    const apiFilters = new APIFilters(Order.find(), queryStr).pagination(
         resPerPage
     );
 
-    const orders = await apiFilters.query.find().populate("shippingInfo user");
+    const orders = await apiFilters.query
+        .find()
+        .sort({ createAt: -1 })
+        .populate("shippingInfo user");
 
-    res.status(200).json({
+    return {
         ordersCount,
         resPerPage,
         orders,
-    });
+    };
 };
 
-export const getOrder = async (req, res) => {
-    const order = await Order.findById(req.query.id).populate(
-        "shippingInfo user"
-    );
+export const getOrder = async (req, id, res) => {
+    const order = await Order.findById(id).populate("shippingInfo user");
 
     if (!order) {
-        return next(new ErrorHandler("No Order found with this ID", 404));
+        return new ErrorHandler("No Order found with this ID", 404);
     }
 
-    res.status(200).json({
+    console.log("orderControllers/getOrder: order", order);
+
+    return {
         order,
-    });
+    };
 };
 
 export const myOrders = async (req, res) => {
@@ -77,21 +95,21 @@ export const myOrders = async (req, res) => {
     };
 };
 
-export const updateOrder = async (req, res) => {
-    let order = await Order.findById(req.query.id);
+export const updateOrder = async (req, id, res) => {
+    let order = await Order.findById(id);
 
     if (!order) {
         return next(new ErrorHandler("No Order found with this ID", 404));
     }
+    const body = await req.json();
 
-    order = await Order.findByIdAndUpdate(req.query.id, {
-        orderStatus: req.body.orderStatus,
-    });
+    order = await Order.findByIdAndUpdate(id, body);
+    console.log("-----orderController----updateOrder", order);
 
-    res.status(200).json({
+    return {
         success: true,
         order,
-    });
+    };
 };
 
 export const deleteOrder = async (req, res) => {

@@ -5,10 +5,7 @@ import UpdateProduct from "@/components/admin/UpdateProduct";
 import mongoose from "mongoose";
 import { redirect } from "next/navigation";
 
-const getProduct = async (id) => {
-  const { data } = await axios.get(`${process.env.API_URL}/api/products/${id}`);
-  return data;
-};
+
 
 const HomePage = async ({ params }) => {
   const isValidId = mongoose.isValidObjectId(params?.id);
@@ -16,8 +13,7 @@ const HomePage = async ({ params }) => {
   if (!isValidId) {
     return redirect("/");
   }
-
-  const data = await getProduct(params.id);
+  const { data } = await axios.get(`${process.env.API_URL}/api/products/${params?.id}`);
 
   return <UpdateProduct data={data.product} />;
 };

@@ -34,7 +34,7 @@ export const OrderProvider = ({ children }) => {
     const updateOrder = async (id, orderData) => {
         try {
             const { data } = await axios.put(
-                `${process.env.API_URL}/api/admin/orders/${id}`,
+                `${process.env.API_URL}/api/admin/orders/${id}/update`,
                 orderData
             );
 

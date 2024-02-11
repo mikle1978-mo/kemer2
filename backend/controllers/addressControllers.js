@@ -12,7 +12,6 @@ export const newAddress = async (req, res) => {
 };
 
 export const getAddresses = async (req, res) => {
-    console.log("0000getadress controller0000", req);
     const addresses = await Address.find({ user: req.user._id });
     return {
         addresses,
@@ -23,7 +22,7 @@ export const getAddress = async (req, id) => {
     const address = await Address.findById(id);
 
     if (!address) {
-        return next(new ErrorHandler("Address not found", 404));
+        return new ErrorHandler("Address not found", 404);
     }
 
     return {
@@ -35,7 +34,7 @@ export const updateAddress = async (req, id, res) => {
     let address = await Address.findById(id);
 
     if (!address) {
-        return next(new ErrorHandler("Address not found", 404));
+        return new ErrorHandler("Address not found", 404);
     }
 
     const body = await req.json();
@@ -51,7 +50,7 @@ export const deleteAddress = async (req, id, res) => {
     let address = await Address.findById(id);
 
     if (!address) {
-        return next(new ErrorHandler("Address not found", 404));
+        return new ErrorHandler("Address not found", 404);
     }
     await address.deleteOne();
 

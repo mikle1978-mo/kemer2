@@ -47,6 +47,7 @@ export const getOrders = async (req, res) => {
 };
 
 export const getOrder = async (req, id, res) => {
+    console.log("getOrder", id);
     const order = await Order.findById(id).populate("shippingInfo user");
 
     if (!order) {
@@ -104,7 +105,6 @@ export const updateOrder = async (req, id, res) => {
     const body = await req.json();
 
     order = await Order.findByIdAndUpdate(id, body);
-    console.log("-----orderController----updateOrder", order);
 
     return {
         success: true,
@@ -112,18 +112,18 @@ export const updateOrder = async (req, id, res) => {
     };
 };
 
-export const deleteOrder = async (req, res) => {
-    let order = await Order.findById(req.query.id);
+export const deleteOrder = async (req, idres) => {
+    let order = await Order.findById(id);
 
     if (!order) {
-        return next(new ErrorHandler("No Order found with this ID", 404));
+        return new ErrorHandler("No Order found with this ID", 404);
     }
 
     await order.deleteOne();
 
-    res.status(200).json({
+    return {
         success: true,
-    });
+    };
 };
 
 export const canReview = async (req, res) => {

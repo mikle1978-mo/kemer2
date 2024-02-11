@@ -175,7 +175,7 @@ export const deleteProduct = async (req, id, next) => {
 
     // Deleting images associated with the product
     for (let i = 0; i < product.images.length; i++) {
-        const res = await cloudinary.v2.uploader.destroy(
+        const res = await cloudinary.uploader.destroy(
             product.images[i].public_id
         );
     }

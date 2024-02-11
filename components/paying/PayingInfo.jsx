@@ -14,6 +14,13 @@ const PayingInfo = () => {
                     <p className="text-gray-400 mb-1">Оплата по номеру IBAN</p>
                     <p className="text-400 mb-1"> IBAN №:{" "}<span>TR700001009010631799905001</span></p>
                     <p className="text-400 mb-1"> Имя:{" "}<span>MIKHAIL GROMOV</span></p>
+                    <Image
+                        className="w-auto"
+                        src="/images/QR/Ziraat.webp"
+                        height={120}
+                        width={120}
+                        alt="Kemer-online"
+                    />
 
                 </div>
                 <div>

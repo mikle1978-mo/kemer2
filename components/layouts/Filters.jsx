@@ -6,6 +6,8 @@ import { getPriceQueryParams } from "@/helpers/helpers";
 import { categories } from "@/lib/categoty/category";
 import { mark } from "@/lib/const/const";
 import dynamic from 'next/dynamic';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const Filters = () => {
   const StarRatings = dynamic(() => import('react-star-ratings'), { ssr: false });
@@ -70,7 +72,7 @@ const Filters = () => {
         className="md:hidden mb-5  w-full text-center px-4 py-2 inline-block text-lg text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600"
         href="#"
       >
-        Filter by
+        Фильтр
       </a>
       <div className="hidden md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
         <h3 className="font-semibold mb-2">Цена ({mark})</h3>
@@ -81,7 +83,7 @@ const Filters = () => {
               name="min"
               className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="number"
-              placeholder="Min"
+              placeholder="мин"
               autoComplete="off"
               value={min}
               onChange={(e) => setMin(e.target.value)}
@@ -95,7 +97,7 @@ const Filters = () => {
               className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="number"
               autoComplete="off"
-              placeholder="Max"
+              placeholder="макс"
               value={max}
               onChange={(e) => setMax(e.target.value)}
             />
@@ -106,7 +108,7 @@ const Filters = () => {
               className="px-1 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
               onClick={handleButtonClick}
             >
-              Go
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
         </div>

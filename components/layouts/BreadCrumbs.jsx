@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil, faImage, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const BreadCrumbs = ({ breadCrumbs }) => {
   return (
@@ -17,7 +19,7 @@ const BreadCrumbs = ({ breadCrumbs }) => {
                 {breadCrumb.name}
               </Link>
               {breadCrumbs?.length - 1 !== index && (
-                <i className="ml-3 text-gray-400 fa fa-chevron-right"></i>
+                <FontAwesomeIcon className="ml-3 text-gray-400" icon={faChevronRight} />
               )}
             </li>
           ))}

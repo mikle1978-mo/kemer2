@@ -44,12 +44,13 @@ const Header = () => {
           <div className="flex items-center space-x-2 ml-auto">
             <Link
               href="/cart"
-              className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
+              className="relative px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
             >
               <FontAwesomeIcon icon={faCartShopping} />
-              <span className="hidden lg:inline ml-1">
-                Cart (<b>{cartItems?.length || 0}</b>)
+              <span className="absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full">
+                {cartItems?.length || 0}
               </span>
+
             </Link>
             {!user ? (
               <Link

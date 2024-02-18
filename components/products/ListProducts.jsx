@@ -4,6 +4,7 @@ import React from "react";
 import CustomPagination from "../layouts/CustomPagination";
 import Filters from "../layouts/Filters";
 import ProductItem from "./ProductItem";
+import cl from "./ListProducts.module.css"
 
 const ListProducts = ({ data }) => {
   return (
@@ -12,16 +13,17 @@ const ListProducts = ({ data }) => {
         <div className="flex flex-col md:flex-row -mx-4">
           <Filters />
 
-          <main className="md:w-2/3 lg:w-3/4 px-3">
+          <main className={cl.listProduct}>
             {data?.products?.map((product) => (
               <ProductItem key={product?._id} product={product} />
             ))}
 
-            <CustomPagination
-              resPerPage={data?.resPerPage}
-              productsCount={data?.filteredProductsCount}
-            />
+
           </main>
+          <CustomPagination
+            resPerPage={data?.resPerPage}
+            productsCount={data?.filteredProductsCount}
+          />
         </div>
       </div>
     </section>

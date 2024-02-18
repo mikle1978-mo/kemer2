@@ -4,6 +4,7 @@ import Image from "next/image";
 import CartContext from "@/context/CartContext";
 import { mark } from "@/lib/const/const";
 import dynamic from 'next/dynamic';
+import cl from "./ProductItem.module.css"
 
 const ProductItem = ({ product }) => {
   const StarRatings = dynamic(() => import('react-star-ratings'), { ssr: false });
@@ -21,16 +22,10 @@ const ProductItem = ({ product }) => {
   };
 
   return (
-    <article className="border border-gray-200 overflow-hidden bg-white shadow-sm rounded mb-5">
-      <div className="flex flex-col md:flex-row">
-        <div className="md:w-1/4 flex p-3">
-          <div
-            style={{
-              width: "80%",
-              height: "70%",
-              position: "relative",
-            }}
-          >
+    <article>
+      <div className={cl.card}>
+        <div className={cl.card__top}>
+          <div className={cl.card__image}>
             <img
               src={
                 product?.images[0]
@@ -42,52 +37,54 @@ const ProductItem = ({ product }) => {
             // width="240"
             />
           </div>
+          {/* -- Скидка на товар -- */}
+          <div class={cl.card__label}>-10%</div>
         </div>
-        <div className="md:w-2/4">
-          <div className="p-4">
-            <Link
-              href={`/product/${product._id}`}
-              className="hover:text-blue-600"
-            >
-              {product.name}
-            </Link>
-            <div className="flex flex-wrap items-center space-x-2 mb-2">
-              <div className="ratings">
-                <div className="my-1">
-                  <StarRatings
-                    rating={product?.ratings}
-                    starRatedColor="#ffb829"
-                    numberOfStars={5}
-                    starDimension="18px"
-                    starSpacing="1px"
-                    name={`rating-${product?._id}`}
-                  />
-                </div>
-              </div>
-              <b className="text-gray-300">•</b>
-              <span className="ml-1 text-yellow-500">{product?.ratings}</span>
-            </div>
-            <p className="text-gray-500 mb-2">
-              {product?.description.substring(0, 150)}...
-            </p>
-          </div>
-        </div>
-        <div className="md:w-1/4 border-t lg:border-t-0 lg:border-l border-gray-200">
-          <div className="p-5">
-            <span className="text-xl font-semibold text-black">
+        <div className={cl.card__bottom}>
+          <div className={cl.card__prices}>
+            <span className={cl.card__priceDiscount}>
               {mark}{product?.price.toFixed(2)}
             </span>
-
-            <p className="text-green-500">Бесплатная доставка</p>
-            <div className="my-3">
-              <a
-                className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 cursor-pointer"
-                onClick={addToCartHandler}
-              >
-                В Корзину
-              </a>
-            </div>
+            <span className={cl.card__priceCommon}>
+              {mark}{product?.price.toFixed(2)}
+            </span>
           </div>
+        </div>
+        <h2 className={cl.card__titleBox}>
+          <Link
+            href={`/product/${product._id}`}
+            className="hover:text-blue-600"
+          >
+            <span className={cl.card__titleSeller}>{product.seller}</span>/
+            <span className={cl.card__titleName}>{product.name}</span>
+          </Link>
+
+          <div className="flex flex-wrap items-center space-x-2 mb-2">
+            <div className="ratings">
+              <div className="my-1">
+                <StarRatings
+                  rating={product?.ratings}
+                  starRatedColor="#ffb829"
+                  numberOfStars={1}
+                  starDimension="18px"
+                  starSpacing="1px"
+                  name={`rating-${product?._id}`}
+                />
+              </div>
+            </div>
+            <b className="text-gray-300">•</b>
+            <span className="ml-0.5 text-yellow-500">{product?.ratings}</span>
+          </div>
+          {/* <p className="text-gray-500 mb-2">
+              {product?.description.substring(0, 150)}...
+            </p> */}
+        </h2>
+        <div className={cl.card__add}>
+          <a
+            onClick={addToCartHandler}
+          >
+            В Корзину
+          </a>
         </div>
       </div>
     </article>

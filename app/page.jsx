@@ -4,7 +4,8 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import queryString from "query-string";
 
 export const metadata = {
-  title: "Next.js 13 Ecommerce App",
+  title: "Кемер-онлайн, продукты и товары в Кемере",
+  description: "Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер"
 };
 
 const HomePage = async ({ searchParams }) => {

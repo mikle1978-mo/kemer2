@@ -4,7 +4,8 @@ import Image from "next/image";
 import CartContext from "@/context/CartContext";
 import { mark } from "@/lib/const/const";
 import dynamic from 'next/dynamic';
-import cl from "./ProductItem.module.css"
+import cl from "./ProductItem.module.css";
+import MyButton from "../UI/myButton/myButton";
 
 const ProductItem = ({ product }) => {
   const StarRatings = dynamic(() => import('react-star-ratings'), { ssr: false });
@@ -49,43 +50,27 @@ const ProductItem = ({ product }) => {
               {mark}{product?.price.toFixed(2)}
             </span>
           </div>
-        </div>
-        <h2 className={cl.card__titleBox}>
-          <Link
-            href={`/product/${product._id}`}
-            className="hover:text-blue-600"
-          >
-            <span className={cl.card__titleSeller}>{product.seller}</span>/
-            <span className={cl.card__titleName}>{product.name}</span>
-          </Link>
-
-          <div className="flex flex-wrap items-center space-x-2 mb-2">
-            <div className="ratings">
-              <div className="my-1">
-                <StarRatings
-                  rating={product?.ratings}
-                  starRatedColor="#ffb829"
-                  numberOfStars={1}
-                  starDimension="18px"
-                  starSpacing="1px"
-                  name={`rating-${product?._id}`}
-                />
-              </div>
+          <h2 className={cl.card__titleBox}>
+            <Link href={`/product/${product._id}`}            >
+              <span className={cl.card__titleSeller}>{product.seller}</span>/
+              <span className={cl.card__titleName}>{product.name}</span>
+            </Link>
+          </h2>
+          <div className={cl.card__rating}>
+            <div className={cl.card__ratingStar}>
+              &#9733;{/*  звездочка */}
+              <span>{product?.ratings}</span>
             </div>
-            <b className="text-gray-300">•</b>
-            <span className="ml-0.5 text-yellow-500">{product?.ratings}</span>
+            <span className={cl.card__ratingStock}>
+              {product?.stock}{" "}шт.
+            </span>
           </div>
-          {/* <p className="text-gray-500 mb-2">
-              {product?.description.substring(0, 150)}...
-            </p> */}
-        </h2>
-        <div className={cl.card__add}>
-          <a
-            onClick={addToCartHandler}
-          >
+        </div>
+        <MyButton className={cl.card__add}>
+          <a onClick={addToCartHandler}          >
             В Корзину
           </a>
-        </div>
+        </MyButton>
       </div>
     </article>
   );

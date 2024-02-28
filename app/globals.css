@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
     /* RGBA коды */
 
@@ -27,13 +23,19 @@
     --complement-2: rgba(102, 51, 0, 1);
     --complement-3: rgba(255, 204, 153, 1);
 
-    --gradient: linear-gradient(
+    --gradient-0: linear-gradient(
         0deg,
         rgba(35, 69, 103, 0.2497373949579832) 0%,
         rgba(231, 248, 253, 0.4962359943977591) 10%,
         rgba(255, 255, 255, 1) 50%,
         rgba(231, 248, 253, 0.5018382352941176) 90%,
         rgba(35, 69, 103, 0.2497373949579832) 100%
+    );
+
+    --gradient-1: linear-gradient(
+        270deg,
+        rgba(153, 153, 255, 1) 0%,
+        rgba(0, 51, 204, 1) 100%
     );
 
     --box-shadow: 2px 2px 8px 1px rgba(8, 0, 128, 0.5);
@@ -51,32 +53,31 @@
 
 * {
     box-sizing: border-box;
+    /* border: 1px solid red; */
 }
+
 #root {
     width: 100%;
     height: 100vh;
 }
+
 body {
     margin: 0;
     padding: 0;
     /* font-family: "Times New Roman", Times, serif; */
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.05rem;
-    line-height: 1.2;
-    background-color: var(--color-light);
-    color: var(--color-main);
-}
-
-@media (max-width: 600px) {
-    body {
-        font-size: 1rem;
-        color: var(--color-main);
-    }
+    color: var(--primary-2);
+    overflow-x: hidden;
 }
 
 .main {
     display: flex;
     flex-direction: column;
+}
+
+.section {
+    position: relative;
+    padding-bottom: 2rem;
 }
 
 h1,
@@ -126,28 +127,35 @@ textarea {
     font-size: inherit;
 }
 
-/* button,
-.button {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 1rem;
-    background-color: var(--color-blue);
-    padding: 0.2rem 1.2rem;
-    border: 1px solid var(--color-darkBlue);
-    border-radius: 2px;
-    text-decoration: none;
-    text-align: center;
-    color: var(--color-darkBlue);
-    box-shadow: var(--button-shadow);
-    transition: all 0.2s ease-in;
-}
-button:hover,
-.button:hover {
-    background-color: #8583ff;
-    color: var(--color-light);
-} */
-
 .container {
-    max-width: 1200px;
-    padding: 0 15px;
+    padding: 0 1rem;
     margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+    body {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+}
+@media (max-width: 768px) {
+    body {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 1024px) {
+    body {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 1280px) {
+    body {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 1536px) {
+    body {
+        font-size: 1.05rem;
+        line-height: 1;
+    }
 }

@@ -1,7 +1,8 @@
 .listProduct {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    gap: 0.3rem;
+    align-items: center;
+    justify-items: center;
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import cl from "./myButton.module.css"
 
 export default function MyButton({ children, ...props }) {

@@ -8,10 +8,12 @@ import OrderContext from "@/context/OrderContext";
 import Reviews from "../review/Reviews";
 import { mark } from "@/lib/const/const";
 import Image from "next/image";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 const ProductDetails = ({ product }) => {
-  const StarRatings = dynamic(() => import('react-star-ratings'), { ssr: false });
+  const StarRatings = dynamic(() => import("react-star-ratings"), {
+    ssr: false,
+  });
   const { addItemToCart } = useContext(CartContext);
   const { canUserReview, canReview } = useContext(OrderContext);
   const imgRef = useRef(null);
@@ -47,106 +49,132 @@ const ProductDetails = ({ product }) => {
   return (
     <>
       <BreadCrumbs breadCrumbs={breadCrumbs} />
-      <section className="bg-white py-10">
-        <div className="container max-w-screen-xl mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-5">
+      <section className='bg-white py-10'>
+        <div className='container max-w-screen-xl mx-auto px-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 mb-5'>
             <aside>
-              <div className="border border-gray-200 shadow-sm p-3 text-center rounded mb-5">
+              <div className='border border-gray-200 shadow-sm p-3 text-center rounded mb-5'>
                 <img
                   ref={imgRef}
-                  className="object-cover inline-block"
+                  className='object-cover inline-block'
                   src={
                     product?.images[0]
                       ? product?.images[0].url
                       : "/images/default_product.png"
                   }
-                  alt="Product title"
+                  alt='Product title'
                 // width={340}
                 // height={340}
                 />
               </div>
-              <div className="space-x-2 overflow-auto text-center whitespace-nowrap">
+              <div className='space-x-2 overflow-auto text-center whitespace-nowrap'>
                 {product?.images?.map((img) => (
-                  <a
+                  <Link
                     key={img?._id}
-                    className="inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer"
+                    className='inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer'
                     onClick={() => setImgPreview(img?.url)}
                   >
                     <img
-                      className="w-14 h-14"
+                      className='w-14 h-14'
                       src={img.url}
-                      alt="Product title"
+                      alt='Product title'
                     // width="500"
                     // height="500"
                     />
-                  </a>
+                  </Link>
                 ))}
               </div>
             </aside>
             <main>
-              <h2 className="font-semibold text-2xl mb-4">{product?.name}</h2>
+              <h2 className='font-semibold text-2xl mb-4'>
+                {product?.name}
+              </h2>
 
-              <div className="flex flex-wrap items-center space-x-2 mb-2">
-                <div className="ratings">
+              <div className='flex flex-wrap items-center space-x-2 mb-2'>
+                <div className='ratings'>
                   <StarRatings
                     rating={product?.ratings}
-                    starRatedColor="#ffb829"
+                    starRatedColor='#ffb829'
                     numberOfStars={5}
-                    starDimension="18px"
-                    starSpacing="1px"
+                    starDimension='18px'
+                    starSpacing='1px'
                     name={`rating-${product?._id}`}
                   />
                 </div>
-                <span className="text-yellow-500">{product?.ratings}</span>
+                <span className='text-yellow-500'>
+                  {product?.ratings}
+                </span>
 
                 <svg
-                  width="6px"
-                  height="6px"
-                  viewBox="0 0 6 6"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width='6px'
+                  height='6px'
+                  viewBox='0 0 6 6'
+                  xmlns='http://www.w3.org/2000/svg'
                 >
-                  <circle cx="3" cy="3" r="3" fill="#DBDBDB" />
+                  <circle
+                    cx='3'
+                    cy='3'
+                    r='3'
+                    fill='#DBDBDB'
+                  />
                 </svg>
 
-                <span className="text-green-500">Verified</span>
+                <span className='text-green-500'>Verified</span>
               </div>
 
-              <p className="mb-4 font-semibold text-xl">{mark}{product?.price}</p>
+              <p className='mb-4 font-semibold text-xl'>
+                {mark}
+                {product?.price}
+              </p>
 
-              <p className="mb-4 text-gray-500">{product?.description}</p>
+              <p className='mb-4 text-gray-500'>
+                {product?.description}
+              </p>
 
-              <div className="flex flex-wrap gap-2 mb-5">
+              <div className='flex flex-wrap gap-2 mb-5'>
                 <button
-                  className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+                  className='px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
                   onClick={addToCartHandler}
                   disabled={!inStock}
                 >
-                  <i className="fa fa-shopping-cart mr-2"></i>
+                  <i className='fa fa-shopping-cart mr-2'></i>
                   Добавить в корзину
                 </button>
               </div>
 
-              <ul className="mb-5">
-                <li className="mb-1">
+              <ul className='mb-5'>
+                <li className='mb-1'>
                   {" "}
-                  <b className="font-medium w-36 inline-block">Stock</b>
+                  <b className='font-medium w-36 inline-block'>
+                    Stock
+                  </b>
                   {inStock ? (
-                    <span className="text-green-500">В наличии</span>
+                    <span className='text-green-500'>
+                      В наличии
+                    </span>
                   ) : (
-                    <span className="text-red-500">Отсутвует</span>
+                    <span className='text-red-500'>
+                      Отсутвует
+                    </span>
                   )}
                 </li>
-                <li className="mb-1">
+                <li className='mb-1'>
                   {" "}
-                  <b className="font-medium w-36 inline-block">Категория:</b>
-                  <span className="text-gray-500">{product?.category}</span>
+                  <b className='font-medium w-36 inline-block'>
+                    Категория:
+                  </b>
+                  <span className='text-gray-500'>
+                    {product?.category}
+                  </span>
                 </li>
-                <li className="mb-1">
+                <li className='mb-1'>
                   {" "}
-                  <b className="font-medium w-36 inline-block">
+                  <b className='font-medium w-36 inline-block'>
                     Seller / Brand:
                   </b>
-                  <span className="text-gray-500">{product?.seller}</span>
+                  <span className='text-gray-500'>
+                    {product?.seller}
+                  </span>
                 </li>
               </ul>
             </main>
@@ -155,8 +183,8 @@ const ProductDetails = ({ product }) => {
           {canReview && <NewReview product={product} />}
           <hr />
 
-          <div className="font-semibold">
-            <h1 className="text-gray-500 review-title mb-6 mt-10 text-2xl">
+          <div className='font-semibold'>
+            <h1 className='text-gray-500 review-title mb-6 mt-10 text-2xl'>
               Отзывы
             </h1>
             <Reviews reviews={product?.reviews} />

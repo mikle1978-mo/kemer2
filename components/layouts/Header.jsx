@@ -8,93 +8,87 @@ import CartContext from "@/context/CartContext";
 import { useSession } from "next-auth/react";
 import AuthContext from "@/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBars,
+    faCartShopping,
+    faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import cl from "./Header.module.css";
 
 const Header = () => {
-  const { user, setUser } = useContext(AuthContext);
-  const { data } = useSession();
+    const { user, setUser } = useContext(AuthContext);
+    const { data } = useSession();
 
-  useEffect(() => {
-    if (data) {
-      setUser(data?.user);
-    }
-  }, [data]);
+    useEffect(() => {
+        if (data) {
+            setUser(data?.user);
+        }
+    }, [data]);
 
-  const { cart } = useContext(CartContext);
-  const cartItems = cart?.cartItems;
+    const { cart } = useContext(CartContext);
+    const cartItems = cart?.cartItems;
 
-  return (
-    <header className="bg-white py-2 border-b">
-      <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="flex flex-wrap items-center">
-          <div className="flex-shrink-0 mr-3">
-            <a href="/">
-              <Image
-                className="w-auto"
-                src="/images/logo.png"
-                height={40}
-                width={110}
-                alt="Kemer-online"
-                priority={true}
-              />
-            </a>
-          </div>
-          <Search />
-
-          <div className="flex items-center space-x-2 ml-auto">
-            <Link
-              href="/cart"
-              className="relative px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
-            >
-              <FontAwesomeIcon icon={faCartShopping} />
-              <span className="absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full">
-                {cartItems?.length || 0}
-              </span>
-
-            </Link>
-            {!user ? (
-              <Link
-                href="/login"
-                className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
-              >
-                <FontAwesomeIcon icon={faUser} />
-                <span className="hidden lg:inline ml-1">Sign in</span>
-              </Link>
-            ) : (
-              <Link href="/me">
-                <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={
-                      user?.avatar ? user?.avatar?.url : "/images/default.png"
-                    }
-                  />
-                  <div className="space-y-1 font-medium hidden lg:inline ml-1">
-                    <p>
-                      {user?.name}
-                      <time className="block text-sm text-gray-500 dark:text-gray-400">
-                        {user?.email}
-                      </time>
-                    </p>
-                  </div>
+    return (
+        <header className={cl.header}>
+            <div className='container'>
+                <div className={cl.line}>
+                    <Link className={cl.logo} href='/'>
+                        {/* <img
+                            src='/images/logo.png'
+                            alt='Kemer-online'
+                            priority='true'
+                        /> */}{" "}
+                        KEMER-ONLINE
+                    </Link>
+                    <Search />
+                    <div className={cl.left}>
+                        <Link
+                            href='/cart'
+                            className='relative px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300'
+                        >
+                            {cartItems?.length ? (
+                                <>
+                                    <FontAwesomeIcon icon={faCartShopping} />
+                                    <span className='absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full'>
+                                        {cartItems?.length}
+                                    </span>
+                                </>
+                            ) : (
+                                <FontAwesomeIcon icon={faCartShopping} />
+                            )}
+                        </Link>
+                        {!user ? (
+                            <Link href='/login' className={cl.login}>
+                                <FontAwesomeIcon icon={faUser} />
+                                <span className={cl.login_btn}>Sign in</span>
+                            </Link>
+                        ) : (
+                            <Link href='/me'>
+                                <div className={cl.user}>
+                                    <img
+                                        className={cl.meImg}
+                                        src={
+                                            user?.avatar
+                                                ? user?.avatar?.url
+                                                : "/images/default.png"
+                                        }
+                                    />
+                                    <div className={cl.user_info}>
+                                        <p>
+                                            {user?.name}
+                                            <time className={cl.user_name}>
+                                                {user?.email}
+                                            </time>
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
+                        )}
+                    </div>
                 </div>
-              </Link>
-            )}
-          </div>
-
-          <div className="lg:hidden ml-2">
-            <button
-              type="button"
-              className="bg-white p-3 inline-flex items-center rounded-md text-black hover:bg-gray-200 hover:text-gray-800 border border-transparent"
-            >
-              <span className="sr-only">Open menu</span>
-              <FontAwesomeIcon icon={faBars} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
+            </div>
+        </header>
+    );
 };
 
 export default Header;

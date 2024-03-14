@@ -11,6 +11,7 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.2s;
+    border: none;
 }
 
 .myButton:hover {

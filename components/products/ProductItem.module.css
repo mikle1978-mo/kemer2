@@ -96,6 +96,8 @@
     overflow: hidden;
     white-space: nowrap;
     outline: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .card__titleBox:hover {
@@ -116,27 +118,8 @@
 .card__ratingStar {
     color: var(--complement-0);
 }
+
 .card__ratingStock {
     color: var(--secondary-b-1);
     font-size: 0.9rem;
-}
-
-.card__add {
-    display: block;
-    width: 100%;
-    font-size: 17px;
-    color: white;
-    background-color: rgb(37, 99, 235);
-    padding: 3px;
-    text-align: center;
-    border-radius: 4px;
-    cursor: pointer; /* Меняем курсор при наведении */
-    transition: 0.2s;
-    margin-top: auto; /* Прижимаем кнопку к низу карточки */
-}
-
-.card__add:hover {
-    border: 1px solid #ff6633;
-    background-color: #ff6633;
-    color: #fff;
 }

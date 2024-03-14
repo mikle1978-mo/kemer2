@@ -9,190 +9,180 @@ import Reviews from "../review/Reviews";
 import { mark } from "@/lib/const/const";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import cl from "./ProductDetails.module.css";
+import MyButton from "../UI/myButton/myButton";
 
 const ProductDetails = ({ product }) => {
-  const StarRatings = dynamic(() => import("react-star-ratings"), {
-    ssr: false,
-  });
-  const { addItemToCart } = useContext(CartContext);
-  const { canUserReview, canReview } = useContext(OrderContext);
-  const imgRef = useRef(null);
-
-  const setImgPreview = (url) => {
-    imgRef.current.src = url;
-  };
-
-  useEffect(() => {
-    canUserReview(product?._id);
-  }, []);
-
-  const inStock = product?.stock >= 1;
-
-  const addToCartHandler = () => {
-    addItemToCart({
-      product: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0].url,
-      stock: product.stock,
-      seller: product.seller,
+    const StarRatings = dynamic(() => import("react-star-ratings"), {
+        ssr: false,
     });
-  };
+    const { addItemToCart } = useContext(CartContext);
+    const { canUserReview, canReview } = useContext(OrderContext);
+    const imgRef = useRef(null);
 
-  const breadCrumbs = [
-    { name: "Home", url: "/" },
-    {
-      name: `${product?.name?.substring(0, 100)} ...`,
-      url: `/products/${product?._id}`,
-    },
-  ];
-  return (
-    <>
-      <BreadCrumbs breadCrumbs={breadCrumbs} />
-      <section className='bg-white py-10'>
-        <div className='container max-w-screen-xl mx-auto px-4'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 mb-5'>
-            <aside>
-              <div className='border border-gray-200 shadow-sm p-3 text-center rounded mb-5'>
-                <img
-                  ref={imgRef}
-                  className='object-cover inline-block'
-                  src={
-                    product?.images[0]
-                      ? product?.images[0].url
-                      : "/images/default_product.png"
-                  }
-                  alt='Product title'
-                // width={340}
-                // height={340}
-                />
-              </div>
-              <div className='space-x-2 overflow-auto text-center whitespace-nowrap'>
-                {product?.images?.map((img) => (
-                  <Link
-                    key={img?._id}
-                    className='inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer'
-                    onClick={() => setImgPreview(img?.url)}
-                  >
-                    <img
-                      className='w-14 h-14'
-                      src={img.url}
-                      alt='Product title'
-                    // width="500"
-                    // height="500"
-                    />
-                  </Link>
-                ))}
-              </div>
-            </aside>
-            <main>
-              <h2 className='font-semibold text-2xl mb-4'>
-                {product?.name}
-              </h2>
+    const setImgPreview = (url) => {
+        imgRef.current.src = url;
+    };
 
-              <div className='flex flex-wrap items-center space-x-2 mb-2'>
-                <div className='ratings'>
-                  <StarRatings
-                    rating={product?.ratings}
-                    starRatedColor='#ffb829'
-                    numberOfStars={5}
-                    starDimension='18px'
-                    starSpacing='1px'
-                    name={`rating-${product?._id}`}
-                  />
+    useEffect(() => {
+        canUserReview(product?._id);
+    }, []);
+
+    const inStock = product?.stock >= 1;
+
+    const addToCartHandler = () => {
+        addItemToCart({
+            product: product._id,
+            name: product.name,
+            price: product.price,
+            image: product.images[0].url,
+            stock: product.stock,
+            seller: product.seller,
+        });
+    };
+
+    const breadCrumbs = [
+        { name: "Home", url: "/" },
+        {
+            name: `${product?.name?.substring(0, 100)} ...`,
+            url: `/products/${product?._id}`,
+        },
+    ];
+    return (
+        <>
+            <BreadCrumbs breadCrumbs={breadCrumbs} />
+            <section className={cl.productDetails}>
+                <div className='container'>
+                    <div className={cl.grid}>
+                        <aside>
+                            <div className={cl.aside}>
+                                <img
+                                    ref={imgRef}
+                                    className={cl.aside_img}
+                                    src={
+                                        product?.images[0]
+                                            ? product?.images[0].url
+                                            : "/images/default_product.png"
+                                    }
+                                    alt={product?.name}
+                                    // width={340}
+                                    // height={340}
+                                />
+                            </div>
+                            <div className={cl.aside_smlImgWrap}>
+                                {product?.images?.map((img) => (
+                                    <a
+                                        key={img?._id}
+                                        className={cl.asideImgLink}
+                                        onClick={() => setImgPreview(img?.url)}
+                                    >
+                                        <img
+                                            className={cl.smlImage}
+                                            src={img.url}
+                                            alt={product?.name}
+                                            // width="500"
+                                            // height="500"
+                                        />
+                                    </a>
+                                ))}
+                            </div>
+                        </aside>
+                        <main>
+                            <h2 className={cl.main_title}>{product?.name}</h2>
+
+                            <div className={cl.main_wrap}>
+                                <div className='ratings'>
+                                    <StarRatings
+                                        rating={product?.ratings}
+                                        starRatedColor='#ffb829'
+                                        numberOfStars={5}
+                                        starDimension='18px'
+                                        starSpacing='1px'
+                                        name={`rating-${product?._id}`}
+                                    />
+                                </div>
+                                <span className={cl.rating}>
+                                    {product?.ratings}
+                                </span>
+
+                                <svg
+                                    width='6px'
+                                    height='6px'
+                                    viewBox='0 0 6 6'
+                                    xmlns='http://www.w3.org/2000/svg'
+                                >
+                                    <circle
+                                        cx='3'
+                                        cy='3'
+                                        r='3'
+                                        fill='#DBDBDB'
+                                    />
+                                </svg>
+
+                                <span className={cl.verified}>Verified</span>
+                            </div>
+
+                            <p className={cl.price}>
+                                {mark}
+                                {product?.price}
+                            </p>
+
+                            <p className={cl.desc}>{product?.description}</p>
+
+                            <div className={cl.btn_wrap}>
+                                <MyButton
+                                    onClick={addToCartHandler}
+                                    disabled={!inStock}
+                                >
+                                    {/* <i className='fa fa-shopping-cart mr-2'></i> */}
+                                    В корзину
+                                </MyButton>
+                            </div>
+
+                            <ul className={cl.ul_wrap}>
+                                <li className={cl.li_wrap}>
+                                    {" "}
+                                    <b className={cl.stock}>Stock</b>
+                                    {inStock ? (
+                                        <span className={cl.stock_green}>
+                                            В наличии
+                                        </span>
+                                    ) : (
+                                        <span className={cl.stock_red}>
+                                            Отсутвует
+                                        </span>
+                                    )}
+                                </li>
+                                <li className={cl.li_wrap}>
+                                    {" "}
+                                    <b className={cl.category}>Категория:</b>
+                                    <span className={cl.category_value}>
+                                        {product?.category}
+                                    </span>
+                                </li>
+                                <li className={cl.li_wrap}>
+                                    {" "}
+                                    <b className={cl.brand}>Seller / Brand:</b>
+                                    <span className={cl.brand_value}>
+                                        {product?.seller}
+                                    </span>
+                                </li>
+                            </ul>
+                        </main>
+                    </div>
+
+                    {canReview && <NewReview product={product} />}
+                    <hr />
+
+                    <div className={cl.review_wrap}>
+                        <h1 className={cl.review_title}>Отзывы</h1>
+                        <Reviews reviews={product?.reviews} />
+                    </div>
                 </div>
-                <span className='text-yellow-500'>
-                  {product?.ratings}
-                </span>
-
-                <svg
-                  width='6px'
-                  height='6px'
-                  viewBox='0 0 6 6'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <circle
-                    cx='3'
-                    cy='3'
-                    r='3'
-                    fill='#DBDBDB'
-                  />
-                </svg>
-
-                <span className='text-green-500'>Verified</span>
-              </div>
-
-              <p className='mb-4 font-semibold text-xl'>
-                {mark}
-                {product?.price}
-              </p>
-
-              <p className='mb-4 text-gray-500'>
-                {product?.description}
-              </p>
-
-              <div className='flex flex-wrap gap-2 mb-5'>
-                <button
-                  className='px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'
-                  onClick={addToCartHandler}
-                  disabled={!inStock}
-                >
-                  <i className='fa fa-shopping-cart mr-2'></i>
-                  Добавить в корзину
-                </button>
-              </div>
-
-              <ul className='mb-5'>
-                <li className='mb-1'>
-                  {" "}
-                  <b className='font-medium w-36 inline-block'>
-                    Stock
-                  </b>
-                  {inStock ? (
-                    <span className='text-green-500'>
-                      В наличии
-                    </span>
-                  ) : (
-                    <span className='text-red-500'>
-                      Отсутвует
-                    </span>
-                  )}
-                </li>
-                <li className='mb-1'>
-                  {" "}
-                  <b className='font-medium w-36 inline-block'>
-                    Категория:
-                  </b>
-                  <span className='text-gray-500'>
-                    {product?.category}
-                  </span>
-                </li>
-                <li className='mb-1'>
-                  {" "}
-                  <b className='font-medium w-36 inline-block'>
-                    Seller / Brand:
-                  </b>
-                  <span className='text-gray-500'>
-                    {product?.seller}
-                  </span>
-                </li>
-              </ul>
-            </main>
-          </div>
-
-          {canReview && <NewReview product={product} />}
-          <hr />
-
-          <div className='font-semibold'>
-            <h1 className='text-gray-500 review-title mb-6 mt-10 text-2xl'>
-              Отзывы
-            </h1>
-            <Reviews reviews={product?.reviews} />
-          </div>
-        </div>
-      </section>
-    </>
-  );
+            </section>
+        </>
+    );
 };
 
 export default ProductDetails;

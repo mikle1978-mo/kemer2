@@ -1,0 +1,42 @@
+.breadCrumbs {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background-color: #dbeafe;
+}
+@media (min-width: 640px) {
+    .breadCrumbs {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}
+
+.ol_wrap {
+    display: inline-flex;
+    margin-left: 0.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #4b5563;
+}
+
+@media (min-width: 768px) {
+    .ol_wrap {
+        margin-left: 0.75rem;
+        margin-left: 0.875rem;
+    }
+}
+
+.li_wrap {
+    display: inline-flex;
+    align-items: center;
+}
+
+.link {
+    color: #4b5563;
+}
+.link:hover {
+    color: #2563eb;
+}
+.chevron {
+    margin: 0 0.25rem;
+    color: #9ca3af;
+}

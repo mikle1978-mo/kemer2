@@ -37,29 +37,29 @@ const Header = () => {
     return (
         <footer className={cl.footer}>
             <Link href='/'>
-                <FontAwesomeIcon icon={faHouse} />
+                <FontAwesomeIcon icon={faHouse} color='blue' />
             </Link>
-            <div>
-                <button type='button' onClick={clickHandler}>
-                    <FontAwesomeIcon icon={faBars} />
-                </button>
+
+            <div className={cl.burger} onClick={clickHandler}>
+                <FontAwesomeIcon icon={faBars} color='blue' />
             </div>
+
             <Link className={cl.cart} href='/cart'>
                 {cartItems?.length ? (
                     <>
-                        <FontAwesomeIcon icon={faCartShopping} />
+                        <FontAwesomeIcon icon={faCartShopping} color='blue' />
                         <span className={cl.cartLength}>
                             {cartItems?.length}
                         </span>
                     </>
                 ) : (
-                    <FontAwesomeIcon icon={faCartShopping} />
+                    <FontAwesomeIcon icon={faCartShopping} color='blue' />
                 )}
             </Link>
 
             {!user ? (
                 <Link href='/login'>
-                    <FontAwesomeIcon icon={faUser} />
+                    <FontAwesomeIcon icon={faUser} color='blue' />
                 </Link>
             ) : (
                 <Link href='/me'>

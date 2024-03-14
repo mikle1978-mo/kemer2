@@ -54,7 +54,10 @@ const Header = () => {
                                     </span>
                                 </>
                             ) : (
-                                <FontAwesomeIcon icon={faCartShopping} />
+                                <FontAwesomeIcon
+                                    icon={faCartShopping}
+                                    color='blue'
+                                />
                             )}
                         </Link>
                         {!user ? (

@@ -1,0 +1,10 @@
+.login {
+    padding: 1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 5rem;
+    border-radius: 0.25rem;
+    background-color: var(--primary-4);
+}
+
+@media (min-width: 768px) {
+}

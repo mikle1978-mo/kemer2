@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import cl from "./Search.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Search = () => {
     const [keyword, setKeyword] = useState("");
@@ -31,9 +33,9 @@ const Search = () => {
                 onChange={(e) => setKeyword(e.target.value)}
                 required
             />
-            <button type='button' className={cl.button} onClick={submitHandler}>
-                Поиск
-            </button>
+            <div className={cl.button} onClick={submitHandler}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </div>
         </form>
     );
 };

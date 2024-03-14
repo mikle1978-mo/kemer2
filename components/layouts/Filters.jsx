@@ -12,7 +12,7 @@ import cl from "./Filters.module.css";
 import MenuContext from "@/context/MenuContext";
 
 const Filters = () => {
-    const { isActiveMenu } = useContext(MenuContext);
+    const { isActiveMenu, toggleMenuMode } = useContext(MenuContext);
     const StarRatings = dynamic(() => import("react-star-ratings"), {
         ssr: false,
     });
@@ -47,6 +47,7 @@ const Filters = () => {
         }
         const path = window.location.pathname + "?" + queryParams.toString();
         router.push(path);
+        toggleMenuMode();
     }
 
     function handleButtonClick() {
@@ -60,6 +61,7 @@ const Filters = () => {
                 window.location.pathname + "?" + queryParams.toString();
             router.push(path);
         }
+        toggleMenuMode();
     }
 
     function checkHandler(checkBoxType, checkBoxValue) {
@@ -70,6 +72,7 @@ const Filters = () => {
             if (checkBoxValue === value) return true;
             return false;
         }
+        toggleMenuMode();
     }
 
     return (
@@ -103,14 +106,12 @@ const Filters = () => {
                         />
                     </div>
 
-                    <div className={cl.title}>
-                        <button
-                            className={cl.price_btn}
-                            onClick={handleButtonClick}
-                        >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
+                    <button
+                        className={cl.price_btn}
+                        onClick={handleButtonClick}
+                    >
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
                 </div>
             </div>
 

@@ -42,14 +42,11 @@ const Header = () => {
                     </Link>
                     <Search />
                     <div className={cl.left}>
-                        <Link
-                            href='/cart'
-                            className='relative px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300'
-                        >
+                        <Link href='/cart' className={cl.cart}>
                             {cartItems?.length ? (
                                 <>
                                     <FontAwesomeIcon icon={faCartShopping} />
-                                    <span className='absolute -top-2 -right-2 w-6 h-6 text-sm text-center flex items-center justify-center text-white bg-gray-400 rounded-full'>
+                                    <span className={cl.cart_label}>
                                         {cartItems?.length}
                                     </span>
                                 </>
@@ -63,7 +60,7 @@ const Header = () => {
                         {!user ? (
                             <Link href='/login' className={cl.login}>
                                 <FontAwesomeIcon icon={faUser} />
-                                <span className={cl.login_btn}>Sign in</span>
+                                <span className={cl.login_btn}>Войти</span>
                             </Link>
                         ) : (
                             <Link href='/me'>

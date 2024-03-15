@@ -4,42 +4,51 @@ import React, { useContext } from "react";
 import UserAddresses from "../user/UserAddresses";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
+import cl from "./Profile.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import MyButton from "../UI/myButton/myButton";
 
 const Profile = ({ addresses }) => {
-  const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-  return (
-    <>
-      <figure className="flex items-start sm:items-center">
-        <div className="relative">
-          <img
-            className="w-16 h-16 rounded-full mr-4"
-            src={user?.avatar ? user?.avatar?.url : "/images/default.png"}
-            alt={user?.name}
-          />
-        </div>
-        <figcaption>
-          <h5 className="font-semibold text-lg">{user?.name}</h5>
-          <p>
-            <b>Email:</b> {user?.email} | <b>Зарегистрирован:{" "}</b>
-            {user?.createdAt?.substring(0, 10)}
-          </p>
-        </figcaption>
-      </figure>
+    return (
+        <>
+            <figure className={cl.figure}>
+                <div className={cl.img_wrap}>
+                    <img
+                        className={cl.img}
+                        src={
+                            user?.avatar
+                                ? user?.avatar?.url
+                                : "/images/default.png"
+                        }
+                        alt={user?.name}
+                    />
+                </div>
+                <figcaption className={cl.figcaption}>
+                    <h5 className={cl.figcaption_name}>{user?.name}</h5>
+                    <p>
+                        <b>Email:</b> {user?.email} | <b>Зарегистрирован: </b>
+                        {user?.createdAt?.substring(0, 10)}
+                    </p>
+                </figcaption>
+            </figure>
 
-      <hr className="my-4" />
+            <hr className={cl.hr} />
 
-      <UserAddresses addresses={addresses} />
+            <UserAddresses addresses={addresses} />
 
-      <Link href="/address/new">
-        <button className="px-4 py-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">
-          <i className="mr-1 fa fa-plus"></i> Добавить новый адрес
-        </button>
-      </Link>
+            <Link href='/address/new'>
+                <MyButton>
+                    <FontAwesomeIcon icon={faPlus} className={cl.icon} />
+                    Добавить новый адрес
+                </MyButton>
+            </Link>
 
-      <hr className="my-4" />
-    </>
-  );
+            <hr className={cl.hr} />
+        </>
+    );
 };
 
 export default Profile;

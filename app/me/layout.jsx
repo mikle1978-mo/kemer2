@@ -15,9 +15,7 @@ export default function UserLayout({ children }) {
                     <div className={cl.me_wrap}>
                         <Sidebar />
                         <main className={cl.main}>
-                            <article className='border border-gray-200 bg-white shadow-sm rounded mb-5 p-3 lg:p-5'>
-                                {children}
-                            </article>
+                            <article className={cl.article}>{children}</article>
                         </main>
                     </div>
                 </div>

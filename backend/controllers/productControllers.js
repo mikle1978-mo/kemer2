@@ -13,7 +13,7 @@ export const newProduct = async (req, res, next) => {
 };
 
 export const getProducts = async (req, res, next) => {
-    const resPerPage = 4;
+    // const resPerPage = 4;
     const productsCount = await Product.countDocuments();
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
@@ -38,13 +38,13 @@ export const getProducts = async (req, res, next) => {
     let products = await apiFilters.query;
     const filteredProductsCount = products.length;
 
-    apiFilters.pagination(resPerPage);
+    // apiFilters.pagination(resPerPage);
 
     products = await apiFilters.query.clone();
 
     return {
         productsCount,
-        resPerPage,
+        // resPerPage,
         filteredProductsCount,
         products,
     };

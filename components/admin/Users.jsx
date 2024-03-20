@@ -2,81 +2,89 @@
 
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
-import CustomPagination from "../layouts/CustomPagination";
+// import CustomPagination from "../layouts/CustomPagination";
 import AuthContext from "@/context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import cl from "./Users.module.css";
+import MyIconButton from "../UI/myButton/myIconButton";
 
 const Users = ({ data }) => {
-  const { error, deleteUser, clearErrors } = useContext(AuthContext);
+    const { error, deleteUser, clearErrors } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      clearErrors();
-    }
-  }, [error]);
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            clearErrors();
+        }
+    }, [error]);
 
-  const deleteHandler = (id) => {
-    deleteUser(id);
-  };
+    const deleteHandler = (id) => {
+        deleteUser(id);
+    };
 
-  return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <h1 className="text-3xl my-5 ml-4 font-bold">
-        {data?.users?.length} Users on page
-      </h1>
-      <table className="w-full text-sm text-left">
-        <thead className="text-l text-gray-700 uppercase">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Email
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Role
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.users?.map((user) => (
-            <tr key={user?._id} className="bg-white">
-              <td className="px-6 py-2">{user?.name}</td>
-              <td className="px-6 py-2">{user?.email}</td>
-              <td className="px-6 py-2">{user?.role}</td>
-              <td className="px-6 py-2">
-                <div>
-                  <Link
-                    href={`/admin/users/${user?._id}`}
-                    className="px-2 py-2 inline-block text-yellow-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer mr-2"
-                  >
-                    <i className="fa fa-pencil" aria-hidden="true"></i>
-                  </Link>
-                  <a
-                    className="px-2 py-2 inline-block text-red-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer"
-                    onClick={() => deleteHandler(user?._id)}
-                  >
-                    <i className="fa fa-trash" aria-hidden="true">x</i>
-                  </a>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    return (
+        <div className={cl.wrap}>
+            <h1 className={cl.title}>
+                {data?.users?.length} Пользователей на странице
+            </h1>
+            <table className={cl.table}>
+                <thead className={cl.table_head}>
+                    <tr>
+                        <th scope='col' className={cl.th}>
+                            Имя
+                        </th>
+                        <th scope='col' className={cl.th}>
+                            Email
+                        </th>
+                        <th scope='col' className={cl.th}>
+                            Роль
+                        </th>
+                        <th scope='col' className={cl.th}>
+                            {" "}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data?.users?.map((user) => (
+                        <tr key={user?._id} className={cl.tr}>
+                            <td className={cl.td}>{user?.name}</td>
+                            <td className={cl.td}>{user?.email}</td>
+                            <td className={cl.td}>{user?.role}</td>
+                            <td className={cl.td}>
+                                <div className={cl.btn_wrap}>
+                                    <MyIconButton
+                                        type='button'
+                                        style={{ color: "#d97706" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.location.href = `/admin/users/${user?._id}`;
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faPencil} />
+                                    </MyIconButton>
 
-      <div className="mb-6">
-        <CustomPagination
-          resPerPage={data?.resPerPage}
-          productsCount={data?.usersCount}
-        />
-      </div>
+                                    <MyIconButton
+                                        style={{ color: "red" }}
+                                        onClick={() => deleteHandler(user?._id)}
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </MyIconButton>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
-    </div>
-  );
+            {/* <div className='mb-6'>
+                <CustomPagination
+                    resPerPage={data?.resPerPage}
+                    productsCount={data?.usersCount}
+                />
+            </div> */}
+        </div>
+    );
 };
 
 export default Users;

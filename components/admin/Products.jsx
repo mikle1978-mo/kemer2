@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil, faImage } from "@fortawesome/free-solid-svg-icons";
 import { mark } from "@/lib/const/const";
 import cl from "./Products.module.css";
+import MyIconButton from "../UI/myButton/myIconButton";
 
 const Products = ({ data }) => {
     const { deleteProduct, error, clearErrors } = useContext(ProductContext);
@@ -62,30 +63,35 @@ const Products = ({ data }) => {
                             <td className={cl.item}>{product?.category}</td>
                             <td className={cl.item}>
                                 <div className={cl.btn_wrap}>
-                                    <Link
-                                        href={`/admin/products/${product?._id}/upload_images`}
-                                        className={cl.btn_img}
+                                    <MyIconButton
+                                        type='button'
                                         style={{ color: "green" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.location.href = `/admin/products/${product?._id}/upload_images`;
+                                        }}
                                     >
                                         <FontAwesomeIcon icon={faImage} />
-                                    </Link>
-
-                                    <Link
-                                        href={`/admin/products/${product?._id}`}
-                                        className={cl.btn_img}
+                                    </MyIconButton>
+                                    <MyIconButton
+                                        type='button'
                                         style={{ color: "orange" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.location.href = `/admin/products/${product?._id}`;
+                                        }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />
-                                    </Link>
-                                    <a
-                                        className={cl.btn_img}
+                                    </MyIconButton>
+                                    <MyIconButton
+                                        type='button'
                                         style={{ color: "red" }}
                                         onClick={() =>
                                             deleteHandler(product?._id)
                                         }
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
-                                    </a>
+                                    </MyIconButton>
                                 </div>
                             </td>
                         </tr>

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Orders.module.css";
+import MyIconButton from "../UI/myButton/myIconButton";
 
 const Orders = ({ orders }) => {
     const { deleteOrder, error, clearErrors } = useContext(OrderContext);
@@ -75,20 +76,24 @@ const Orders = ({ orders }) => {
                             <td className={cl.td}>{order?.orderStatus}</td>
                             <td className={cl.td}>
                                 <div className={cl.btn_wrap}>
-                                    <Link
-                                        href={`/admin/orders/${order?._id}`}
-                                        className={cl.btn_pencil}
+                                    <MyIconButton
+                                        type='button'
+                                        style={{ color: "#d97706" }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.location.href = `/admin/orders/${order?._id}`;
+                                        }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />
-                                    </Link>
-                                    <a
-                                        className={cl.btn_delete}
+                                    </MyIconButton>
+                                    <MyIconButton
+                                        style={{ color: "red" }}
                                         onClick={() =>
                                             deleteHandler(order?._id)
                                         }
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
-                                    </a>
+                                    </MyIconButton>
                                 </div>
                             </td>
                         </tr>

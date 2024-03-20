@@ -47,14 +47,11 @@ export const getOrders = async (req, res) => {
 };
 
 export const getOrder = async (req, id, res) => {
-    console.log("getOrder", id);
     const order = await Order.findById(id).populate("shippingInfo user");
 
     if (!order) {
         return new ErrorHandler("No Order found with this ID", 404);
     }
-
-    console.log("orderControllers/getOrder: order", order);
 
     return {
         order,

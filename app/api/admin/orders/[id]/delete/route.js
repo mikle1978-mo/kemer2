@@ -7,7 +7,7 @@ import {
 import { deleteOrder } from "@/backend/controllers/orderControllers";
 import { NextResponse } from "next/server";
 
-export async function PUT(req, { params }) {
+export async function DELETE(req, { params }) {
     dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");

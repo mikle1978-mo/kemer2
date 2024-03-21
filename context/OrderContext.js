@@ -50,7 +50,7 @@ export const OrderProvider = ({ children }) => {
     const deleteOrder = async (id) => {
         try {
             const { data } = await axios.delete(
-                `${process.env.API_URL}/api/admin/orders/${id}`
+                `${process.env.API_URL}/api/admin/orders/${id}/delete`
             );
 
             if (data?.success) {

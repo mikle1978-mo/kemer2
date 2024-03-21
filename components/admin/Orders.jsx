@@ -23,14 +23,16 @@ const Orders = ({ orders }) => {
 
     useEffect(() => {
         router.refresh();
-    }, []);
+    }, [orders]);
 
     const deleteHandler = (id) => {
         deleteOrder(id);
     };
     return (
         <div className={cl.wrap}>
-            <h1 className={cl.title}>{orders?.ordersCount} Заказы</h1>
+            <h1 className={cl.title}>
+                Количество заказов {orders?.ordersCount}{" "}
+            </h1>
             <table className={cl.table}>
                 <thead className={cl.table_head}>
                     <tr>
@@ -60,9 +62,9 @@ const Orders = ({ orders }) => {
                             <td className={cl.td}>{order?._id}</td>
                             <td className={cl.td}>
                                 {new Date(order?.createAt).toLocaleDateString(
-                                    "en-US",
+                                    "ru",
                                     {
-                                        weekday: "short",
+                                        // weekday: "",
                                         year: "numeric",
                                         month: "numeric",
                                         day: "numeric",

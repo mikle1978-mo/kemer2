@@ -109,7 +109,7 @@ export const updateOrder = async (req, id, res) => {
     };
 };
 
-export const deleteOrder = async (req, idres) => {
+export const deleteOrder = async (req, id, res) => {
     let order = await Order.findById(id);
 
     if (!order) {

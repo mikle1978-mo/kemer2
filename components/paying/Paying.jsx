@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
@@ -10,15 +10,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import TGMessage from "@/backend/utils/tgMessage";
 import PayingInfo from "./PayingInfo";
-
-
+import cl from "./Paying.module.css";
+import MyButton from "../UI/myButton/myButton";
 
 const Paying = () => {
     const { tempOrder } = useContext(OrderContext);
-    const router = useRouter()
+    const router = useRouter();
 
     const order = tempOrder.orderData;
-    console.log(order);
 
     const newOrderHandler = async () => {
         try {
@@ -28,116 +27,112 @@ const Paying = () => {
             );
 
             if (data) {
-                TGMessage(order)
+                TGMessage(order);
                 toast.success("Заказ успешно отправлен, ожидайте доставки");
-                router.push("/me/orders?order_success=true")
+                router.push("/me/orders?order_success=true");
             }
-
         } catch (error) {
             console.log(error);
         }
     };
 
-
-
     return (
-        <article className="p-3 lg:p-5 mb-5 bg-white border border-blue-600 rounded-md">
-            <header className="lg:flex justify-between mb-4">
-                <div className="mb-4 lg:mb-0">
-                    <p className="font-semibold">
-                        <span>Проверьте данные заказа и нажмите кнопку заказать: {order?._id} </span>
-                        {order?.orderStatus == "Processing" ? (
-                            <span className="text-red-500">
-                                • {order?.orderStatus?.toUpperCase()}
-                            </span>
-                        ) : (
-                            <span className="text-green-500">
-                                • {order?.orderStatus?.toUpperCase()}
-                            </span>
-                        )}
+        <article className={cl.article}>
+            <header className={cl.header}>
+                <div className={cl.header_wrap}>
+                    <p className={cl.status}>
+                        <span>
+                            Проверьте данные заказа и нажмите кнопку заказать:{" "}
+                        </span>
                     </p>
-                    <p className="text-gray-500">{order?.createAt?.substring(0, 10)} </p>
                 </div>
             </header>
-            <div className="grid md:grid-cols-3 gap-2">
+            <div className={cl.info_wrap}>
                 <div>
-                    <p className="text-gray-400 mb-1">Заказчик</p>
-                    <ul className="text-gray-600">
-                        <li>Имя: {" "}{order?.user?.name}</li>
-                        <li>Тел: {" "}{order?.shippingInfo?.phoneNo}</li>
-                        <li>Email: {" "}{order?.user?.email}</li>
+                    <p className={cl.info_title}>Заказчик</p>
+                    <ul className={cl.info_ul}>
+                        <li>Имя: {order?.user?.name}</li>
+                        <li>Тел: {order?.shippingInfo?.phoneNo}</li>
+                        <li>Email: {order?.user?.email}</li>
                     </ul>
                 </div>
                 <div>
-                    <p className="text-gray-400 mb-1">Адрес доставки</p>
-                    <ul className="text-gray-600">
+                    <p className={cl.info_title}>Адрес доставки</p>
+                    <ul className={cl.info_ul}>
                         <li>{order?.shippingInfo?.street}</li>
                         <li>
-                            {order?.shippingInfo?.city}, {order?.shippingInfo?.state},{" "}
+                            {order?.shippingInfo?.city},{" "}
+                            {order?.shippingInfo?.state},{" "}
                             {order?.shippingInfo?.zipCode}
                         </li>
                         <li>{order?.shippingInfo?.country}</li>
                     </ul>
                 </div>
                 <div>
-                    <p className="text-gray-400 mb-1">Платежная информация</p>
-                    <ul className="text-gray-600">
-                        <li className="text-400">Оплата:{" "}
-                            {order?.paymentInfo?.method}
-                        </li>
-                        <li className="text-green-400">
+                    <p className={cl.info_title}>Платежная информация</p>
+                    <ul className={cl.info_ul}>
+                        <li>Оплата: {order?.paymentInfo?.method}</li>
+                        <li className={cl.paying_status}>
                             {order?.paymentInfo?.status?.toUpperCase()}
                         </li>
 
-                        <li>Налог: {" "}{mark}{order?.paymentInfo?.taxPaid}</li>
-                        <li>Итого: {" "}{mark}{order?.paymentInfo?.amountPaid}</li>
+                        <li>
+                            Налог: {mark}
+                            {order?.paymentInfo?.taxPaid}
+                        </li>
+                        <li>
+                            Итого: {mark}
+                            {order?.paymentInfo?.amountPaid}
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <hr className="my-4" />
+            <hr className={cl.hr} />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className={cl.product_card_small}>
                 {order?.orderItems?.map((item) => (
-                    <figure className="flex flex-row mb-4" key={item?.product}>
+                    <figure className={cl.figure} key={item?.product}>
                         <div>
-                            <div className="block w-20 h-20 rounded border border-gray-200 overflow-hidden p-3">
+                            <div className={cl.img_wrap}>
                                 <Image
                                     src={item?.image}
-                                    height="60"
-                                    width="60"
+                                    height='60'
+                                    width='60'
                                     alt={item.name}
                                 />
                             </div>
                         </div>
-                        <figcaption className="ml-3">
+                        <figcaption className={cl.figcaption}>
                             <p>{item.name.substring(0, 35)}</p>
-                            <p className="mt-1 font-semibold">
-                                {item.quantity}шт = {mark}{item.price * item.quantity}
+                            <p className={cl.figcaption_info}>
+                                {item.quantity}шт = {mark}
+                                {item.price * item.quantity}
                             </p>
                         </figcaption>
                     </figure>
                 ))}
             </div>
-            {order?.paymentInfo?.method === "Сразу" ? (
-                <PayingInfo />
-            ) : (
-                <div />
-            )}
+            {order?.paymentInfo?.method === "Сразу" ? <PayingInfo /> : <div />}
 
-            <div className="flex justify-end space-x-2 mt-10">
-                <Link
-                    href="/shipping"
-                    className="px-5 py-2 inline-block text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600"
+            <div className={cl.btn_wrap}>
+                <MyButton
+                    type='button'
+                    style={{ backgroundColor: "gray" }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/shipping`;
+                    }}
                 >
-                    Назад
-                </Link>
-                <a
-                    className="px-5 py-2 inline-block text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
+                    назад
+                </MyButton>
+                <MyButton
+                    type='button'
+                    style={{ backgroundColor: "green" }}
                     onClick={newOrderHandler}
                 >
-                    Заказать
-                </a>
+                    заказать
+                </MyButton>
             </div>
         </article>
     );

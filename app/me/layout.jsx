@@ -11,13 +11,11 @@ export default function UserLayout({ children }) {
             </section>
 
             <section className={cl.section}>
-                <div className='container'>
-                    <div className={cl.me_wrap}>
-                        <Sidebar />
-                        <main className={cl.main}>
-                            <article className={cl.article}>{children}</article>
-                        </main>
-                    </div>
+                <div className={cl.me_wrap}>
+                    <Sidebar />
+                    <main className={cl.main}>
+                        <article className={cl.article}>{children}</article>
+                    </main>
                 </div>
             </section>
         </>

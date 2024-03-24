@@ -1,28 +1,9 @@
-.login {
-    padding: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 5rem;
-    border-radius: 0.25rem;
-    background-color: var(--primary-4);
-}
-
 @media (min-width: 768px) {
-}
-
-.login_title {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    line-height: 2rem;
-    font-weight: 600;
-}
-
-.wrap {
-    margin-bottom: 1rem;
 }
 
 .label {
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .input {

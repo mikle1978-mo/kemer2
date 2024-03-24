@@ -10,7 +10,9 @@ export default function RootLayout({ children }) {
             <body>
                 <GlobalProvider>
                     <Header />
-                    {children}
+                    <div className='container'>
+                        <div className='section'>{children}</div>
+                    </div>
                     <Footer />
                 </GlobalProvider>
             </body>

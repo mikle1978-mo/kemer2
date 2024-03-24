@@ -23,7 +23,7 @@ const ListOrders = ({ orders }) => {
 
     return (
         <>
-            <h3 className={cl.title}>Ваши заказы</h3>
+            <h3 className='title'>Ваши заказы</h3>
             {orders?.orders?.map((order) => (
                 <OrderItem key={order._id} order={order} />
             ))}

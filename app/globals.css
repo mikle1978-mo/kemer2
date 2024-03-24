@@ -70,16 +70,6 @@ body {
     overflow-x: hidden;
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-}
-
-.section {
-    position: relative;
-    padding-bottom: 2rem;
-}
-
 h1,
 h2 {
     text-align: center;
@@ -125,7 +115,6 @@ ul {
 
 input,
 textarea {
-    font-family: "Times New Roman", Times, serif;
     font-size: inherit;
 }
 
@@ -133,16 +122,40 @@ textarea {
     padding: 0 1rem;
     margin: 0 auto;
 }
+.section {
+    position: relative;
+    margin-bottom: 3.5rem;
+}
+
+.title {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    line-height: 2.25rem;
+    font-weight: 600;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.hr {
+    margin: 0.5rem 0;
+}
 
 @media (max-width: 640px) {
     body {
-        font-size: 1rem;
+        font-size: 0.8rem;
         line-height: 1.2;
     }
 }
 @media (max-width: 768px) {
     body {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+    .main {
+        flex-direction: column;
     }
 }
 @media (max-width: 1024px) {
@@ -152,12 +165,12 @@ textarea {
 }
 @media (max-width: 1280px) {
     body {
-        font-size: 1rem;
+        font-size: 1.05rem;
     }
 }
 @media (max-width: 1536px) {
     body {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
         line-height: 1;
     }
 }

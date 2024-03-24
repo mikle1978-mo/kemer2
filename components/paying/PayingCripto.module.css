@@ -1,0 +1,20 @@
+.wrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    word-break: break-all;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    margin-bottom: 0.5rem;
+}
+
+.p {
+    margin-bottom: 0.5rem;
+    color: #9ca3af;
+}
+
+.p > span {
+    color: black;
+}

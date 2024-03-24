@@ -1,7 +1,6 @@
 .breadCrumbs {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    background-color: #dbeafe;
 }
 @media (min-width: 640px) {
     .breadCrumbs {

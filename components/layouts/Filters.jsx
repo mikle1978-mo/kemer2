@@ -78,7 +78,7 @@ const Filters = () => {
     return (
         <aside className={isActiveMenu ? cl.filters_active : cl.filters}>
             <div className={cl.price}>
-                <h3 className={cl.title}>Цена ({mark})</h3>
+                <h3 className='title'>Цена ({mark})</h3>
                 <div className={cl.price_wrap}>
                     <div className={cl.input_wrap}>
                         <input
@@ -116,7 +116,7 @@ const Filters = () => {
             </div>
 
             <div className={cl.category}>
-                <h3 className={cl.title}>Категория</h3>
+                <h3 className='title'>Категория</h3>
                 <ul className={cl.category_list}>
                     {categories.map((item) => (
                         <li key={item.id} className={cl.li}>
@@ -144,7 +144,7 @@ const Filters = () => {
 
                 <hr className='my-4' />
 
-                <h3 className={cl.title}>Рейтинг</h3>
+                <h3 className='title'>Рейтинг</h3>
                 <ul className={cl.category_list}>
                     <li className={cl.li}>
                         {[5, 4, 3, 2, 1].map((rating) => (

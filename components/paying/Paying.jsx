@@ -9,9 +9,11 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import axios from "axios";
 import TGMessage from "@/backend/utils/tgMessage";
-import PayingInfo from "./PayingInfo";
+import PayingInfo from "./PayingIBAN";
 import cl from "./Paying.module.css";
 import MyButton from "../UI/myButton/myButton";
+import PayingIBAN from "./PayingIBAN";
+import PayingCripto from "./PayingCripto";
 
 const Paying = () => {
     const { tempOrder } = useContext(OrderContext);
@@ -37,16 +39,9 @@ const Paying = () => {
     };
 
     return (
-        <article className={cl.article}>
-            <header className={cl.header}>
-                <div className={cl.header_wrap}>
-                    <p className={cl.status}>
-                        <span>
-                            Проверьте данные заказа и нажмите кнопку заказать:{" "}
-                        </span>
-                    </p>
-                </div>
-            </header>
+        <>
+            <h3 className='title'> Проверьте данные заказа</h3>
+
             <div className={cl.info_wrap}>
                 <div>
                     <p className={cl.info_title}>Заказчик</p>
@@ -113,7 +108,16 @@ const Paying = () => {
                     </figure>
                 ))}
             </div>
-            {order?.paymentInfo?.method === "Сразу" ? <PayingInfo /> : <div />}
+            {order?.paymentInfo?.method === "По номеру IBAN" ? (
+                <PayingIBAN />
+            ) : (
+                <div />
+            )}
+            {order?.paymentInfo?.method === "Крипто" ? (
+                <PayingCripto />
+            ) : (
+                <div />
+            )}
 
             <div className={cl.btn_wrap}>
                 <MyButton
@@ -134,7 +138,7 @@ const Paying = () => {
                     заказать
                 </MyButton>
             </div>
-        </article>
+        </>
     );
 };
 

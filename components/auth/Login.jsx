@@ -38,48 +38,44 @@ const Login = () => {
     return (
         <div style={{ maxWidth: "480px" }} className={cl.login}>
             <form onSubmit={submitHandler}>
-                <h2 className={cl.login_title}>Вход</h2>
+                <h2 className='title'>Вход</h2>
+                <label className={cl.label}>
+                    {" "}
+                    Email
+                    <input
+                        id='email'
+                        name='email'
+                        className={cl.input}
+                        type='text'
+                        placeholder='Type your email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        autoComplete='off'
+                    />
+                </label>
+                <label className={cl.label}>
+                    {" "}
+                    Password
+                    <input
+                        id='password'
+                        name='password'
+                        className={cl.input}
+                        type='password'
+                        placeholder='Type your password'
+                        minLength={6}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        autoComplete='off'
+                    />
+                </label>
 
-                <div className={cl.wrap}>
-                    <label className={cl.label}>
-                        {" "}
-                        Email
-                        <input
-                            id='email'
-                            name='email'
-                            className={cl.input}
-                            type='text'
-                            placeholder='Type your email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            autoComplete='off'
-                        />
-                    </label>
-                </div>
+                <MyButton style={{ marginTop: "1.5rem" }} type='submit'>
+                    Войти
+                </MyButton>
 
-                <div className={cl.wrap}>
-                    <label className={cl.label}>
-                        {" "}
-                        Password
-                        <input
-                            id='password'
-                            name='password'
-                            className={cl.input}
-                            type='password'
-                            placeholder='Type your password'
-                            minLength={6}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            autoComplete='off'
-                        />
-                    </label>
-                </div>
-
-                <MyButton type='submit'>Войти</MyButton>
-
-                <hr className={cl.hr} />
+                <hr className='hr' />
 
                 <p className={cl.reg_label}>
                     У вас аккаунта?{" "}

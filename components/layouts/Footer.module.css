@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: var(--dist-small);
+    padding: var(--dist-small) 0;
     overflow: hidden;
     background-color: var(--primary-4);
     font-size: 20px;

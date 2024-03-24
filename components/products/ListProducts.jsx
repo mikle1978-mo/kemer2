@@ -8,21 +8,19 @@ import cl from "./ListProducts.module.css";
 
 const ListProducts = ({ data }) => {
     return (
-        <section className='section'>
+        <>
             <Filters />
-            <div className='container'>
-                <main className={cl.listProduct}>
-                    {data?.products?.map((product) => (
-                        <ProductItem key={product?._id} product={product} />
-                    ))}
+            <main className={cl.listProduct}>
+                {data?.products?.map((product) => (
+                    <ProductItem key={product?._id} product={product} />
+                ))}
 
-                    {/* <CustomPagination
+                {/* <CustomPagination
                             resPerPage={data?.resPerPage}
                             productsCount={data?.filteredProductsCount}
                         /> */}
-                </main>
-            </div>
-        </section>
+            </main>
+        </>
     );
 };
 

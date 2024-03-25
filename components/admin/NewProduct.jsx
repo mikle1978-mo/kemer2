@@ -45,7 +45,7 @@ const NewProduct = () => {
     };
 
     return (
-        <section>
+        <>
             <h1 className={cl.title}>Создать новый продукт</h1>
 
             <form className={cl.form} onSubmit={submitHandler}>
@@ -190,7 +190,7 @@ const NewProduct = () => {
                     {loading ? "Создание..." : "Создать продукт"}
                 </MyButton>
             </form>
-        </section>
+        </>
     );
 };
 

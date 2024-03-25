@@ -4,20 +4,10 @@ import cl from "./layout.module.css";
 export default function UserLayout({ children }) {
     return (
         <>
-            <section className={cl.me}>
-                <div className='container'>
-                    <h1 className={cl.me_title}>Личный кабинет</h1>
-                </div>
-            </section>
+            <h1 className='title'>Личный кабинет</h1>
 
-            <section className={cl.section}>
-                <div className={cl.me_wrap}>
-                    <Sidebar />
-                    <main className={cl.main}>
-                        <article className={cl.article}>{children}</article>
-                    </main>
-                </div>
-            </section>
+            <Sidebar />
+            <main className='main'>{children}</main>
         </>
     );
 }

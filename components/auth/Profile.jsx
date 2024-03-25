@@ -35,7 +35,7 @@ const Profile = ({ addresses }) => {
                 </figcaption>
             </figure>
 
-            <hr className={cl.hr} />
+            <hr className='hr' />
 
             <UserAddresses addresses={addresses} />
 

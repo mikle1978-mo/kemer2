@@ -28,9 +28,9 @@ const Register = () => {
     };
 
     return (
-        <div style={{ maxWidth: "480px" }} className={cl.register_wrap}>
+        <div style={{ maxWidth: "480px" }} className='section'>
             <form onSubmit={submitHandler}>
-                <h2 className={cl.form_title}>Зарегистрировать аккаунт</h2>
+                <h2 className='title'>Зарегистрировать аккаунт</h2>
 
                 <div className={cl.input_wrap}>
                     <label className={cl.input_label}>

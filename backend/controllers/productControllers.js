@@ -51,7 +51,7 @@ export const getProducts = async (req, res, next) => {
 };
 
 export const getAdminProducts = async (req, res, next) => {
-    const resPerPage = 6;
+    // const resPerPage = 6;
     const productsCount = await Product.countDocuments();
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
@@ -74,13 +74,13 @@ export const getAdminProducts = async (req, res, next) => {
     let products = await apiFilters.query;
     const filteredProductsCount = products.length;
 
-    apiFilters.pagination(resPerPage);
+    // apiFilters.pagination(resPerPage);
 
     products = await apiFilters.query.clone();
 
     return {
         productsCount,
-        resPerPage,
+        // resPerPage,
         filteredProductsCount,
         products,
     };

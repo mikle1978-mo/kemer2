@@ -26,7 +26,7 @@ const ProductItem = ({ product }) => {
 
     return (
         <article className={cl.card}>
-            <div className={cl.card__top}>
+            <Link href={`/product/${product._id}`} className={cl.card__top}>
                 <div className={cl.card__image}>
                     <img
                         src={
@@ -41,7 +41,7 @@ const ProductItem = ({ product }) => {
                 </div>
                 {/* -- Скидка на товар -- */}
                 <div className={cl.card__label}>-10%</div>
-            </div>
+            </Link>
             <div className={cl.card__bottom}>
                 <div className={cl.card__prices}>
                     <span className={cl.card__priceDiscount}>
@@ -53,17 +53,14 @@ const ProductItem = ({ product }) => {
                         {product?.price.toFixed(2)}
                     </span>
                 </div>
+
                 <h2 className={cl.card__titleBox}>
-                    <Link href={`/product/${product._id}`}>
-                        <span className={cl.card__titleSeller}>
-                            {product.seller}
-                        </span>
-                        /
-                        <span className={cl.card__titleName}>
-                            {product.name}
-                        </span>
-                    </Link>
+                    <span className={cl.card__titleSeller}>
+                        {product.seller}
+                    </span>
+                    /<span className={cl.card__titleName}>{product.name}</span>
                 </h2>
+
                 <div className={cl.card__rating}>
                     <div className={cl.card__ratingStar}>
                         &#9733;{/*  звездочка */}
@@ -74,6 +71,7 @@ const ProductItem = ({ product }) => {
                     </span>
                 </div>
             </div>
+
             <MyButton className={cl.card__add} onClick={addToCartHandler}>
                 В Корзину
             </MyButton>

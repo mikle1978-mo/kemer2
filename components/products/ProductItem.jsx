@@ -18,6 +18,7 @@ const ProductItem = ({ product }) => {
             product: product._id,
             name: product.name,
             price: product.price,
+            discount: product.discount,
             image: product.images[0].url,
             stock: product.stock,
             seller: product.seller,
@@ -40,18 +41,34 @@ const ProductItem = ({ product }) => {
                     />
                 </div>
                 {/* -- Скидка на товар -- */}
-                <div className={cl.card__label}>-10%</div>
+                {product?.discount ? (
+                    <div className={cl.card__label}>-{product?.discount}%</div>
+                ) : (
+                    <div> </div>
+                )}
             </Link>
             <div className={cl.card__bottom}>
                 <div className={cl.card__prices}>
-                    <span className={cl.card__priceDiscount}>
-                        {mark}
-                        {product?.price.toFixed(2)}
-                    </span>
-                    <span className={cl.card__priceCommon}>
-                        {mark}
-                        {product?.price.toFixed(2)}
-                    </span>
+                    {product?.discount ? (
+                        <>
+                            <span className={cl.card__priceDiscount}>
+                                {mark}
+                                {product?.price.toFixed(2)}
+                            </span>
+                            <span className={cl.card__priceCommon}>
+                                {mark}
+                                {(
+                                    (product?.price * 100) /
+                                    (100 - product?.discount)
+                                ).toFixed(2)}
+                            </span>
+                        </>
+                    ) : (
+                        <span className={cl.card__priceDiscount}>
+                            {mark}
+                            {product?.price.toFixed(2)}
+                        </span>
+                    )}
                 </div>
 
                 <h2 className={cl.card__titleBox}>

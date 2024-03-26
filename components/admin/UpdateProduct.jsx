@@ -16,6 +16,7 @@ const UpdateProduct = ({ data }) => {
         description: data?.description,
         seller: data?.seller,
         price: data?.price,
+        discount: data?.discount,
         stock: data?.stock,
         category: data?.category,
     });
@@ -32,7 +33,8 @@ const UpdateProduct = ({ data }) => {
         }
     }, [error, updated]);
 
-    const { name, description, seller, price, stock, category } = product;
+    const { name, description, seller, price, discount, stock, category } =
+        product;
 
     const onChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
@@ -96,6 +98,24 @@ const UpdateProduct = ({ data }) => {
                                         value={price}
                                         onChange={onChange}
                                         required
+                                    />
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div className={cl.input_wrap}>
+                        <label className={cl.label}>
+                            {" "}
+                            Скидка
+                            <div className={cl.relative}>
+                                <div className={cl.bottom_input}>
+                                    <input
+                                        type='text'
+                                        className={cl.input}
+                                        placeholder='0.00'
+                                        name='discount'
+                                        value={discount}
+                                        onChange={onChange}
                                     />
                                 </div>
                             </div>

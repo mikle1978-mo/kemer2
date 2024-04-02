@@ -62,6 +62,7 @@ export const ProductProvider = ({ children }) => {
                     },
                 }
             );
+
             if (data?.data) {
                 setUpdated(true);
                 setLoading(false);

@@ -14,10 +14,10 @@ const uploadToCloudinary = async (fileUri, folder) => {
             resource_type: "auto",
             folder: folder,
         });
-        console.log(result);
+        console.log("result:   ", result);
         return {
             public_id: result.public_id,
-            url: result.url,
+            url: result.secure_url,
         };
     } catch (error) {
         console.error("Произошла ошибка при загрузке в Cloudinary:", error);

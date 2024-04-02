@@ -36,7 +36,7 @@ const Login = () => {
     };
 
     return (
-        <div style={{ maxWidth: "480px" }} className={cl.login}>
+        <div style={{ maxWidth: "480px", margin: "auto" }} className={cl.login}>
             <form onSubmit={submitHandler}>
                 <h2 className='title'>Вход</h2>
                 <label className={cl.label}>
@@ -78,7 +78,7 @@ const Login = () => {
                 <hr className='hr' />
 
                 <p className={cl.reg_label}>
-                    У вас аккаунта?{" "}
+                    У вас нет аккаунта?{" "}
                     <Link href='/register' className={cl.reg_link}>
                         Зарегистрироваться
                     </Link>

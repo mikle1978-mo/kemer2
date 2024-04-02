@@ -18,10 +18,12 @@
 .main_wrap {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .main {
     display: block;
+    width: 100%;
 }
 .article {
     padding-top: 0.75rem;
@@ -43,11 +45,5 @@
 @media (min-width: 768px) {
     .main_wrap {
         flex-direction: row;
-    }
-}
-
-@media (min-width: 1024px) {
-    .article {
-        padding: 1.25rem;
     }
 }

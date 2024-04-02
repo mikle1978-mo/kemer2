@@ -27,6 +27,8 @@ const HomePage = async ({ searchParams }) => {
         `${process.env.API_URL}/api/products?${searchQuery}`
     );
 
+    data.products = data.products.sort(() => Math.random() - 0.5);
+
     return <ListProducts data={data} />;
 };
 

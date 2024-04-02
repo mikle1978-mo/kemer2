@@ -6,6 +6,8 @@ import { mark } from "@/lib/const/const";
 import dynamic from "next/dynamic";
 import cl from "./ProductItem.module.css";
 import MyButton from "../UI/myButton/myButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 const ProductItem = ({ product }) => {
     const StarRatings = dynamic(() => import("react-star-ratings"), {
@@ -90,7 +92,7 @@ const ProductItem = ({ product }) => {
             </div>
 
             <MyButton className={cl.card__add} onClick={addToCartHandler}>
-                В Корзину
+                <FontAwesomeIcon icon={faCartShopping} />
             </MyButton>
         </article>
     );

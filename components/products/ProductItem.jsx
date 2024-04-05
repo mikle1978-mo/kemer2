@@ -91,7 +91,11 @@ const ProductItem = ({ product }) => {
                 </div>
             </div>
 
-            <MyButton className={cl.card__add} onClick={addToCartHandler}>
+            <MyButton
+                name='cart'
+                className={cl.card__add}
+                onClick={addToCartHandler}
+            >
                 <FontAwesomeIcon icon={faCartShopping} />
             </MyButton>
         </article>

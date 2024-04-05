@@ -124,7 +124,6 @@ const NewProduct = () => {
                                         name='discount'
                                         value={discount}
                                         onChange={onChange}
-                                        required
                                     />
                                 </div>
                             </div>

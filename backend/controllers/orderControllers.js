@@ -124,18 +124,24 @@ export const deleteOrder = async (req, id, res) => {
 };
 
 export const canReview = async (req, res) => {
-    const productId = req.query.productId;
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.search);
+
+    const productId = searchParams.get("productId");
+
+    
 
     const orders = await Order.find({
         user: req?.user?._id,
         "orderItems.product": productId,
     });
 
+    
     let canReview = orders?.length >= 1 ? true : false;
 
-    res.status(200).json({
+    return {
         canReview,
-    });
+    };
 };
 
 export const checkoutSession = async (req, res) => {

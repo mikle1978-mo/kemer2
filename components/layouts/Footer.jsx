@@ -12,17 +12,18 @@ import {
     faCartShopping,
     faUser,
     faHouse,
+    faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Footer.module.css";
 import MenuContext from "@/context/MenuContext";
 
 const Header = () => {
     const { user, setUser } = useContext(AuthContext);
-    const { isActiveMenu, toggleMenuMode } = useContext(MenuContext);
+    // const { isActiveMenu, toggleMenuMode } = useContext(MenuContext);
 
-    const clickHandler = () => {
-        toggleMenuMode();
-    };
+    // const clickHandler = () => {
+    //     toggleMenuMode();
+    // };
     const { data } = useSession();
 
     useEffect(() => {
@@ -39,10 +40,13 @@ const Header = () => {
             <Link href='/'>
                 <FontAwesomeIcon icon={faHouse} color='blue' />
             </Link>
+            <Link href='/filters'>
+                <FontAwesomeIcon icon={faMagnifyingGlass} color='blue' />
+            </Link>
 
-            <div className={cl.burger} onClick={clickHandler}>
-                <FontAwesomeIcon icon={faBars} color='blue' />
-            </div>
+            {/* <div className={cl.burger} onClick={clickHandler}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} color='blue' />
+            </div> */}
 
             <Link className={cl.cart} href='/cart'>
                 {cartItems?.length ? (

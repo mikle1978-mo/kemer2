@@ -33,9 +33,6 @@ const Search = () => {
                 onChange={(e) => setKeyword(e.target.value)}
                 required
             />
-            <div className={cl.button} onClick={submitHandler}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
         </form>
     );
 };

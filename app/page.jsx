@@ -11,7 +11,6 @@ export const metadata = {
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
-    console.log("process.env.API_URL!!!!!!!!!!!", process.env.API_URL);
     const urlParams = {
         keyword: searchParams.keyword,
         page: searchParams.page,

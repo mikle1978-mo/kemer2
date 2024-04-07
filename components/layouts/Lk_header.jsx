@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useContext } from "react";
-import UserAddresses from "../user/UserAddresses";
-import Link from "next/link";
+import { useContext, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import AuthContext from "@/context/AuthContext";
-import cl from "./Profile.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import MyButton from "../UI/myButton/myButton";
 
-const Profile = ({ addresses }) => {
-    const { user } = useContext(AuthContext);
+import cl from "./Lk_header.module.css";
+
+export default function LkHeader() {
+    const { user, setUser } = useContext(AuthContext);
 
     return (
         <>
@@ -36,19 +33,6 @@ const Profile = ({ addresses }) => {
             </figure>
 
             <hr className='hr' />
-
-            <UserAddresses addresses={addresses} />
-
-            <Link href='/address/new'>
-                <MyButton>
-                    <FontAwesomeIcon icon={faPlus} className={cl.icon} />
-                    Добавить новый адрес
-                </MyButton>
-            </Link>
-
-            <hr className={cl.hr} />
         </>
     );
-};
-
-export default Profile;
+}

@@ -1,0 +1,41 @@
+.figure {
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    gap: 0.5rem;
+    padding: 0;
+}
+
+.img_wrap {
+    color: rgb(81, 53, 11);
+}
+
+.img {
+    border-radius: 9999px;
+    width: 4rem;
+    height: 4rem;
+}
+
+.figcaption {
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+.figcaption_name {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.icon {
+    margin-right: 0.25rem;
+}
+
+@media (min-width: 640px) {
+    .figure {
+        align-items: center;
+    }
+}

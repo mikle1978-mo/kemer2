@@ -2,7 +2,7 @@
 
 import React, { useState, useContext, useEffect } from "react";
 
-import Sidebar from "../layouts/Sidebar";
+import Sidebar from "../../app/me/page";
 
 import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
@@ -65,7 +65,6 @@ const UpdateAddress = ({ id, address }) => {
             <section className={cl.section}>
                 <div className='container'>
                     <div className={cl.wrap}>
-                        <Sidebar />
                         <main className={cl.main}>
                             <div
                                 style={{ maxWidth: "480px" }}

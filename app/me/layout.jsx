@@ -1,12 +1,11 @@
-import Sidebar from "@/components/layouts/Sidebar";
-import cl from "./layout.module.css";
+import LkHeader from "@/components/layouts/Lk_header";
 
 export default function UserLayout({ children }) {
     return (
         <>
             <h1 className='title'>Личный кабинет</h1>
+            <LkHeader />
 
-            <Sidebar />
             <main className='main'>{children}</main>
         </>
     );

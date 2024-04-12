@@ -129,14 +129,11 @@ export const canReview = async (req, res) => {
 
     const productId = searchParams.get("productId");
 
-    
-
     const orders = await Order.find({
         user: req?.user?._id,
         "orderItems.product": productId,
     });
 
-    
     let canReview = orders?.length >= 1 ? true : false;
 
     return {

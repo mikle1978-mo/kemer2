@@ -87,7 +87,13 @@ export const getAdminProducts = async (req, res, next) => {
 };
 
 export const getProduct = async (req, id) => {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate({
+        path: "reviews",
+        populate: {
+            path: "user",
+            select: "name avatar", // Вы можете указать, какие поля пользователя вы хотите заполнить
+        },
+    });
 
     if (!product) {
         return new ErrorHandler("Product not found.", 404);
@@ -104,7 +110,6 @@ export const uploadProductImages = async (req, id) => {
     try {
         const data = await req.formData();
         const files = await data.getAll("image");
-        console.log("Количество изображений:", files.length);
         if (files.length === 0) {
             console.error("Нет прикрепленных изображений");
             return new ErrorHandler("Нет прикрепленных изображений", 400);

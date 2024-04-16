@@ -10,7 +10,7 @@
 }
 @media (max-width: 768px) {
     .card {
-        width: 168px;
+        min-width: 162px;
         padding: 0;
     }
 }

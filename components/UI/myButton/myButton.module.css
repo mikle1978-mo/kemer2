@@ -16,7 +16,7 @@
 }
 
 .myButton:hover {
-    border: 1px solid #ff6633;
-    background-color: #ff6633;
+    border: 1px solid var(--complement-0);
+    background-color: var(--complement-0);
     color: #fff;
 }

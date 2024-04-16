@@ -188,7 +188,7 @@ export const deleteProduct = async (req, id, next) => {
 };
 
 export const createProductReview = async (req, res, next) => {
-    const { rating, comment, productId } = req.body;
+    const { rating, comment, productId } = await req.json();
 
     const review = {
         user: req?.user?._id,
@@ -223,7 +223,7 @@ export const createProductReview = async (req, res, next) => {
 
     await product?.save();
 
-    res.status(200).json({
+    return {
         success: true,
-    });
+    };
 };

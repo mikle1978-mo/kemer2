@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getPriceQueryParams } from "@/helpers/helpers";
 import { categories } from "@/lib/categoty/category";
@@ -159,7 +159,7 @@ const Filters = () => {
                     <ul className={cl.category_list}>
                         {categories.map((item) => (
                             <li key={item.id} className={cl.category_li}>
-                                <label className={cl.list_item}>
+                                <label className={cl.list_item_category}>
                                     <input
                                         id={item.id}
                                         name='category'

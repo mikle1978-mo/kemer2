@@ -1,0 +1,79 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.wrap {
+    display: block;
+    padding: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    border-color: #e5e7eb;
+    max-width: 24rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.flex {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.avatar {
+    border-radius: 9999px;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.top {
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.top_date {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #6b7280;
+}
+
+.ratings_wrap {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.rating {
+    color: #f59e0b;
+}
+
+.comment {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 300;
+    color: #6b7280;
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

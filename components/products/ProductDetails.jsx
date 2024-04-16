@@ -55,8 +55,8 @@ const ProductDetails = ({ product }) => {
             <BreadCrumbs breadCrumbs={breadCrumbs} />
 
             <div className={cl.grid}>
-                <aside>
-                    <div className={cl.aside}>
+                <aside className={cl.aside}>
+                    <div className={cl.imgWrap}>
                         <img
                             ref={imgRef}
                             className={cl.aside_img}
@@ -70,7 +70,7 @@ const ProductDetails = ({ product }) => {
                             // height={340}
                         />
                     </div>
-                    <div className={cl.aside_smlImgWrap}>
+                    <div className={cl.smlImgWrap}>
                         {product?.images?.map((img) => (
                             <a
                                 key={img?._id}
@@ -120,8 +120,11 @@ const ProductDetails = ({ product }) => {
                         {mark}
                         {product?.price}
                     </p>
+                    <details className={cl.details}>
+                        <summary>Развернуть описание</summary>
 
-                    <p className={cl.desc}>{product?.description}</p>
+                        <p className={cl.desc}>{product?.description}</p>
+                    </details>
 
                     <div className={cl.btn_wrap}>
                         <MyButton
@@ -136,7 +139,7 @@ const ProductDetails = ({ product }) => {
                     <ul className={cl.ul_wrap}>
                         <li className={cl.li_wrap}>
                             {" "}
-                            <b className={cl.stock}>Stock</b>
+                            <b className={cl.stock}>Склад</b>
                             {inStock ? (
                                 <span className={cl.stock_green}>
                                     В наличии
@@ -154,7 +157,7 @@ const ProductDetails = ({ product }) => {
                         </li>
                         <li className={cl.li_wrap}>
                             {" "}
-                            <b className={cl.brand}>Seller / Brand:</b>
+                            <b className={cl.brand}>Продавец/Бренд:</b>
                             <span className={cl.brand_value}>
                                 {product?.seller}
                             </span>
@@ -167,7 +170,12 @@ const ProductDetails = ({ product }) => {
             <hr />
 
             <div className={cl.review_wrap}>
-                <h1 className={cl.review_title}>Отзывы</h1>
+                <h3
+                    className={cl.review_title}
+                    style={{ marginBottom: "0.5rem" }}
+                >
+                    Отзывы
+                </h3>
                 <Reviews reviews={product?.reviews} />
             </div>
         </>

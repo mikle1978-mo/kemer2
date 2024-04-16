@@ -76,7 +76,7 @@
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .category_li {
-    padding: 1rem;
+    /* padding: 1rem; */
     margin-bottom: 0.5rem;
     list-style-type: none;
     line-height: 1.25;
@@ -85,9 +85,18 @@
     border-radius: 0.3rem;
     color: white;
 }
+.category_li:hover {
+    background: var(--complement-0);
+}
 
 .list_item {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.list_item_category {
+    display: flex;
+    padding: 1rem;
     align-items: center;
     justify-content: space-between;
 }

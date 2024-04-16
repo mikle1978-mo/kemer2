@@ -3,6 +3,7 @@ import axios from "axios";
 import mongoose from "mongoose";
 import { redirect } from "next/navigation";
 import { mark } from "@/lib/const/const";
+import { cache } from "react";
 
 export async function generateMetadata({ params }) {
     const product = await getProductDetails(params?.id);
@@ -12,12 +13,18 @@ export async function generateMetadata({ params }) {
     };
 }
 
-const getProductDetails = async (id) => {
+export async function generateStaticParams() {
+    const { data } = await axios.get(`${process.env.API_URL}/api/products`);
+
+    return data.products.map(({ _id }) => _id);
+}
+
+const getProductDetails = cache(async (id) => {
     const { data } = await axios.get(
         `${process.env.API_URL}/api/products/${id}`
     );
     return data?.product;
-};
+});
 
 const ProductDetailsPage = async ({ params }) => {
     const isValidId = mongoose.isValidObjectId(params?.id);

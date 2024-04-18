@@ -20,7 +20,6 @@ const ProductDetails = ({ product }) => {
     const { addItemToCart } = useContext(CartContext);
     const { canUserReview, canReview } = useContext(OrderContext);
     const imgRef = useRef(null);
-
     const setImgPreview = (url) => {
         imgRef.current.src = url;
     };

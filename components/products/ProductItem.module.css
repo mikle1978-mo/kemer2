@@ -1,5 +1,5 @@
 .card {
-    width: 180px;
+    width: 100%;
     min-height: 325px;
     display: flex;
     flex-direction: column; /* Размещаем элементы в колонку */
@@ -10,7 +10,6 @@
 }
 @media (max-width: 768px) {
     .card {
-        min-width: 162px;
         padding: 0;
     }
 }

@@ -1,7 +1,7 @@
 :root {
     /* RGBA коды */
 
-    --primary-0: rgba(0, 51, 204, 1); /* Основной Цвет */
+    --primary-0: rgb(0, 51, 204); /* Основной Цвет */
     --primary-1: rgba(51, 51, 102, 1);
     --primary-2: rgba(0, 0, 51, 1);
     --primary-3: rgba(153, 153, 255, 1);
@@ -136,11 +136,39 @@ textarea {
 .main {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 0.5rem;
 }
 
 .hr {
     margin: 0.5rem 0;
+}
+
+.roller_wrap {
+    text-align: center;
+    padding: 5rem;
+}
+.roller {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 10px solid var(--primary-0);
+    border-radius: 50%;
+    border-top-color: var(--complement-0);
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 640px) {

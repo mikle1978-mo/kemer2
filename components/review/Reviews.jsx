@@ -11,7 +11,7 @@ const Reviews = ({ reviews }) => {
     return (
         <div className={cl.grid}>
             {reviews?.map((review) => (
-                <article className={cl.wrap}>
+                <article className={cl.wrap} key={review.createdAt}>
                     <div className={cl.flex}>
                         <img
                             className={cl.avatar}

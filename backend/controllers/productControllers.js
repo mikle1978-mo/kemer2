@@ -87,17 +87,25 @@ export const getAdminProducts = async (req, res, next) => {
 };
 
 export const getProduct = async (req, id) => {
-    const product = await Product.findById(id).populate({
-        path: "reviews",
-        populate: {
-            path: "user",
-            select: "name avatar", // Вы можете указать, какие поля пользователя вы хотите заполнить
-        },
-    });
+    const product = await Product.findById(id);
 
     if (!product) {
         return new ErrorHandler("Product not found.", 404);
     }
+
+    // if (product.reviews.length > 0) {
+    //     // Если есть отзывы, получаем продукт с заполнением данных о пользователе в отзывах
+    //     const product = await Product.findById(id).populate({
+    //         path: "reviews",
+    //         populate: {
+    //             path: "user",
+    //             select: "name avatar", // Выбор только нужных полей
+    //         },
+    //     });
+    //     return {
+    //         product,
+    //     };
+    // }
 
     return {
         product,

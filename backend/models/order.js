@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Address from "./address";
+import User from "./user";
 
 const orderSchema = mongoose.Schema({
     shippingInfo: {

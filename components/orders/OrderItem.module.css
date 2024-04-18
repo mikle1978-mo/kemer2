@@ -1,17 +1,38 @@
-.header {
-    margin-bottom: 1rem;
+.wrap {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 0.5rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.line {
+    display: flex;
     justify-content: space-between;
 }
 
-.header_wrap {
-    margin-bottom: 1rem;
-}
+/* .details {
+    align-self: flex-end;
+} */
 
-.order_info {
-    font-weight: 600;
+.summary {
+    color: grey;
+    text-decoration: underline;
+    margin: 0.5rem 0;
 }
 .status_red {
     color: red;
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
 }
 .status_green {
     color: green;
@@ -19,11 +40,6 @@
 
 .order_date {
     color: grey;
-}
-
-.person_wrap {
-    display: grid;
-    gap: 0.5rem;
 }
 
 .info_title {
@@ -39,31 +55,17 @@
     color: green;
 }
 
-.hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.img_wrap {
-    display: grid;
+.figure {
+    display: flex;
+    margin: 0.25rem 0;
+    flex-direction: row;
     gap: 0.5rem;
 }
 
-.figure {
-    display: flex;
-    margin: 0.25rem;
-    flex-direction: row;
-}
-
-.img {
-    display: block;
-    overflow: hidden;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    border-width: 1px;
-    border-color: #e5e7eb;
-    width: 5rem;
-    height: 5rem;
+.productImg {
+    width: 3.5rem;
+    height: 4.5rem;
+    border-radius: 0.5rem;
 }
 
 .figcaprion {
@@ -76,25 +78,10 @@
 }
 
 @media (min-width: 768px) {
-    .person_wrap {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .img_wrap {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
 }
 
 @media (min-width: 1024px) {
     .wrap {
         padding: 1.25rem;
-    }
-    .header {
-        display: flex;
-    }
-    .header_wrap {
-        margin-bottom: 0;
-    }
-    .img_wrap {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }

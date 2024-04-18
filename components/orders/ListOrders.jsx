@@ -2,7 +2,6 @@
 
 import React, { useContext, useEffect } from "react";
 import OrderItem from "./OrderItem";
-import CustomPagination from "../layouts/CustomPagination";
 import CartContext from "@/context/CartContext";
 import { useSearchParams, useRouter } from "next/navigation";
 import cl from "./ListOrders.module.css";
@@ -22,17 +21,12 @@ const ListOrders = ({ orders }) => {
     }, []);
 
     return (
-        <>
+        <div className={cl.listOrder}>
             <h3 className='title'>Ваши заказы</h3>
             {orders?.orders?.map((order) => (
                 <OrderItem key={order._id} order={order} />
             ))}
-
-            {/* <CustomPagination
-                resPerPage={orders?.resPerPage}
-                productsCount={orders?.ordersCount}
-            /> */}
-        </>
+        </div>
     );
 };
 

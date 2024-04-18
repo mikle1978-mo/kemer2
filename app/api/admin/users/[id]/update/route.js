@@ -7,7 +7,6 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function PUT(req, { params }) {
-    console.log(params);
     dbConnect();
 
     // Дождитесь завершения аутентификации и проверки ролей

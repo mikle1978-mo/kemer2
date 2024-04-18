@@ -14,7 +14,5 @@ export async function GET(req) {
 
     const data = await getOrders(req);
 
-    console.log("admin/orders/route: data", data);
-
     return NextResponse.json(data, { status: 200 });
 }

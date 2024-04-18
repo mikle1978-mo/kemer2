@@ -17,11 +17,7 @@ export const uploadProductImages = async (req, id, next) => {
     const filePaths = files.map((file) => file.path);
 
     // Thats it, you have your files
-    console.log("..............1", formData);
-    console.log("..............2", files);
-    console.log("..............3", filePaths);
 
-    // console.log("body+++++++++++++++", body);
 
     if (!product) {
         return next(new ErrorHandler("Product not found.", 404));
@@ -34,7 +30,7 @@ export const uploadProductImages = async (req, id, next) => {
     // const files = body;
 
     for (const file of files) {
-        console.log("file:   ===", file);
+   
         // const arrayBuffer = await file.arrayBuffer();
         // const buffer = new Uint8Array(arrayBuffer);
         // const bytes = await file.arrayBuffer();
@@ -50,11 +46,11 @@ export const uploadProductImages = async (req, id, next) => {
             "public/images/uploads",
             file.name
         );
-        console.log(destinationDirPath);
+     
 
-        console.log("path_________________:  ", destinationDirPath);
+   
         const imgUrl = await uploader(destinationDirPath);
-        console.log(imgUrl);
+
         urls.push(imgUrl);
         fs.unlinkSync(destinationDirPath);
     }

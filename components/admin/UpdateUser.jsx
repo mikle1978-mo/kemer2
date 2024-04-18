@@ -27,7 +27,6 @@ const UpdateUser = ({ user }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log("click!!");
         const userData = { name, email, role };
 
         updateUser(user?._id, userData);

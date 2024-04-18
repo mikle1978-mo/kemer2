@@ -92,7 +92,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     const updateUser = async (id, userData) => {
-        console.log("authcontext updateuser ID:", id);
         try {
             const { data } = await axios.put(
                 `${process.env.API_URL}/api/admin/users/${id}/update`,

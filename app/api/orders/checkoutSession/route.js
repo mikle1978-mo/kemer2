@@ -10,4 +10,4 @@ export async function POST(req) {
     const data = await checkoutSession(req);
 
     return NextResponse.json(data, { status: 200 });
-}
+} 

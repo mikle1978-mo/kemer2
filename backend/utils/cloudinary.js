@@ -14,7 +14,7 @@ const uploadToCloudinary = async (fileUri, folder) => {
             resource_type: "auto",
             folder: folder,
         });
-        console.log("result:   ", result);
+
         return {
             public_id: result.public_id,
             url: result.secure_url,

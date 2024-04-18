@@ -16,10 +16,11 @@ import { canReview } from "@/backend/controllers/orderControllers";
 import { NextResponse } from "next/server";
 import { isAuthenticatedUser } from "@/backend/middlewares/auth";
 import { requestToBodyStream } from "next/dist/server/body-streams";
+import { dbConnect } from "@/backend/config/dbConnect";
 
-export async function GET(req, { params }) {
+export async function GET(req) {
+    dbConnect();
     await isAuthenticatedUser(req);
     const data = await canReview(req);
-    console.log(data);
     return NextResponse.json(data, { status: 200 });
 }

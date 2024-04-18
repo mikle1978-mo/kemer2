@@ -63,8 +63,6 @@ const Shipping = ({ addresses }) => {
                 }
             );
 
-            console.log(data);
-
             addTempOrderToStore(data);
             router.push("/paying");
         } catch (error) {

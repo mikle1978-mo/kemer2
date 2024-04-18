@@ -4,14 +4,12 @@ import path from "path";
 
 // Определение директории в зависимости от окружения
 const isVercelDev = process.env.VERCEL_ENV === "development";
-console.log("multer isVercelDev", isVercelDev);
-console.log("multer process.env.VERCEL_ENV", process.env.VERCEL_ENV);
+
 
 // Определение директории в зависимости от окружения
 const uploadDirectory = isVercelDev
     ? path.join(process.cwd(), "public/images/uploads")
     : path.join("/tmp", "uploads");
-console.log("multer uploadDirectory", uploadDirectory);
 // Проверка и создание директории, если её нет
 if (!fs.existsSync(uploadDirectory)) {
     fs.mkdirSync(uploadDirectory, { recursive: true });

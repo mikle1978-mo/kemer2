@@ -25,7 +25,6 @@ const MyOrdersPage = async ({ searchParams }) => {
             },
         }
     );
-    console.log("orders:  ", data.orders[0]);
 
     return <ListOrders orders={data} />;
 };

@@ -80,7 +80,6 @@ export const myOrders = async (req, res) => {
     const apiFilters = new APIFilters(Order.find(), queryStr).pagination(
         resPerPage
     );
-
     const orders = await apiFilters.query
         .find({ user: req.user._id })
         .sort({ createAt: -1 })

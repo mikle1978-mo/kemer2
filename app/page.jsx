@@ -2,8 +2,7 @@ import axios from "axios";
 import ListProducts from "@/components/products/ListProducts";
 import { dbConnect } from "@/backend/config/dbConnect";
 import queryString from "query-string";
-
-
+import Carusel from "../components/UI/carusel/myCarusel";
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
@@ -24,7 +23,12 @@ const HomePage = async ({ searchParams }) => {
 
     data.products = data.products.sort(() => Math.random() - 0.5);
 
-    return <ListProducts data={data} />;
+    return (
+        <>
+            <Carusel />
+            <ListProducts data={data} />;
+        </>
+    );
 };
 
 export default HomePage;

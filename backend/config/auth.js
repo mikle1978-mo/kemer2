@@ -12,7 +12,7 @@ export const AuthOptions = {
             async authorize(credentials, NextRequest) {
                 try {
                     // ваш текущий код
-                    dbConnect();
+                    // dbConnect();
                     const { email, password } = credentials;
 
                     const user = await User.findOne({ email }).select(

@@ -1,5 +1,3 @@
-"use client";
-
 import cl from "./myCarusel.module.css";
 import { caruselArray } from "@/lib/reclam/reclam";
 
@@ -10,16 +8,9 @@ export default function Carusel() {
             <div className={cl.window}>
                 <div className={cl.all_pages_container}>
                     {sortedArray.map((child) => (
-                        <div
-                            key={child.id}
-                            className={cl.item}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                window.location.href = `${child.link}`;
-                            }}
-                        >
+                        <a key={child.id} href={child.link} className={cl.item}>
                             <img src={child.img} alt={child.name} />
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>

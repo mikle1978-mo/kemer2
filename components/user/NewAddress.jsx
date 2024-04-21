@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState, useContext, useEffect } from "react";
-
-import Sidebar from "../../app/me/page";
-
 import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
 import cl from "./NewAddress.module.css";
@@ -122,7 +119,7 @@ const NewAddress = () => {
                                         </div>
                                     </div>
 
-                                    <div className={cl.bottom_section}>
+                                    {/* <div className={cl.bottom_section}>
                                         <div className={cl.input_wrap}>
                                             <label className={cl.label}>
                                                 {" "}
@@ -142,9 +139,9 @@ const NewAddress = () => {
                                                 />
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> */}
 
-                                    <div className={cl.input_section}>
+                                    {/* <div className={cl.input_section}>
                                         <label className={cl.label}>
                                             {" "}
                                             Страна{" "}
@@ -160,7 +157,7 @@ const NewAddress = () => {
                                                 }
                                             />
                                         </label>
-                                    </div>
+                                    </div> */}
                                     <MyButton type='submit'>Добавить</MyButton>
                                 </form>
                             </div>

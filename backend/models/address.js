@@ -25,6 +25,10 @@ const addressSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    addInfo: {
+        type: String,
+        required: false,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

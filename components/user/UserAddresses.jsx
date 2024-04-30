@@ -17,10 +17,10 @@ const UserAddresses = ({ addresses }) => {
                     <figcaption className={cl.figcaption}>
                         <p>
                             {address.street} <br /> {address.city},{" "}
-                            {address.state}, {address.zipCode},{" "}
-                            {address.country}
+                            {address.state},{/* {address.zipCode}, */}
+                            {/* {address.country} */}
                             <br />
-                            Phone no: {address.phoneNo}
+                            Тел: {address.phoneNo}
                         </p>
                     </figcaption>
                 </figure>

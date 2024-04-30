@@ -14,7 +14,20 @@ const ProfilePage = async () => {
         },
     });
 
-    return <Addresses addresses={data?.addresses} />;
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: "center",
+                    color: "gray",
+                    fontSize: "smaller",
+                }}
+            >
+                Выбирите адрес для редактирования или добавьте новый адрес{" "}
+            </div>
+            <Addresses addresses={data?.addresses} />
+        </>
+    );
 };
 
 export default ProfilePage;

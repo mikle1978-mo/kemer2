@@ -5,8 +5,7 @@
 
 .wrap {
     display: flex;
-    margin-left: -1rem;
-    margin-right: -1rem;
+
     flex-direction: column;
 }
 
@@ -15,8 +14,14 @@
     padding-right: 1rem;
 }
 
+.info {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+}
+
 .form_wrap {
-    padding: 1rem;
     margin-top: 0.25rem;
     margin-bottom: 5rem;
     border-radius: 0.25rem;

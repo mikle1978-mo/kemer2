@@ -115,6 +115,7 @@ ul {
 input,
 textarea {
     font-size: inherit;
+    font-family: inherit;
 }
 
 .container {
@@ -135,7 +136,7 @@ textarea {
 
 .main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
 }
@@ -180,9 +181,6 @@ textarea {
 @media (max-width: 768px) {
     body {
         font-size: 0.9rem;
-    }
-    .main {
-        flex-direction: column;
     }
 }
 @media (max-width: 1024px) {

@@ -58,9 +58,9 @@ const Paying = () => {
                         <li>
                             {order?.shippingInfo?.city},{" "}
                             {order?.shippingInfo?.state},{" "}
-                            {order?.shippingInfo?.zipCode}
+                            {/* {order?.shippingInfo?.zipCode} */}
                         </li>
-                        <li>{order?.shippingInfo?.country}</li>
+                        {/* <li>{order?.shippingInfo?.country}</li> */}
                     </ul>
                 </div>
                 <div>

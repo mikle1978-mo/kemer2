@@ -16,7 +16,7 @@
 }
 
 .form_wrap {
-    padding: 0.5rem;
+    padding: 0.2rem;
     margin-top: 0.25rem;
     margin-bottom: 3rem;
     border-radius: 0.25rem;
@@ -75,6 +75,7 @@
     width: 100%;
     background-color: #f3f4f6;
     appearance: none;
+    font-size: inherit;
 }
 .input:hover {
     border-color: #9ca3af;

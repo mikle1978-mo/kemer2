@@ -71,9 +71,9 @@ const Shipping = ({ addresses }) => {
     };
 
     const breadCrumbs = [
-        { name: "Home", url: "/" },
-        { name: "Cart", url: "/cart" },
-        { name: "Order", url: "" },
+        { name: "Главная", url: "/" },
+        { name: "Корзина", url: "/cart" },
+        { name: "Заказ", url: "" },
     ];
 
     return (
@@ -84,6 +84,15 @@ const Shipping = ({ addresses }) => {
                 <main className={cl.main}>
                     <article className={cl.article}>
                         <h2 className='title'>Адрес доставки</h2>
+                        <span
+                            style={{
+                                textAlign: "center",
+                                color: "red",
+                                fontSize: "smaller",
+                            }}
+                        >
+                            Доставка только по районам города Кемер!!!
+                        </span>
 
                         <form>
                             <fieldset className={cl.fieldset}>
@@ -109,9 +118,8 @@ const Shipping = ({ addresses }) => {
                                                 <small className={cl.small}>
                                                     {address.city},{" "}
                                                     {address.state},{" "}
-                                                    {address.zipCode}
-                                                    <br />
-                                                    {address.country}
+                                                    {/* {address.zipCode} */}
+                                                    {/* {address.country} */}
                                                     <br />
                                                     {address.phoneNo}
                                                 </small>

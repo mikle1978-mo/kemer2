@@ -30,8 +30,8 @@ const Paying = () => {
 
             if (data) {
                 TGMessage(order);
-                toast.success("Заказ успешно отправлен, ожидайте доставки");
-                router.push("/me/orders?order_success=true");
+                toast.success("Заказ оформлен");
+                router.push("/congratulation");
             }
         } catch (error) {
             console.log(error);

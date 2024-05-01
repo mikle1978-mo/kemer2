@@ -1,0 +1,19 @@
+.text {
+    text-align: justify;
+    text-indent: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.bold_text {
+    text-align: justify;
+    text-indent: 1rem;
+    font-weight: bolder;
+    margin-top: 0.5rem;
+}
+.red_text {
+    text-align: justify;
+    text-indent: 1rem;
+    font-weight: bolder;
+    color: red;
+    margin-bottom: 0.3rem;
+}

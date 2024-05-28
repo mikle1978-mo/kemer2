@@ -14,9 +14,11 @@ import cl from "./Paying.module.css";
 import MyButton from "../UI/myButton/myButton";
 import PayingIBAN from "./PayingIBAN";
 import PayingCripto from "./PayingCripto";
+import CartContext from "@/context/CartContext";
 
 const Paying = () => {
     const { tempOrder } = useContext(OrderContext);
+    const { clearCart } = useContext(CartContext);
     const router = useRouter();
 
     const order = tempOrder.orderData;
@@ -31,6 +33,7 @@ const Paying = () => {
             if (data) {
                 TGMessage(order);
                 toast.success("Заказ оформлен");
+                clearCart();
                 router.push("/congratulation");
             }
         } catch (error) {

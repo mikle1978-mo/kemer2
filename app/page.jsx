@@ -2,7 +2,9 @@ import axios from "axios";
 import ListProducts from "@/components/products/ListProducts";
 import { dbConnect } from "@/backend/config/dbConnect";
 import queryString from "query-string";
-import Carusel from "../components/UI/carusel/myCarusel";
+import Carusel from "../components/layouts/carusel/myCarusel";
+import { insert } from "@/helpers/helpers";
+import { reclamArray } from "@/lib/reclam/reclam";
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
@@ -21,7 +23,9 @@ const HomePage = async ({ searchParams }) => {
         `${process.env.API_URL}/api/products?${searchQuery}`
     );
 
+    data.products = data.products.filter((item) => item.stock > 0);
     data.products = data.products.sort(() => Math.random() - 0.5);
+    const insertproducns = insert(data.products, reclamArray);
 
     return (
         <>

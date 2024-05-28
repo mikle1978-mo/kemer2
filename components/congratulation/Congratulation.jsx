@@ -22,6 +22,17 @@ const Congratulation = () => {
             </div>
             <MyButton
                 type='button'
+                style={{ backgroundColor: "green" }}
+                onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = `/`;
+                }}
+            >
+                На главную
+            </MyButton>
+            <br />
+            <MyButton
+                type='button'
                 style={{ backgroundColor: "gray" }}
                 onClick={(e) => {
                     e.preventDefault();

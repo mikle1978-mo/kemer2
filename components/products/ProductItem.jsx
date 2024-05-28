@@ -49,13 +49,18 @@ const ProductItem = ({ product }) => {
                     <div> </div>
                 )}
             </Link>
+
             <div className={cl.card__bottom}>
                 <div className={cl.card__prices}>
                     {product?.discount ? (
                         <>
                             <span className={cl.card__priceDiscount}>
-                                {mark}
-                                {product?.price.toFixed(2)}
+                                {product?.category === "Услуги" ? (
+                                    <>от {mark}</>
+                                ) : (
+                                    <>{mark}</>
+                                )}
+                                {product?.price?.toFixed(2)}
                             </span>
                             <span className={cl.card__priceCommon}>
                                 {mark}
@@ -67,17 +72,18 @@ const ProductItem = ({ product }) => {
                         </>
                     ) : (
                         <span className={cl.card__priceDiscount}>
-                            {mark}
-                            {product?.price.toFixed(2)}
+                            {product?.category === "Услуги" ? (
+                                <>от {mark}</>
+                            ) : (
+                                <>{mark}</>
+                            )}
+                            {product?.price?.toFixed(2)}
                         </span>
                     )}
                 </div>
 
                 <h2 className={cl.card__titleBox}>
-                    <span className={cl.card__titleSeller}>
-                        {product.seller}
-                    </span>
-                    /<span className={cl.card__titleName}>{product.name}</span>
+                    <span className={cl.card__titleName}>{product.name}</span>
                 </h2>
 
                 <div className={cl.card__rating}>
@@ -85,19 +91,22 @@ const ProductItem = ({ product }) => {
                         &#9733;{/*  звездочка */}
                         <span>{product?.ratings}</span>
                     </div>
-                    <span className={cl.card__ratingStock}>
-                        на складе: {product?.stock} шт.
+                    <span className={cl.card__titleSeller}>
+                        {product.seller}
                     </span>
                 </div>
             </div>
-
-            <MyButton
-                name='cart'
-                className={cl.card__add}
-                onClick={addToCartHandler}
-            >
-                <FontAwesomeIcon icon={faCartShopping} />
-            </MyButton>
+            {product?.category === "Услуги" ? (
+                <></>
+            ) : (
+                <MyButton
+                    name='cart'
+                    className={cl.card__add}
+                    onClick={addToCartHandler}
+                >
+                    <FontAwesomeIcon icon={faCartShopping} />
+                </MyButton>
+            )}
         </article>
     );
 };

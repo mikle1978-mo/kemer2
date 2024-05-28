@@ -4,9 +4,18 @@ const TGMessage = function (order) {
         message += `<b>ID заказчика: </b>${order.user._id}\n`;
         message += `<b>Имя: </b>${order.user.name}\n`;
         message += `<b>email: </b>${order.user.email}\n`;
-        message += `<b>phone: </b>${order.shippingInfo.phoneNo}\n`;
-        message += `<b>Метод оплаты: </b>${order.paymentInfo.method}\n`;
-        message += `<b>Сумма: </b>${order.paymentInfo.amountPaid}\n`;
+        message += `<b>phone: </b>${
+            order?.shippingInfo?.phoneNo ? order?.shippingInfo?.phoneNo : ""
+        }\n`;
+        message += `<b>Метод оплаты: </b>${
+            order?.paymentInfo?.method ? order?.paymentInfo?.method : ""
+        }\n`;
+        message += `<b>Сумма: </b>${
+            order?.paymentInfo?.amountPaid ? order?.paymentInfo?.amountPaid : ""
+        } \n`;
+        message += order?.orderItems.map(
+            (item) => `<b>Товар: </b>${item.name}; \n`
+        );
         fetch(process.env.URI_API_TG, {
             method: "POST",
             headers: {

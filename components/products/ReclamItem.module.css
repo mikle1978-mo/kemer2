@@ -45,9 +45,9 @@
 .card__label {
     padding: 2px 4px;
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: var(--complement-0);
+    top: 10px;
+    right: 10px;
+    background: var(--primary-3-05);
     border-radius: var(--border-radius);
     font-weight: 400;
     font-size: 0.8rem;
@@ -57,7 +57,7 @@
 .card__bottom {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     flex: 1 0 auto; /* Занимаем всю оставшуюся высоту карточки */
     margin: 0 0 0.25rem 0;
 }
@@ -92,7 +92,6 @@
     font-weight: 400;
     font-size: 0.9rem;
     line-height: 150%;
-    text-align: start;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -105,11 +104,23 @@
     color: #ff6633;
 }
 .card__titleSeller {
+    width: fit-content;
     font-size: 0.9rem;
-    color: var(--primary-0);
+    line-height: 150%;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    border: 1px solid var(--primary-0);
+    color: #222222;
 }
 .card__titleName {
     font-size: 0.9rem;
+    line-height: 110%;
+    color: var(--secondary-b-1);
+}
+.card__subtitle {
+    font-size: 0.9rem;
+    font-weight: bolder;
+    line-height: 110%;
     color: var(--secondary-b-1);
 }
 

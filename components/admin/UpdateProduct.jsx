@@ -6,10 +6,13 @@ import { toast } from "react-toastify";
 import { categories } from "@/lib/categoty/category";
 import cl from "./UpdateProduct.module.css";
 import MyButton from "../UI/myButton/myButton";
+import { useRouter } from "next/navigation";
 
 const UpdateProduct = ({ data }) => {
     const { updateProduct, error, updated, setUpdated, clearErrors } =
         useContext(ProductContext);
+
+    const router = useRouter();
 
     const [product, setProduct] = useState({
         name: data?.name,
@@ -24,6 +27,7 @@ const UpdateProduct = ({ data }) => {
     useEffect(() => {
         if (updated) {
             toast.success("Продукт обновлен");
+            router.push("/admin/products");
             setUpdated(false);
         }
 
@@ -134,6 +138,9 @@ const UpdateProduct = ({ data }) => {
                                     onChange={onChange}
                                     required
                                 >
+                                    <option value=''>
+                                        --Выберите категорию--
+                                    </option>
                                     {categories.map((item) => (
                                         <option
                                             key={item.id}

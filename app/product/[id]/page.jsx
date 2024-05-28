@@ -1,4 +1,5 @@
 import ProductDetails from "@/components/products/ProductDetails";
+import ServiceDetails from "@/components/products/ServiceDetails";
 import axios from "axios";
 import mongoose from "mongoose";
 import { redirect } from "next/navigation";
@@ -34,6 +35,10 @@ const ProductDetailsPage = async ({ params }) => {
     }
 
     const product = await getProductDetails(params?.id);
+
+    if (product?.category === "Услуги") {
+        return <ServiceDetails product={product} />;
+    }
 
     return <ProductDetails product={product} />;
 };

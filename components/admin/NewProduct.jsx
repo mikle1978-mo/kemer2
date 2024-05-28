@@ -143,6 +143,9 @@ const NewProduct = () => {
                                     onChange={onChange}
                                     required
                                 >
+                                    <option value=''>
+                                        --Выберите категорию--
+                                    </option>
                                     {categories.map((item) => (
                                         <option
                                             key={item.id}

@@ -4,7 +4,11 @@ const Start = () => {
     return (
         <>
             <div className={cl.img_wrap}>
-                <img className={cl.img} src='/images/reclam/start.webp' />
+                <img
+                    className={cl.img}
+                    src='/images/reclam/start.webp'
+                    alt='Интернет магазин в Кемере'
+                />
             </div>
             <h1 className='title'>Интернет магазин "Кемер-онлайн"</h1>
             <div className={cl.text}>

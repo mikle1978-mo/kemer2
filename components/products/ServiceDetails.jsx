@@ -66,7 +66,7 @@ const ProductDetails = ({ product }) => {
         { name: "Home", url: "/" },
         {
             name: `${product?.name?.substring(0, 100)} ...`,
-            url: `/products/${product?._id}`,
+            url: `/product/${product?._id}`,
         },
     ];
     return (

@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import cl from "./ReclamItem.module.css";
 
 const ReclamItem = ({ product }) => {
+    console.log("!!!!!!!!!!!!!", product);
     return (
         <article className={cl.card}>
             <Link href={product.link} className={cl.card__top}>

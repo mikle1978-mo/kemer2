@@ -45,13 +45,12 @@ const ProductDetails = ({ product }) => {
         { name: "Home", url: "/" },
         {
             name: `${product?.name?.substring(0, 100)} ...`,
-            url: `/products/${product?._id}`,
+            url: `/product/${product?._id}`,
         },
     ];
     return (
         <>
             <BreadCrumbs breadCrumbs={breadCrumbs} />
-
             <div className={cl.grid}>
                 <aside className={cl.aside}>
                     <div className={cl.imgWrap}>
@@ -87,7 +86,7 @@ const ProductDetails = ({ product }) => {
                     </div>
                 </aside>
                 <main>
-                    <h2 className={cl.main_title}>{product?.name}</h2>
+                    <h1 className={cl.main_title}>{product?.name}</h1>
 
                     <div className={cl.main_wrap}>
                         <div className='ratings'>
@@ -163,10 +162,8 @@ const ProductDetails = ({ product }) => {
                     </ul>
                 </main>
             </div>
-
             {canReview && <NewReview product={product} />}
             <hr />
-
             <div className={cl.review_wrap}>
                 <h3
                     className={cl.review_title}

@@ -29,6 +29,11 @@ const Register = () => {
 
     return (
         <div style={{ maxWidth: "480px" }} className='section'>
+            <div style={{ visibility: "hidden" }}>
+                <h1 className='hiddenTitle'>
+                    Форма регистрации на свйте Кемер-онлайн
+                </h1>
+            </div>
             <form onSubmit={submitHandler}>
                 <h2 className='title'>Зарегистрировать аккаунт</h2>
 

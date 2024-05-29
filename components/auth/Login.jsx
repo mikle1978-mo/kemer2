@@ -37,6 +37,11 @@ const Login = () => {
 
     return (
         <div style={{ maxWidth: "480px", margin: "auto" }} className={cl.login}>
+            <div style={{ visibility: "hidden" }}>
+                <h1 className='hiddenTitle'>
+                    Форма входа в личный кабинет Кемер-онлайн
+                </h1>
+            </div>
             <form onSubmit={submitHandler}>
                 <h2 className='title'>Вход</h2>
                 <label className={cl.label}>

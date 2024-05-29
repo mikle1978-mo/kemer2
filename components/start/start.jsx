@@ -6,7 +6,7 @@ const Start = () => {
             <div className={cl.img_wrap}>
                 <img className={cl.img} src='/images/reclam/start.webp' />
             </div>
-            <h3 className='title'>Интернет магазин "Кемер-онлайн"</h3>
+            <h1 className='title'>Интернет магазин "Кемер-онлайн"</h1>
             <div className={cl.text}>
                 "Приветствуем вас в Кemer-online - вашем новом интернет
                 магазине, где каждый товар создан, чтобы удовлетворить ваши

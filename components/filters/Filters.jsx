@@ -83,6 +83,11 @@ const Filters = () => {
 
     return (
         <aside className={cl.filters_active}>
+            <div style={{ visibility: "hidden" }}>
+                <h1 className='hiddenTitle'>
+                    Фильтр товаров, продуктов и услуг в Кемере
+                </h1>
+            </div>
             <div className='section'>
                 <hr className='hr' />
                 <details>

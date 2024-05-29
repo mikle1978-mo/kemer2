@@ -10,6 +10,11 @@ import cl from "./ListProducts.module.css";
 const ListProducts = ({ data }) => {
     return (
         <>
+            <div style={{ visibility: "hidden" }}>
+                <h1 className='hiddenTitle'>
+                    Лист товаров, продуктов и услуг в Кемере
+                </h1>
+            </div>
             <main className={cl.listProduct}>
                 {data?.products?.map((product) =>
                     product?.link ? (

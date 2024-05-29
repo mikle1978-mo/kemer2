@@ -10,7 +10,7 @@ export default function Carusel() {
                 <div className={cl.all_pages_container}>
                     {sortedArray.map((child) => (
                         <a key={child.id} href={child.link} className={cl.item}>
-                            <img src={child.images[0].url} alt={child.name} />
+                            <img src={child.images[0].url} alt={child.title} />
                         </a>
                     ))}
                 </div>

@@ -107,7 +107,7 @@ const ProductDetails = ({ product }) => {
                     </div>
                 </aside>
                 <main>
-                    <h2 className={cl.main_title}>{product?.name}</h2>
+                    <h1 className={cl.main_title}>{product?.name}</h1>
 
                     <div className={cl.main_wrap}>
                         <div className='ratings'>

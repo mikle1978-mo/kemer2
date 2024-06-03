@@ -55,9 +55,7 @@ const Cart = () => {
     return (
         <>
             <div style={{ visibility: "hidden" }}>
-                <h1 className='hiddenTitle'>
-                    Лист товаров, продуктов и услуг в Кемере
-                </h1>
+                <h1 className='hiddenTitle'>Корзина товаров и продуктов</h1>
             </div>
             <h2 className='title'>
                 Наименований товаров в корзине: {cart?.cartItems?.length || 0}

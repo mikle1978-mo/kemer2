@@ -47,7 +47,7 @@ const productSchema = new mongoose.Schema({
     },
     ratings: {
         type: Number,
-        default: 0,
+        default: 5,
     },
     reviews: [
         {
@@ -78,6 +78,9 @@ const productSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    articul: {
+        type: String,
     },
 });
 

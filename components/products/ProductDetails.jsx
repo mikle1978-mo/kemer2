@@ -44,10 +44,11 @@ const ProductDetails = ({ product }) => {
     const breadCrumbs = [
         { name: "Home", url: "/" },
         {
-            name: `${product?.name?.substring(0, 100)} ...`,
-            url: `/product/${product?._id}`,
+            name: `${product?.category}`,
+            url: `/?category=${product?.category}`,
         },
     ];
+
     return (
         <>
             <BreadCrumbs breadCrumbs={breadCrumbs} />

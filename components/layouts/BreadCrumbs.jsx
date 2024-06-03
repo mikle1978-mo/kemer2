@@ -1,12 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faTrash,
-    faPencil,
-    faImage,
-    faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import cl from "./BreadCrumbs.module.css";
 
 const BreadCrumbs = ({ breadCrumbs }) => {
@@ -17,7 +12,7 @@ const BreadCrumbs = ({ breadCrumbs }) => {
                     {breadCrumbs?.map((breadCrumb, index) => (
                         <li key={index} className={cl.li_wrap}>
                             <Link href={breadCrumb.url} className={cl.link}>
-                                {breadCrumb.name.substring(0, 10)}
+                                {breadCrumb.name}
                             </Link>
                             {breadCrumbs?.length - 1 !== index && (
                                 <FontAwesomeIcon

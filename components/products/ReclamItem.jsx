@@ -1,21 +1,22 @@
-import { useContext } from "react";
 import Link from "next/link";
-import CartContext from "@/context/CartContext";
-import dynamic from "next/dynamic";
+import Image from "next/image";
+
 import cl from "./ReclamItem.module.css";
 
 const ReclamItem = ({ product }) => {
     return (
         <article className={cl.card}>
-            <Link href={product.link} className={cl.card__top}>
+            <Link href={product.siteUrl} className={cl.card__top}>
                 <div className={cl.card__image}>
-                    <img
+                    <Image
                         src={
                             product?.images[0]
                                 ? product?.images[0].url
                                 : "/images/default_product.png"
                         }
                         alt={product?.name}
+                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                        fill
                         // height="240"
                         // width="240"
                     />

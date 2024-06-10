@@ -1,5 +1,4 @@
 import ProductDetails from "@/components/products/ProductDetails";
-import ServiceDetails from "@/components/products/ServiceDetails";
 import axios from "axios";
 import mongoose from "mongoose";
 import { redirect } from "next/navigation";
@@ -20,6 +19,8 @@ export async function generateStaticParams() {
     return data.products.map(({ _id }) => _id);
 }
 
+export const revalidate = 3600; // revalidate every hour
+
 const getProductDetails = cache(async (id) => {
     const { data } = await axios.get(
         `${process.env.API_URL}/api/products/${id}`
@@ -35,10 +36,6 @@ const ProductDetailsPage = async ({ params }) => {
     }
 
     const product = await getProductDetails(params?.id);
-
-    if (product?.category === "Услуги") {
-        return <ServiceDetails product={product} />;
-    }
 
     return <ProductDetails product={product} />;
 };

@@ -17,8 +17,8 @@ const ListProducts = ({ data }) => {
             </div>
             <main className={cl.listProduct}>
                 {data?.products?.map((product) =>
-                    product?.link ? (
-                        <ReclamItem key={product?.id} product={product} />
+                    product?.advertiser ? (
+                        <ReclamItem key={product?._id} product={product} />
                     ) : (
                         <ProductItem key={product?._id} product={product} />
                     )

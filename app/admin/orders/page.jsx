@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { cookies } from "next/headers";
 
-import Orders from "@/components/admin/Orders";
+import Orders from "@/components/admin/(Orders)/Orders";
 import { getCookieName } from "@/helpers/helpers";
 
 const AdminOrdersPage = async () => {

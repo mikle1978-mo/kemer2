@@ -1,29 +1,33 @@
 "use client";
 
 import ProductContext from "@/context/ProductContext";
-import { useContext, useState, useEffect } from "react";
-import { categories } from "@/lib/categoty/category";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import cl from "./NewProduct.module.css";
-import MyButton from "../UI/myButton/myButton";
+import { categories } from "@/lib/categoty/category";
+import cl from "./UpdateProduct.module.css";
+import MyButton from "../../UI/myButton/myButton";
+import { useRouter } from "next/navigation";
 
-const NewProduct = () => {
-    const { newProduct, updated, setUpdated, loading, error } =
+const UpdateProduct = ({ data }) => {
+    const { updateProduct, error, updated, setUpdated, clearErrors } =
         useContext(ProductContext);
 
+    const router = useRouter();
+
     const [product, setProduct] = useState({
-        name: "",
-        description: "",
-        seller: "",
-        price: "",
-        discount: "",
-        stock: "",
-        category: "",
+        name: data?.name,
+        description: data?.description,
+        seller: data?.seller,
+        price: data?.price,
+        discount: data?.discount,
+        stock: data?.stock,
+        category: data?.category,
     });
 
     useEffect(() => {
         if (updated) {
-            toast.success("Продукт создан");
+            toast.success("Продукт обновлен");
+            router.push("/admin/products");
             setUpdated(false);
         }
 
@@ -43,24 +47,22 @@ const NewProduct = () => {
     const submitHandler = (e) => {
         e.preventDefault();
 
-        newProduct(product);
+        updateProduct(product, data?._id);
     };
 
     return (
-        <>
-            <h1 className={cl.title}>Создать новый продукт</h1>
+        <section>
+            <h1 className={cl.title}>Обновление продукта</h1>
 
-            <form className={cl.form} onSubmit={submitHandler}>
+            <form onSubmit={submitHandler}>
                 <div className={cl.input_wrap}>
                     <label className={cl.label}>
                         {" "}
                         Наименование
                         <input
-                            id='name'
                             type='text'
                             className={cl.input}
-                            placeholder='Product name'
-                            autoComplete='off'
+                            placeholder='Наименование продукта'
                             name='name'
                             value={name}
                             onChange={onChange}
@@ -74,11 +76,9 @@ const NewProduct = () => {
                         {" "}
                         Описание
                         <textarea
-                            id='description'
                             rows='4'
                             className={cl.input}
-                            placeholder='Product description'
-                            autoComplete='off'
+                            placeholder='Описание продукта'
                             name='description'
                             value={description}
                             onChange={onChange}
@@ -87,19 +87,17 @@ const NewProduct = () => {
                     </label>
                 </div>
 
-                <div className={cl.input_wrap_bottom}>
+                <div className={cl.wrap_top}>
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
                             Цена
                             <div className={cl.relative}>
-                                <div className={cl.input_price_cont}>
+                                <div className={cl.bottom_input}>
                                     <input
-                                        id='price'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0.00'
-                                        autoComplete='off'
                                         name='price'
                                         value={price}
                                         onChange={onChange}
@@ -114,13 +112,11 @@ const NewProduct = () => {
                             {" "}
                             Скидка
                             <div className={cl.relative}>
-                                <div className={cl.input_price_cont}>
+                                <div className={cl.bottom_input}>
                                     <input
-                                        id='discount'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0.00'
-                                        autoComplete='off'
                                         name='discount'
                                         value={discount}
                                         onChange={onChange}
@@ -132,12 +128,11 @@ const NewProduct = () => {
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
-                            Категория
+                            Category
                             <div className={cl.relative}>
                                 <select
-                                    id='category'
+                                    className={cl.input}
                                     style={{ display: "block" }}
-                                    className={cl.select}
                                     name='category'
                                     value={category}
                                     onChange={onChange}
@@ -155,7 +150,7 @@ const NewProduct = () => {
                                         </option>
                                     ))}
                                 </select>
-                                <i className={cl.select_arrow}>
+                                <i className={cl.arrow}>
                                     <svg
                                         width='22'
                                         height='22'
@@ -170,17 +165,15 @@ const NewProduct = () => {
                     </div>
                 </div>
 
-                <div className={cl.input_seller_cont}>
+                <div className={cl.wrap_top}>
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
-                            Продавец / Марка
+                            Продавец/Марка
                             <input
-                                id='seller'
                                 type='text'
                                 className={cl.input}
-                                placeholder='Seller or brand'
-                                autoComplete='off'
+                                placeholder='Продавец или марка'
                                 name='seller'
                                 value={seller}
                                 onChange={onChange}
@@ -194,13 +187,11 @@ const NewProduct = () => {
                             {" "}
                             Склад
                             <div className={cl.relative}>
-                                <div className='col-span-2'>
+                                <div className={cl.bottom_input}>
                                     <input
-                                        id='stock'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0'
-                                        autoComplete='off'
                                         name='stock'
                                         value={stock}
                                         onChange={onChange}
@@ -211,12 +202,11 @@ const NewProduct = () => {
                         </label>
                     </div>
                 </div>
-                <MyButton type='submit' disabled={loading ? true : false}>
-                    {loading ? "Создание..." : "Создать продукт"}
-                </MyButton>
+
+                <MyButton type='submit'>Обновить продукт</MyButton>
             </form>
-        </>
+        </section>
     );
 };
 
-export default NewProduct;
+export default UpdateProduct;

@@ -1,15 +1,15 @@
 "use client";
 
-import ProductContext from "@/context/ProductContext";
+import AdsContext from "@/context/AdsContext";
 import Image from "next/image";
 import { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import cl from "./NewProduct.module.css";
-import MyButton from "../UI/myButton/myButton";
+import cl from "./UploadImages.module.css";
+import MyButton from "../../UI/myButton/myButton";
 
 const UploadImages = ({ id }) => {
-    const { uploadProductImages, error, loading, clearErrors } =
-        useContext(ProductContext);
+    const { uploadAdsImages, error, loading, clearErrors } =
+        useContext(AdsContext);
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
@@ -53,7 +53,7 @@ const UploadImages = ({ id }) => {
             formData.append("image", image);
         });
 
-        uploadProductImages(formData, id);
+        uploadAdsImages(formData, id);
     };
 
     return (

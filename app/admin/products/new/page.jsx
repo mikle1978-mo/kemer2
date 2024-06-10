@@ -1,7 +1,7 @@
-import NewProduct from "@/components/admin/NewProduct";
+import NewProduct from "@/components/admin/(Products)/NewProduct";
 
 const NewProductPage = () => {
-  return <NewProduct />;
+    return <NewProduct />;
 };
 
 export default NewProductPage;

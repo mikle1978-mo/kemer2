@@ -7,7 +7,7 @@ import AuthContext from "@/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Users.module.css";
-import MyIconButton from "../UI/myButton/myIconButton";
+import MyIconButton from "../../UI/myButton/myIconButton";
 
 const Users = ({ data }) => {
     const { error, deleteUser, clearErrors } = useContext(AuthContext);

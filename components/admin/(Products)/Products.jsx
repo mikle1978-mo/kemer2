@@ -1,8 +1,7 @@
 "use client";
 
 import { useContext, useEffect } from "react";
-import Link from "next/link";
-import CustomPagination from "../layouts/CustomPagination";
+
 import ProductContext from "@/context/ProductContext";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -10,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil, faImage } from "@fortawesome/free-solid-svg-icons";
 import { mark } from "@/lib/const/const";
 import cl from "./Products.module.css";
-import MyIconButton from "../UI/myButton/myIconButton";
+import MyIconButton from "../../UI/myButton/myIconButton";
 
 const Products = ({ data }) => {
     const { deleteProduct, error, clearErrors } = useContext(ProductContext);

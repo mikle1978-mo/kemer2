@@ -4,7 +4,7 @@ import AuthContext from "@/context/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import cl from "./UpdateUser.module.css";
-import MyButton from "../UI/myButton/myButton";
+import MyButton from "../../UI/myButton/myButton";
 
 const UpdateUser = ({ user }) => {
     const { error, updateUser, clearErrors, updated, setUpdated } =

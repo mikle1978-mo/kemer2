@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import cl from "./UpdateOrder.module.css";
-import MyButton from "../UI/myButton/myButton";
+import MyButton from "../../UI/myButton/myButton";
 
 const UpdateOrder = ({ order }) => {
     const { updateOrder, error, clearErrors, updated, setUpdated } =

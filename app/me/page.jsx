@@ -54,6 +54,12 @@ const Sidebar = () => {
                                 <span className={cl.admin}>(Admin)</span>
                             </Link>
                         </li>
+                        <li className={cl.li}>
+                            <Link href='/admin/ads' className={cl.sideBar_link}>
+                                Реклама{" "}
+                                <span className={cl.admin}>(Admin)</span>
+                            </Link>
+                        </li>
                         <hr />
                     </>
                 )}

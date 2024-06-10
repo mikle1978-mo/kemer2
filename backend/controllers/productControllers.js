@@ -10,7 +10,6 @@ export const newProduct = async (req, res, next) => {
     const timestamp = new Date();
     const articul = timestamp.getTime();
     body.articul = articul;
-    console.log(body);
     const product = await Product.create(body);
     return {
         product,

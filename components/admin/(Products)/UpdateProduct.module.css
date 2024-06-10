@@ -1,0 +1,66 @@
+.title {
+    margin-bottom: 0.75rem;
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.input_wrap {
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    display: block;
+}
+
+.input {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-top: 0.25rem;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-color: #e5e7eb;
+    width: 100%;
+    background-color: #f3f4f6;
+    appearance: none;
+    font-size: inherit;
+}
+
+.input:hover {
+    border-color: #9ca3af;
+}
+
+.wrap_top {
+    display: grid;
+    margin-top: 1.25rem;
+    column-gap: 0.5rem;
+}
+.relative {
+    position: relative;
+}
+.arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 0.5rem;
+    color: #9ca3af;
+}
+
+.bottom_input {
+    grid-column: span 2 / span 2;
+}
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+    .wrap_top {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

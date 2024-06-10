@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Orders.module.css";
-import MyIconButton from "../UI/myButton/myIconButton";
+import MyIconButton from "../../UI/myButton/myIconButton";
 
 const Orders = ({ orders }) => {
     const { deleteOrder, error, clearErrors } = useContext(OrderContext);

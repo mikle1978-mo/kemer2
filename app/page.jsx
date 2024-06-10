@@ -4,7 +4,6 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import queryString from "query-string";
 import Carusel from "../components/layouts/carusel/myCarusel";
 import { insert } from "@/helpers/helpers";
-import { reclamArray } from "@/lib/reclam/reclam";
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
@@ -22,15 +21,22 @@ const HomePage = async ({ searchParams }) => {
     const { data } = await axios.get(
         `${process.env.API_URL}/api/products?${searchQuery}`
     );
+    const dataAds = await axios.get(`${process.env.API_URL}/api/ads`);
+    let carouselAds = dataAds.data.allAds.filter(
+        (item) => item.type === "Карусель"
+    );
+    let listAds = dataAds.data.allAds.filter(
+        (item) => item.type !== "Карусель"
+    );
 
     data.products = data.products.filter((item) => item.stock > 0);
     data.products = data.products.sort(() => Math.random() - 0.5);
-    const insertproducns = insert(data.products, reclamArray);
+    insert(data.products, listAds);
 
     return (
         <>
-            <Carusel />
-            <ListProducts data={data} />;
+            <Carusel data={carouselAds} />
+            <ListProducts data={data} />
         </>
     );
 };

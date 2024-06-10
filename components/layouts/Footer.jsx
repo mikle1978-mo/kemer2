@@ -15,15 +15,10 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Footer.module.css";
-import MenuContext from "@/context/MenuContext";
 
 const Header = () => {
     const { user, setUser } = useContext(AuthContext);
-    // const { isActiveMenu, toggleMenuMode } = useContext(MenuContext);
 
-    // const clickHandler = () => {
-    //     toggleMenuMode();
-    // };
     const { data } = useSession();
 
     useEffect(() => {

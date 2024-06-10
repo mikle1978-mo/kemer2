@@ -1,33 +1,29 @@
 "use client";
 
 import ProductContext from "@/context/ProductContext";
-import React, { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useContext, useState, useEffect } from "react";
 import { categories } from "@/lib/categoty/category";
-import cl from "./UpdateProduct.module.css";
-import MyButton from "../UI/myButton/myButton";
-import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import cl from "./NewProduct.module.css";
+import MyButton from "../../UI/myButton/myButton";
 
-const UpdateProduct = ({ data }) => {
-    const { updateProduct, error, updated, setUpdated, clearErrors } =
+const NewProduct = () => {
+    const { newProduct, updated, setUpdated, loading, error } =
         useContext(ProductContext);
 
-    const router = useRouter();
-
     const [product, setProduct] = useState({
-        name: data?.name,
-        description: data?.description,
-        seller: data?.seller,
-        price: data?.price,
-        discount: data?.discount,
-        stock: data?.stock,
-        category: data?.category,
+        name: "",
+        description: "",
+        seller: "",
+        price: "",
+        discount: "",
+        stock: "",
+        category: "",
     });
 
     useEffect(() => {
         if (updated) {
-            toast.success("Продукт обновлен");
-            router.push("/admin/products");
+            toast.success("Продукт создан");
             setUpdated(false);
         }
 
@@ -46,23 +42,24 @@ const UpdateProduct = ({ data }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
-        updateProduct(product, data?._id);
+        newProduct(product);
     };
 
     return (
-        <section>
-            <h1 className={cl.title}>Обновление продукта</h1>
+        <>
+            <h1 className={cl.title}>Создать новый продукт</h1>
 
-            <form onSubmit={submitHandler}>
+            <form className={cl.form} onSubmit={submitHandler}>
                 <div className={cl.input_wrap}>
                     <label className={cl.label}>
                         {" "}
                         Наименование
                         <input
+                            id='name'
                             type='text'
                             className={cl.input}
-                            placeholder='Наименование продукта'
+                            placeholder='Product name'
+                            autoComplete='off'
                             name='name'
                             value={name}
                             onChange={onChange}
@@ -76,9 +73,11 @@ const UpdateProduct = ({ data }) => {
                         {" "}
                         Описание
                         <textarea
+                            id='description'
                             rows='4'
                             className={cl.input}
-                            placeholder='Описание продукта'
+                            placeholder='Product description'
+                            autoComplete='off'
                             name='description'
                             value={description}
                             onChange={onChange}
@@ -87,17 +86,19 @@ const UpdateProduct = ({ data }) => {
                     </label>
                 </div>
 
-                <div className={cl.wrap_top}>
+                <div className={cl.input_wrap_bottom}>
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
                             Цена
                             <div className={cl.relative}>
-                                <div className={cl.bottom_input}>
+                                <div className={cl.input_price_cont}>
                                     <input
+                                        id='price'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0.00'
+                                        autoComplete='off'
                                         name='price'
                                         value={price}
                                         onChange={onChange}
@@ -112,11 +113,13 @@ const UpdateProduct = ({ data }) => {
                             {" "}
                             Скидка
                             <div className={cl.relative}>
-                                <div className={cl.bottom_input}>
+                                <div className={cl.input_price_cont}>
                                     <input
+                                        id='discount'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0.00'
+                                        autoComplete='off'
                                         name='discount'
                                         value={discount}
                                         onChange={onChange}
@@ -128,11 +131,12 @@ const UpdateProduct = ({ data }) => {
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
-                            Category
+                            Категория
                             <div className={cl.relative}>
                                 <select
-                                    className={cl.input}
+                                    id='category'
                                     style={{ display: "block" }}
+                                    className={cl.select}
                                     name='category'
                                     value={category}
                                     onChange={onChange}
@@ -150,7 +154,7 @@ const UpdateProduct = ({ data }) => {
                                         </option>
                                     ))}
                                 </select>
-                                <i className={cl.arrow}>
+                                <i className={cl.select_arrow}>
                                     <svg
                                         width='22'
                                         height='22'
@@ -165,15 +169,17 @@ const UpdateProduct = ({ data }) => {
                     </div>
                 </div>
 
-                <div className={cl.wrap_top}>
+                <div className={cl.input_seller_cont}>
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
-                            Продавец/Марка
+                            Продавец / Марка
                             <input
+                                id='seller'
                                 type='text'
                                 className={cl.input}
-                                placeholder='Продавец или марка'
+                                placeholder='Seller or brand'
+                                autoComplete='off'
                                 name='seller'
                                 value={seller}
                                 onChange={onChange}
@@ -187,11 +193,13 @@ const UpdateProduct = ({ data }) => {
                             {" "}
                             Склад
                             <div className={cl.relative}>
-                                <div className={cl.bottom_input}>
+                                <div className='col-span-2'>
                                     <input
+                                        id='stock'
                                         type='text'
                                         className={cl.input}
                                         placeholder='0'
+                                        autoComplete='off'
                                         name='stock'
                                         value={stock}
                                         onChange={onChange}
@@ -202,11 +210,12 @@ const UpdateProduct = ({ data }) => {
                         </label>
                     </div>
                 </div>
-
-                <MyButton type='submit'>Обновить продукт</MyButton>
+                <MyButton type='submit' disabled={loading ? true : false}>
+                    {loading ? "Создание..." : "Создать продукт"}
+                </MyButton>
             </form>
-        </section>
+        </>
     );
 };
 
-export default UpdateProduct;
+export default NewProduct;

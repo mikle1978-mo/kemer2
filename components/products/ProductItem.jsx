@@ -31,13 +31,15 @@ const ProductItem = ({ product }) => {
         <article className={cl.card}>
             <Link href={`/product/${product._id}`} className={cl.card__top}>
                 <div className={cl.card__image}>
-                    <img
+                    <Image
                         src={
                             product?.images[0]
                                 ? product?.images[0].url
                                 : "/images/default_product.png"
                         }
                         alt={product?.name}
+                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                        fill
                         // height="240"
                         // width="240"
                     />
@@ -55,11 +57,8 @@ const ProductItem = ({ product }) => {
                     {product?.discount ? (
                         <>
                             <span className={cl.card__priceDiscount}>
-                                {product?.category === "Услуги" ? (
-                                    <>от {mark}</>
-                                ) : (
-                                    <>{mark}</>
-                                )}
+                                {mark}
+
                                 {product?.price?.toFixed(2)}
                             </span>
                             <span className={cl.card__priceCommon}>
@@ -72,11 +71,7 @@ const ProductItem = ({ product }) => {
                         </>
                     ) : (
                         <span className={cl.card__priceDiscount}>
-                            {product?.category === "Услуги" ? (
-                                <>от {mark}</>
-                            ) : (
-                                <>{mark}</>
-                            )}
+                            {mark}
                             {product?.price?.toFixed(2)}
                         </span>
                     )}
@@ -96,17 +91,14 @@ const ProductItem = ({ product }) => {
                     </span>
                 </div>
             </div>
-            {product?.category === "Услуги" ? (
-                <></>
-            ) : (
-                <MyButton
-                    name='cart'
-                    className={cl.card__add}
-                    onClick={addToCartHandler}
-                >
-                    <FontAwesomeIcon icon={faCartShopping} />
-                </MyButton>
-            )}
+
+            <MyButton
+                name='cart'
+                className={cl.card__add}
+                onClick={addToCartHandler}
+            >
+                <FontAwesomeIcon icon={faCartShopping} />
+            </MyButton>
         </article>
     );
 };

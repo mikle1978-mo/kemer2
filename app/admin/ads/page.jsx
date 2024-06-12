@@ -1,11 +1,19 @@
 import axios from "axios";
 import AdsList from "@/components/admin/(Ads)/AdsList";
-import { dbConnect } from "@/backend/config/dbConnect";
+import { cookies } from "next/headers";
+import { getCookieName } from "@/helpers/helpers";
 
 const AdminAdsPage = async () => {
-    dbConnect();
-    const apiURl = `${process.env.API_URL}/api/admin/ads`;
-    const { data } = await axios.get(apiURl);
+    const nextCookies = cookies();
+    const cookieName = getCookieName();
+    const nextAuthSessionToken = nextCookies.get(cookieName);
+
+    const { data } = await axios.get(`${process.env.API_URL}/api/admin/ads`, {
+        headers: {
+            Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+    });
+    console.log(data);
     return <AdsList data={data} />;
 };
 

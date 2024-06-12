@@ -16,9 +16,9 @@ const AdminProductsPage = async ({ searchParams }) => {
 
     const searchQuery = queryString.stringify(urlParams);
 
-    const apiURl = `${process.env.API_URL}/api/admin/products?${searchQuery}`;
+    const apiUrl = `${process.env.API_URL}/api/admin/products?${searchQuery}`;
 
-    const { data } = await axios.get(apiURl);
+    const { data } = await axios.get(apiUrl);
     return <Products data={data} />;
 };
 

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { GlobalProvider } from "./GlobalProvider";
 import "./globals.css";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -64,7 +65,7 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <GlobalProvider>
-                    <Header />
+                                       <Header />
                     <div className='container'>
                         <div className='section'>{children}</div>
                     </div>

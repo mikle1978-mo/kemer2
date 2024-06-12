@@ -8,7 +8,7 @@ import { dbConnect } from "@/backend/config/dbConnect";
 export async function GET(req) {
     try {
         dbConnect();
-        const data = await getAllAds();
+        const data = await getAllAds(req);
 
         return NextResponse.json(data);
     } catch (error) {

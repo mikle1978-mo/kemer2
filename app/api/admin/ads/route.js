@@ -1,18 +1,16 @@
+import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
-import onError from "@/backend/middlewares/errors";
 import {
-    authorizeRoles,
     isAuthenticatedUser,
+    authorizeRoles,
 } from "@/backend/middlewares/auth";
 import { getAllAds } from "@/backend/controllers/adsControllers";
-import { NextResponse } from "next/server";
 
 export async function GET(req) {
     dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
-
-    const data = await getAllAds();
+    const data = await getAllAds(req);
 
     return NextResponse.json(data, { status: 200 });
 }

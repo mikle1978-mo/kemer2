@@ -1,0 +1,36 @@
+.cartFooter {
+    position: relative;
+    display: flex;
+    bottom: 0;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.list {
+    width: 100%;
+}
+
+.li {
+    width: 100%;
+    margin-bottom: 0.1rem;
+    list-style-type: none;
+    line-height: 1.25;
+    border: 1px solid var(--secondary-a-3);
+    background: var(--primary-3);
+    border-radius: 0.3rem;
+    color: white;
+}
+.li:hover {
+    background: var(--complement-0);
+    text-decoration: none;
+}
+
+.list_item {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+}

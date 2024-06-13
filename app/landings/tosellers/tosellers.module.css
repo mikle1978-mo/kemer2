@@ -1,0 +1,31 @@
+.block {
+    margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+}
+.block > li {
+    list-style: none;
+    display: inline-block;
+    color: inherit;
+}
+.title2 {
+    margin: 0.5rem 0;
+    line-height: 1rem !important;
+}
+
+.title3 {
+    margin-bottom: 0.5rem;
+    line-height: 0.5rem !important;
+}
+
+.highlight {
+    font-weight: bold;
+    color: var(--secondary-a-0);
+}
+
+.add {
+    list-style: none;
+    display: inline-block;
+    color: inherit;
+    margin-bottom: 0.5rem;
+}

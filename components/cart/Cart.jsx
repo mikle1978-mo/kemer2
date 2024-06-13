@@ -8,6 +8,7 @@ import cl from "./Cart.module.css";
 import MyButton from "../UI/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import CartFooter from "./CartFooter";
 
 const Cart = () => {
     const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
@@ -57,10 +58,29 @@ const Cart = () => {
             <div style={{ visibility: "hidden" }}>
                 <h1 className='hiddenTitle'>Корзина товаров и продуктов</h1>
             </div>
-            <h2 className='title'>
-                Наименований товаров в корзине: {cart?.cartItems?.length || 0}
-            </h2>
-
+            {cart?.cartItems?.length ? (
+                <h2 className='title'>
+                    Наименований товаров: {cart?.cartItems?.length || 0}
+                </h2>
+            ) : (
+                <>
+                    <h2 className='title'>В корзине пока пусто</h2>
+                    <div className={cl.info}>
+                        Взгляните на товары на главной странице и выбирите всё
+                        что Вам нравится!
+                    </div>
+                    <MyButton
+                        type='button'
+                        style={{ backgroundColor: "green" }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = `/`;
+                        }}
+                    >
+                        На главную
+                    </MyButton>
+                </>
+            )}
             {cart?.cartItems?.length > 0 && (
                 <div className='main'>
                     <article className={cl.article}>
@@ -235,6 +255,7 @@ const Cart = () => {
                     </aside>
                 </div>
             )}
+            <CartFooter />
         </>
     );
 };

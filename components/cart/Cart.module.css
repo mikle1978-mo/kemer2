@@ -139,6 +139,12 @@
     line-height: 1.75rem;
     font-weight: 700;
 }
+.info {
+    font-size: 1rem;
+    text-indent: 1rem;
+    line-height: normal;
+    margin-bottom: 1rem;
+}
 
 @media (min-width: 640px) {
     .cart {

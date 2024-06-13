@@ -1,6 +1,6 @@
 "use client";
 
-import cl from "./ToSellersHeader.module.css";
+import cl from "./LandingsHeader.module.css";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -10,17 +10,11 @@ export default function ToSellersHeader({ navLinks }) {
     return (
         <nav className={cl.menu}>
             {navLinks.map((link) => {
-                // Приведение путей к единому формату для сравнения
-                const fullPath = `/landings/tosellers/${link.href.replace(
-                    /^\//,
-                    ""
-                )}`;
-
-                const isActive = pathname.startsWith(fullPath);
+                const isActive = pathname.includes(link.href);
 
                 return (
                     <Link
-                        href={fullPath}
+                        href={link.href}
                         key={link.name}
                         className={isActive ? cl.active : ""}
                     >

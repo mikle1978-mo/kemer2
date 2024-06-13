@@ -1,14 +1,5 @@
-import AboutHeader from "@/components/landings/toadvertisers/ToAdvertisersHeader";
+import LandingsHeader from "@/components/landings/LandingsHeader";
 
 export default function AboutLayout({ children }) {
-    return (
-        <>
-            <div className='container'>
-                <div className='section'>
-                    <AboutrHeader />
-                    {children}
-                </div>
-            </div>
-        </>
-    );
+    return <>{children}</>;
 }

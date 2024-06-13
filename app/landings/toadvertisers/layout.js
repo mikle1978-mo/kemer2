@@ -1,14 +1,17 @@
-import ToAdvertiserHeader from "@/components/landings/toadvertisers/ToAdvertisersHeader";
+import LandingsContact from "@/components/landings/LandingsContact";
+import LandingsHeader from "@/components/landings/LandingsHeader";
 
-export default function toSellersLayout({ children }) {
+export default function toAdvisersLayout({ children }) {
+    const navLinks = [
+        { name: "Баннер", href: "banner" },
+        { name: "Лендинг", href: "landingpage" },
+        { name: "Тизер", href: "tizer" },
+    ];
     return (
         <>
-            <div className='container'>
-                <div className='section'>
-                    <ToAdvertiserHeader />
-                    {children}
-                </div>
-            </div>
+            <LandingsHeader navLinks={navLinks} />
+            {children}
+            <LandingsContact />
         </>
     );
 }

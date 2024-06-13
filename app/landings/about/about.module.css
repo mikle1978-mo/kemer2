@@ -1,11 +1,24 @@
 .block {
     margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
     line-height: 1.4;
 }
 .block > li {
     list-style: none;
     display: inline-block;
     color: inherit;
+}
+
+.price_list {
+    list-style-type: none;
+    padding: 0;
+    line-height: 1.4;
+}
+.price_list li {
+    background: #e2e2e2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
 }
 .title2 {
     margin: 0.5rem 0;
@@ -19,7 +32,7 @@
 
 .highlight {
     font-weight: bold;
-    color: var(--complement-0);
+    color: var(--secondary-a-0);
 }
 
 .add {

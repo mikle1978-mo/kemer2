@@ -1,0 +1,28 @@
+.price_list {
+    list-style-type: none;
+    padding: 0;
+    line-height: 1.4;
+}
+.price_list li {
+    background: #e2e2e2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.title2 {
+    margin: 0.5rem 0;
+    line-height: 1rem !important;
+}
+
+.title3 {
+    margin-bottom: 0.5rem;
+    line-height: 1.2rem !important;
+    font-weight: bold;
+    color: var(--complement-2);
+}
+
+.highlight {
+    font-weight: bold;
+    color: var(--secondary-a-0);
+}

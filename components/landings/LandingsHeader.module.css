@@ -6,7 +6,7 @@ nav.menu {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 0.2rem;
 }
 
@@ -15,7 +15,7 @@ nav.menu {
     display: inline-block;
     color: inherit;
     line-height: 30px;
-    border: 0.5px solid var(--secondary-a-0);
+    border: 0.5px solid var(--complement-0);
     border-radius: 0.5rem;
 }
 .menu > a {
@@ -33,6 +33,6 @@ nav.menu {
     -webkit-transition-duration: 0.3s;
 }
 .active {
-    background: var(--secondary-a-1) !important;
+    background: var(--complement-0) !important;
     color: var(--primary-4) !important;
 }

@@ -1,4 +1,5 @@
-import ToSellersHeader from "@/components/landings/tosellers/ToSellersHeader";
+import LandingsContact from "@/components/landings/LandingsContact";
+import LandingsHeader from "@/components/landings/LandingsHeader";
 
 export default function toSellersLayout({ children }) {
     const navLinks = [
@@ -8,8 +9,9 @@ export default function toSellersLayout({ children }) {
     ];
     return (
         <>
-            <ToSellersHeader navLinks={navLinks} />
+            <LandingsHeader navLinks={navLinks} />
             {children}
+            <LandingsContact />
         </>
     );
 }

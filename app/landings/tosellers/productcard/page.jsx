@@ -21,7 +21,7 @@ export default function PropductCard() {
                         Разрешение изображения от 72 px/inch; Фотографии должны
                         быть в стандартном профиле sRGB IEC 61966-2.1.
                     </li>
-                    <li>Формат изображения должен быть JPG или PNG.</li>
+                    <li>Формат изображения должен быть JPG, PNG или webp.</li>
                 </ul>
 
                 <h2 className={cl.title2}>
@@ -136,6 +136,7 @@ export default function PropductCard() {
                     </li>
                     <li>Наличие кадра с текстурой также обязательно.</li>
                 </ul>
+                <h2 className={cl.title2}>Контакты</h2>
             </section>
         </>
     );

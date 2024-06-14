@@ -26,3 +26,9 @@
     font-weight: bold;
     color: var(--secondary-a-0);
 }
+
+.imgWrap {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 1/1;
+}

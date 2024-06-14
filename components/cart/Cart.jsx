@@ -71,7 +71,7 @@ const Cart = () => {
                     </div>
                     <MyButton
                         type='button'
-                        style={{ backgroundColor: "green" }}
+                        style={{ backgroundColor: "mediumblue" }}
                         onClick={(e) => {
                             e.preventDefault();
                             window.location.href = `/`;

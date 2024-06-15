@@ -86,114 +86,102 @@ const Cart = () => {
                 <div className='main'>
                     <article className={cl.article}>
                         {cart?.cartItems?.map((cartItem) => (
-                            <div key={cartItem.product}>
-                                <div className={cl.item_container}>
-                                    <div className={cl.top_wrap}>
-                                        <figure className={cl.figure}>
-                                            <div>
-                                                <div className={cl.img_wrap}>
-                                                    <img
-                                                        className={cl.img}
-                                                        src={cartItem.image}
-                                                        alt={cartItem.name}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <figcaption
-                                                className={cl.figcaption}
-                                            >
-                                                <p>
-                                                    <a
-                                                        href='#'
-                                                        className={cl.link}
-                                                    >
-                                                        {cartItem.name}
-                                                    </a>
-                                                </p>
-                                                <p className={cl.link_seller}>
-                                                    {" "}
-                                                    Продавец: {cartItem.seller}
-                                                </p>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div className={cl.bottom_wrap}>
-                                        <div className={cl.quantity_wrap}>
-                                            <MyButton
-                                                data-action='decrement'
-                                                style={{
-                                                    backgroundColor: "gray",
-                                                    padding: "0.5rem 0.5rem",
-                                                }}
-                                                onClick={() =>
-                                                    decreaseQty(cartItem)
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faMinus}
-                                                />
-                                            </MyButton>
-
-                                            <input
-                                                type='number'
-                                                className={cl.input}
-                                                name='custom-input-number'
-                                                autoComplete='off'
-                                                value={cartItem.quantity}
-                                                readOnly
-                                            ></input>
-                                            <MyButton
-                                                data-action='increment'
-                                                style={{
-                                                    backgroundColor: "gray",
-                                                    padding: "0.5rem 0.5rem",
-                                                }}
-                                                onClick={() =>
-                                                    increaseQty(cartItem)
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faPlus}
-                                                />
-                                            </MyButton>
-                                        </div>
-                                        <div className={cl.price_wrap}>
-                                            <div className={cl.price}>
-                                                <p className={cl.quantity}>
-                                                    {mark}
-                                                    {(
-                                                        cartItem.price *
-                                                        cartItem.quantity
-                                                    ).toFixed(2)}
-                                                </p>
-                                                <small
-                                                    className={
-                                                        cl.quantity_label
-                                                    }
-                                                >
-                                                    {" "}
-                                                    {mark}
-                                                    {cartItem.price} / за шт{" "}
-                                                </small>
-                                            </div>
-                                        </div>
+                            <div
+                                className={cl.item_container}
+                                key={cartItem.product}
+                            >
+                                <div className={cl.top_wrap}>
+                                    <figure className={cl.figure}>
                                         <div>
-                                            <MyButton
-                                                style={{
-                                                    backgroundColor: "red",
-                                                }}
-                                                onClick={() =>
-                                                    deleteItemFromCart(
-                                                        cartItem?.product
-                                                    )
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faTrash}
+                                            <div className={cl.img_wrap}>
+                                                <img
+                                                    className={cl.img}
+                                                    src={cartItem.image}
+                                                    alt={cartItem.name}
                                                 />
-                                            </MyButton>
+                                            </div>
                                         </div>
+                                        <figcaption className={cl.figcaption}>
+                                            <p>
+                                                <a href='#' className={cl.link}>
+                                                    {cartItem.name}
+                                                </a>
+                                            </p>
+                                            <p className={cl.link_seller}>
+                                                {" "}
+                                                Продавец: {cartItem.seller}
+                                            </p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div className={cl.bottom_wrap}>
+                                    <div className={cl.quantity_wrap}>
+                                        <button
+                                            className={cl.button}
+                                            data-action='decrement'
+                                            onClick={() =>
+                                                decreaseQty(cartItem)
+                                            }
+                                        >
+                                            <FontAwesomeIcon icon={faMinus} />
+                                        </button>
+
+                                        <div
+                                            type='number'
+                                            className={cl.number}
+                                            name='custom-input-number'
+                                            autoComplete='off'
+                                            value={cartItem.quantity}
+                                            readOnly
+                                        >
+                                            {cartItem.quantity}
+                                        </div>
+                                        <button
+                                            className={cl.button}
+                                            data-action='increment'
+                                            onClick={() =>
+                                                increaseQty(cartItem)
+                                            }
+                                        >
+                                            <FontAwesomeIcon icon={faPlus} />
+                                        </button>
                                     </div>
+                                    <div className={cl.price_wrap}>
+                                        <small className={cl.quantity_label}>
+                                            Цена
+                                        </small>
+                                        <small className={cl.quantity}>
+                                            {" "}
+                                            {mark}
+                                            {cartItem.price} / за шт{" "}
+                                        </small>
+                                    </div>
+                                    <div className={cl.price_wrap}>
+                                        <small className={cl.quantity_label}>
+                                            Стоимость
+                                        </small>
+                                        <p className={cl.quantity}>
+                                            {mark}
+                                            {(
+                                                cartItem.price *
+                                                cartItem.quantity
+                                            ).toFixed(2)}
+                                        </p>
+                                    </div>
+
+                                    <button
+                                        className={cl.button}
+                                        style={{
+                                            color: "black",
+                                        }}
+                                        onClick={() =>
+                                            deleteItemFromCart(
+                                                cartItem?.product
+                                            )
+                                        }
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
                                 </div>
                                 <hr className={cl.hr} />
                             </div>
@@ -217,7 +205,7 @@ const Cart = () => {
                                             (acc, item) => acc + item.quantity,
                                             0
                                         )}{" "}
-                                        (Шт)
+                                        шт.
                                     </span>
                                 </li>
                                 <li className={cl.checkInfo_li}>
@@ -237,7 +225,11 @@ const Cart = () => {
                             </ul>
                             <div className={cl.btn_wrap}>
                                 <MyButton
-                                    style={{ backgroundColor: "grey" }}
+                                    style={{
+                                        backgroundColor: "var(--primary-4)",
+                                        border: "1px solid var(--primary-3)",
+                                        color: "black",
+                                    }}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         window.location.href = `/`;
@@ -246,7 +238,7 @@ const Cart = () => {
                                     Назад
                                 </MyButton>
                                 <MyButton
-                                    style={{ backgroundColor: "green" }}
+                                    style={{ backgroundColor: "blue" }}
                                     onClick={checkoutHandler}
                                 >
                                     Продолжить

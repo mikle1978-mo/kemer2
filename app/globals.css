@@ -66,7 +66,7 @@ body {
     padding: 0;
     /* font-family: "Times New Roman", Times, serif; */
     font-family: Arial, Helvetica, sans-serif;
-    color: var(--primary-2);
+    /* color: var(--primary-2); */
     overflow-x: hidden;
 }
 

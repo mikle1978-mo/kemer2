@@ -9,6 +9,7 @@ import MyButton from "../UI/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import CartFooter from "./CartFooter";
+import LandingsContact from "../landings/LandingsContact";
 
 const Cart = () => {
     const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
@@ -256,6 +257,7 @@ const Cart = () => {
                 </div>
             )}
             <CartFooter />
+            <LandingsContact />
         </>
     );
 };

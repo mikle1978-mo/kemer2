@@ -15,8 +15,11 @@ const NewProduct = () => {
         name: "",
         description: "",
         seller: "",
+        brand: "",
         price: "",
         discount: "",
+        deliveryPrice: "",
+        deliveryTime: "",
         stock: "",
         category: "",
     });
@@ -33,8 +36,18 @@ const NewProduct = () => {
         }
     }, [error, updated]);
 
-    const { name, description, seller, price, discount, stock, category } =
-        product;
+    const {
+        name,
+        description,
+        seller,
+        brand,
+        price,
+        discount,
+        deliveryPrice,
+        deliveryTime,
+        stock,
+        category,
+    } = product;
 
     const onChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
@@ -173,15 +186,66 @@ const NewProduct = () => {
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
-                            Продавец / Марка
+                            Продавец
                             <input
                                 id='seller'
                                 type='text'
                                 className={cl.input}
-                                placeholder='Seller or brand'
+                                placeholder='Seller'
                                 autoComplete='off'
                                 name='seller'
                                 value={seller}
+                                onChange={onChange}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div className={cl.input_wrap}>
+                        <label className={cl.label}>
+                            {" "}
+                            Марка
+                            <input
+                                id='brand'
+                                type='text'
+                                className={cl.input}
+                                placeholder='Brand'
+                                autoComplete='off'
+                                name='brand'
+                                value={brand}
+                                onChange={onChange}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div className={cl.input_wrap}>
+                        <label className={cl.label}>
+                            {" "}
+                            Стоимость доставки
+                            <input
+                                id='deliveryPrice'
+                                type='text'
+                                className={cl.input}
+                                placeholder='delivery price'
+                                autoComplete='off'
+                                name='deliveryPrice'
+                                value={deliveryPrice}
+                                onChange={onChange}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div className={cl.input_wrap}>
+                        <label className={cl.label}>
+                            {" "}
+                            Время доставки
+                            <input
+                                id='deliveryTime'
+                                type='text'
+                                className={cl.input}
+                                placeholder='delivery time'
+                                autoComplete='off'
+                                name='deliveryTime'
+                                value={deliveryTime}
                                 onChange={onChange}
                                 required
                             />

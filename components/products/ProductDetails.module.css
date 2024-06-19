@@ -93,11 +93,24 @@
     color: #10b981;
 }
 
+.price_wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
 .price {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 600;
+}
+.old_price {
+    text-decoration: line-through;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    color: gray;
 }
 
 .desc {
@@ -107,7 +120,7 @@
 }
 
 .details {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .btn_wrap {
@@ -154,14 +167,11 @@
     color: #6b7280;
 }
 
-.brand {
-    display: inline-block;
-    width: 9rem;
-    font-weight: 500;
-}
-
 .brand_value {
-    color: #6b7280;
+    color: var(--primary-4);
+    background-color: var(--primary-3);
+    border-radius: 5rem;
+    padding: 0.1rem 0.5rem;
 }
 
 .review_wrap {

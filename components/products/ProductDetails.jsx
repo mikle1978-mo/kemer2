@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useRef, useContext, useEffect } from "react";
+import React, { useRef, useContext, useEffect, useState } from "react";
 import BreadCrumbs from "../layouts/BreadCrumbs";
 import CartContext from "@/context/CartContext";
 import NewReview from "../review/NewReview";
 import OrderContext from "@/context/OrderContext";
 import Reviews from "../review/Reviews";
 import { mark } from "@/lib/const/const";
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
+import Carousel from "../layouts/carousel/Carousel";
 
 const ProductDetails = ({ product }) => {
     const StarRatings = dynamic(() => import("react-star-ratings"), {
@@ -19,10 +18,6 @@ const ProductDetails = ({ product }) => {
     });
     const { addItemToCart } = useContext(CartContext);
     const { canUserReview, canReview } = useContext(OrderContext);
-    const imgRef = useRef(null);
-    const setImgPreview = (url) => {
-        imgRef.current.src = url;
-    };
 
     useEffect(() => {
         canUserReview(product?._id);
@@ -52,42 +47,29 @@ const ProductDetails = ({ product }) => {
     return (
         <>
             <BreadCrumbs breadCrumbs={breadCrumbs} />
+            <Carousel data={product} />
+
             <div className={cl.grid}>
-                <aside className={cl.aside}>
-                    <div className={cl.imgWrap}>
-                        <img
-                            ref={imgRef}
-                            className={cl.aside_img}
-                            src={
-                                product?.images[0]
-                                    ? product?.images[0].url
-                                    : "/images/default_product.png"
-                            }
-                            alt={product?.name}
-                            // width={340}
-                            // height={340}
-                        />
-                    </div>
-                    <div className={cl.smlImgWrap}>
-                        {product?.images?.map((img) => (
-                            <a
-                                key={img?._id}
-                                className={cl.asideImgLink}
-                                onClick={() => setImgPreview(img?.url)}
-                            >
-                                <img
-                                    className={cl.smlImage}
-                                    src={img.url}
-                                    alt={product?.name}
-                                    // width="500"
-                                    // height="500"
-                                />
-                            </a>
-                        ))}
-                    </div>
-                </aside>
                 <main>
-                    <h1 className={cl.main_title}>{product?.name}</h1>
+                    <div className={cl.price_wrap}>
+                        <p className={cl.price}>
+                            {mark}
+                            {product?.price}
+                        </p>
+                        <p className={cl.old_price}>
+                            {mark}
+                            {(
+                                (product?.price * 100) /
+                                (100 - product?.discount)
+                            ).toFixed(2)}
+                        </p>
+                    </div>
+                    <div className={cl.li_wrap}>
+                        <span className={cl.brand_value}>
+                            {product?.seller}
+                        </span>
+                    </div>
+                    <h1 className='title'>{product?.name}</h1>
 
                     <div className={cl.main_wrap}>
                         <div className='ratings'>
@@ -110,31 +92,28 @@ const ProductDetails = ({ product }) => {
                         >
                             <circle cx='3' cy='3' r='3' fill='#DBDBDB' />
                         </svg>
-
-                        <span className={cl.verified}>Verified</span>
-                    </div>
-
-                    <p className={cl.price}>
-                        {mark}
-                        {product?.price}
-                    </p>
-                    <details className={cl.details}>
-                        <summary>Развернуть описание</summary>
-
-                        <p className={cl.desc}>{product?.description}</p>
-                    </details>
-
-                    <div className={cl.btn_wrap}>
-                        <MyButton
-                            onClick={addToCartHandler}
-                            disabled={!inStock}
-                        >
-                            {/* <i className='fa fa-shopping-cart mr-2'></i> */}
-                            В корзину
-                        </MyButton>
                     </div>
 
                     <ul className={cl.ul_wrap}>
+                        {" "}
+                        {product?.brand ? (
+                            <li className={cl.li_wrap}>
+                                {" "}
+                                <b className={cl.category}>Производитель:</b>
+                                <span className={cl.category_value}>
+                                    {product?.brand}
+                                </span>
+                            </li>
+                        ) : (
+                            ""
+                        )}
+                        <li className={cl.li_wrap}>
+                            {" "}
+                            <b className={cl.category}>Категория:</b>
+                            <span className={cl.category_value}>
+                                {product?.category}
+                            </span>
+                        </li>
                         <li className={cl.li_wrap}>
                             {" "}
                             <b className={cl.stock}>Склад</b>
@@ -146,29 +125,29 @@ const ProductDetails = ({ product }) => {
                                 <span className={cl.stock_red}>Отсутвует</span>
                             )}
                         </li>
-                        <li className={cl.li_wrap}>
-                            {" "}
-                            <b className={cl.category}>Категория:</b>
-                            <span className={cl.category_value}>
-                                {product?.category}
-                            </span>
-                        </li>
-                        <li className={cl.li_wrap}>
-                            {" "}
-                            <b className={cl.brand}>Продавец/Бренд:</b>
-                            <span className={cl.brand_value}>
-                                {product?.seller}
-                            </span>
-                        </li>
                     </ul>
+                    <details className={cl.details}>
+                        <summary>Развернуть описание</summary>
+
+                        <p className={cl.desc}>{product?.description}</p>
+                    </details>
+                    <div className={cl.btn_wrap}>
+                        <MyButton
+                            onClick={addToCartHandler}
+                            disabled={!inStock}
+                        >
+                            {/* <i className='fa fa-shopping-cart mr-2'></i> */}
+                            В корзину
+                        </MyButton>
+                    </div>
                 </main>
             </div>
             {canReview && <NewReview product={product} />}
             <hr />
             <div className={cl.review_wrap}>
                 <h3
-                    className={cl.review_title}
-                    style={{ marginBottom: "0.5rem" }}
+                    className='title'
+                    style={{ marginBottom: "0.5rem", color: "gray" }}
                 >
                     Отзывы
                 </h3>

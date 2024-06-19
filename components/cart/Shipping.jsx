@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { mark } from "@/lib/const/const";
 import MyButton from "../UI/myButton/myButton";
+import Image from "next/image";
 
 const Shipping = ({ addresses }) => {
     const { cart } = useContext(CartContext);
@@ -84,49 +85,37 @@ const Shipping = ({ addresses }) => {
                 <main className={cl.main}>
                     <article className={cl.article}>
                         <h2 className='title'>Адрес доставки</h2>
-                        <span
-                            style={{
-                                textAlign: "center",
-                                color: "red",
-                                fontSize: "smaller",
-                            }}
-                        >
-                            Доставка только по районам города Кемер!!!
-                        </span>
 
                         <form>
                             <fieldset className={cl.fieldset}>
-                                <div>
-                                    {addresses?.map((address) => (
-                                        <label
-                                            key={address._id}
-                                            className={cl.label}
-                                            onClick={() =>
-                                                setShippingAddress(address)
-                                            }
-                                        >
-                                            <span>
-                                                <input
-                                                    id={address._id}
-                                                    name='shipping'
-                                                    type='radio'
-                                                    className={cl.radio}
-                                                />
-                                            </span>
-                                            <p className={cl.info_wrap}>
-                                                <span>{address.street}</span>
-                                                <small className={cl.small}>
-                                                    {address.city},{" "}
-                                                    {address.state},{" "}
-                                                    {/* {address.zipCode} */}
-                                                    {/* {address.country} */}
-                                                    <br />
-                                                    {address.phoneNo}
-                                                </small>
-                                            </p>
-                                        </label>
-                                    ))}
-                                </div>
+                                {addresses?.map((address) => (
+                                    <label
+                                        key={address._id}
+                                        className={cl.label}
+                                        onClick={() =>
+                                            setShippingAddress(address)
+                                        }
+                                    >
+                                        <span>
+                                            <input
+                                                id={address._id}
+                                                name='shipping'
+                                                type='radio'
+                                                className={cl.radio}
+                                            />
+                                        </span>
+                                        <p className={cl.info_wrap}>
+                                            <span>{address.street}</span>
+                                            <small className={cl.small}>
+                                                {address.city}, {address.state},{" "}
+                                                {/* {address.zipCode} */}
+                                                {/* {address.country} */}
+                                                <br />
+                                                {address.phoneNo}
+                                            </small>
+                                        </p>
+                                    </label>
+                                ))}
                             </fieldset>
                         </form>
 
@@ -171,7 +160,11 @@ const Shipping = ({ addresses }) => {
 
                         <div className={cl.btnlink_wrap}>
                             <MyButton
-                                style={{ backgroundColor: "gray" }}
+                                style={{
+                                    backgroundColor: "var(--primary-4)",
+                                    border: "1px solid var(--primary-3)",
+                                    color: "black",
+                                }}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     window.location.href = `/cart`;
@@ -179,12 +172,7 @@ const Shipping = ({ addresses }) => {
                             >
                                 Назад
                             </MyButton>
-                            <MyButton
-                                style={{ backgroundColor: "green" }}
-                                onClick={checkoutHandler}
-                            >
-                                Далее
-                            </MyButton>
+                            <MyButton onClick={checkoutHandler}>Далее</MyButton>
                         </div>
                     </article>
                 </main>
@@ -226,19 +214,23 @@ const Shipping = ({ addresses }) => {
 
                         {cart?.cartItems?.map((item) => (
                             <figure key={item.product} className={cl.figure}>
-                                <div>
-                                    <div className={cl.img_wrap}>
-                                        <img
-                                            className={cl.img}
-                                            width='100%'
-                                            height='100%'
-                                            src={item.image}
-                                            alt={item.name}
-                                        />
-                                        <span className={cl.img_wrap_span}>
-                                            {item.quantity}
-                                        </span>
-                                    </div>
+                                <div className={cl.img_wrap}>
+                                    <Image
+                                        src={
+                                            item?.image
+                                                ? item?.image
+                                                : "/images/default_product.png"
+                                        }
+                                        className={cl.img}
+                                        alt={item?.name}
+                                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                                        fill
+                                        // height="240"
+                                        // width="240"
+                                    />
+                                    <span className={cl.img_wrap_span}>
+                                        {item.quantity}
+                                    </span>
                                 </div>
                                 <figcaption className={cl.figcaption}>
                                     <p>{item.name.substring(0, 50)}</p>

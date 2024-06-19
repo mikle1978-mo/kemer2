@@ -22,18 +22,24 @@
 .info_wrap {
     display: grid;
     gap: 0.5rem;
+    line-height: 1.2;
 }
 
 .info_title {
     margin-bottom: 0.25rem;
-    color: #9ca3af;
+    color: var(--primary-0);
+    font-weight: bolder;
 }
 
 .info_ul {
     color: #4b5563;
     list-style: none;
 }
-
+.status {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
 .paying_status {
     color: #34d399;
 }
@@ -51,13 +57,21 @@
 
 .img_wrap {
     display: block;
-    overflow: hidden;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    border-width: 1px;
-    border-color: #e5e7eb;
-    width: 5rem;
-    height: 5rem;
+    width: 3rem;
+    height: 4rem;
+    aspect-ratio: 3/4;
+    position: relative;
+}
+.img {
+    display: block;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.products_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .figcaption {

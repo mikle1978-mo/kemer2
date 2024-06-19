@@ -17,30 +17,35 @@ const Congratulation = () => {
 
             <div className={cl.text}>
                 {" "}
-                Состояние заказа вы можете отслеживать в Вашем личном кабинете
+                Состояние заказа Вы можете отслеживать в Вашем личном кабинете
                 на вкладке "заказы".
             </div>
-            <MyButton
-                type='button'
-                style={{ backgroundColor: "green" }}
-                onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = `/`;
-                }}
-            >
-                На главную
-            </MyButton>
-            <br />
-            <MyButton
-                type='button'
-                style={{ backgroundColor: "gray" }}
-                onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href = `/me/orders?order_success=true`;
-                }}
-            >
-                Заказы
-            </MyButton>
+            <div className={cl.btns_wrap}>
+                <MyButton
+                    type='button'
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/`;
+                    }}
+                >
+                    На главную
+                </MyButton>
+
+                <MyButton
+                    type='button'
+                    style={{
+                        backgroundColor: "var(--primary-4)",
+                        border: "1px solid var(--primary-3)",
+                        color: "black",
+                    }}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/me/orders?order_success=true`;
+                    }}
+                >
+                    Заказы
+                </MyButton>
+            </div>
         </>
     );
 };

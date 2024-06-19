@@ -87,7 +87,7 @@ const ProductItem = ({ product }) => {
                         <span>{product?.ratings}</span>
                     </div>
                     <span className={cl.card__titleSeller}>
-                        {product.seller}
+                        {product.brand}
                     </span>
                 </div>
             </div>

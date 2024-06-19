@@ -1,7 +1,8 @@
 .text {
     text-align: justify;
     text-indent: 1rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
 }
 
 .bold_text {
@@ -16,4 +17,12 @@
     font-weight: bolder;
     color: red;
     margin-bottom: 0.3rem;
+}
+
+.btns_wrap {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }

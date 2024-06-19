@@ -1,6 +1,7 @@
 import React from "react";
 import cl from "./about.module.css";
 import LandingsContact from "@/components/landings/LandingsContact";
+import Image from "next/image";
 
 const AboutPage = () => {
     return (
@@ -16,6 +17,7 @@ const AboutPage = () => {
                 и наслаждаться выгодными предложениями.
             </p>
 
+           
             <h2 className={cl.title2}>Что делает нас особенными?</h2>
 
             <ol className={cl.price_list}>

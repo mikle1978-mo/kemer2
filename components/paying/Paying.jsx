@@ -70,9 +70,6 @@ const Paying = () => {
                     <p className={cl.info_title}>Платежная информация</p>
                     <ul className={cl.info_ul}>
                         <li>Оплата: {order?.paymentInfo?.method}</li>
-                        <li className={cl.paying_status}>
-                            {order?.paymentInfo?.status?.toUpperCase()}
-                        </li>
 
                         <li>
                             Налог: {mark}
@@ -88,23 +85,28 @@ const Paying = () => {
 
             <hr className={cl.hr} />
 
-            <div className={cl.product_card_small}>
+            <div className={cl.products_wrap}>
                 {order?.orderItems?.map((item) => (
                     <figure className={cl.figure} key={item?.product}>
                         <div>
                             <div className={cl.img_wrap}>
                                 <Image
-                                    src={item?.image}
-                                    height='60'
-                                    width='60'
-                                    alt={item.name}
+                                    src={
+                                        item?.image
+                                            ? item?.image
+                                            : "/images/default_product.png"
+                                    }
+                                    className={cl.img}
+                                    alt={item?.name}
+                                    sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                                    fill
                                 />
                             </div>
                         </div>
                         <figcaption className={cl.figcaption}>
                             <p>{item.name.substring(0, 35)}</p>
                             <p className={cl.figcaption_info}>
-                                {item.quantity}шт = {mark}
+                                {item.quantity}шт. = {mark}
                                 {item.price * item.quantity}
                             </p>
                         </figcaption>
@@ -125,7 +127,11 @@ const Paying = () => {
             <div className={cl.btn_wrap}>
                 <MyButton
                     type='button'
-                    style={{ backgroundColor: "gray" }}
+                    style={{
+                        backgroundColor: "var(--primary-4)",
+                        border: "1px solid var(--primary-3)",
+                        color: "black",
+                    }}
                     onClick={(e) => {
                         e.preventDefault();
                         window.location.href = `/shipping`;
@@ -133,11 +139,7 @@ const Paying = () => {
                 >
                     назад
                 </MyButton>
-                <MyButton
-                    type='button'
-                    style={{ backgroundColor: "green" }}
-                    onClick={newOrderHandler}
-                >
+                <MyButton type='button' onClick={newOrderHandler}>
                     заказать
                 </MyButton>
             </div>

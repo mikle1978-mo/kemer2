@@ -41,6 +41,20 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter product seller"],
     },
+    brand: {
+        type: String,
+        required: [true, "Please enter product seller"],
+    },
+    deliveryPrice: {
+        type: Number,
+        required: [true, "Pleasr enter delivery price"],
+        default: 50,
+    },
+    deliveryTime: {
+        type: Number,
+        required: [true, "Please enter delivery time"],
+        default: 24,
+    },
     stock: {
         type: Number,
         required: [true, "Please enter product stock"],

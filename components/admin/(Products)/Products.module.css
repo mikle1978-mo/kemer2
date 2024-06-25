@@ -30,6 +30,7 @@
     padding-bottom: 0.1rem;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
+    font-size: x-small;
 }
 
 .table_row {
@@ -42,6 +43,9 @@
     padding-left: 0.1rem;
     padding-right: 0.1rem;
     border-bottom: 1px solid var(--primary-3);
+}
+.imgIcon {
+    border-radius: 50%;
 }
 
 .btn_wrap {

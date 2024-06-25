@@ -19,9 +19,16 @@
     --secondary-b-3: rgba(153, 255, 153, 1);
 
     --complement-0: rgba(255, 153, 0, 1); /* Дополнительный Цвет */
-    --complement-1: rgba(153, 102, 51, 1);
+    --complement-1: rgb(153, 102, 51);
     --complement-2: rgba(102, 51, 0, 1);
     --complement-3: rgba(255, 204, 153, 1);
+
+    --landing-1: #1a1a1a;
+    --landing-2: #1b4048;
+    --landing-3: #0e5d6e;
+    --landing-4: #acc1c6;
+    --landing-5: #ece2d9;
+    --landing-6: #a16f3e;
 
     --gradient-0: linear-gradient(
         0deg,

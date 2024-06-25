@@ -1,9 +1,9 @@
-import CanyonHeader from "@/components/landings/canyon/CanyonHeader";
+import Navbar from "@/components/landings/canyon/components/layout/navbar/Navbar";
 
 export default function CanyonLayout({ children }) {
     return (
         <>
-            <CanyonHeader />
+            <Navbar />
             {children}
         </>
     );

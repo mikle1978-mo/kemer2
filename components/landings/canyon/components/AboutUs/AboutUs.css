@@ -1,0 +1,115 @@
+.app__aboutus {
+    position: relative;
+}
+
+.app__aboutus-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.app__aboutus-overlay img {
+    width: 391px;
+    height: 415px;
+    z-index: 0;
+}
+
+.app__aboutus-content {
+    width: 100%;
+    z-index: 2;
+}
+
+.app__aboutus-content_about {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+
+    text-align: right;
+}
+
+.app__aboutus-content_knife {
+    margin: 1rem;
+}
+
+.app__aboutus-content_knife img {
+    height: 450px;
+}
+
+.app__aboutus-content_history {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    text-align: left;
+}
+
+.app__aboutus-content_about p,
+.app__aboutus-content_history p {
+    margin: 2rem 0;
+    color: var(--landing-5);
+}
+
+@media screen and (min-width: 2000px) {
+    .app__aboutus-content_knife img {
+        height: 1110px;
+    }
+
+    .app__aboutus-content_about p,
+    .app__aboutus-content_history p {
+        margin: 4rem 0;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .app__aboutus-content {
+        flex-direction: column;
+    }
+
+    .app__aboutus-content_knife {
+        margin: 2rem 0;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .app__aboutus-overlay img {
+        width: 50%;
+        height: 210px;
+    }
+}
+
+.modalAbout {
+    position: fixed;
+    min-width: 300px;
+    width: 91vw;
+    background-color: #fff;
+    left: 30px;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 10px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-indent: 1.5rem;
+    padding: 0.5rem;
+    text-align: justify;
+    line-height: 1.3;
+}
+
+.modalAbout p {
+    color: var(--landing-1);
+    margin: 1rem 0;
+}
+
+.modal_box {
+    overflow: auto;
+}
+.modalAbout_title {
+    text-align: center;
+    text-indent: 0;
+    font-size: 1.5rem;
+}

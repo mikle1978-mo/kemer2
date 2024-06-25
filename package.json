@@ -27,6 +27,7 @@
         "raw-body": "^2.5.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-icons": "^5.2.1",
         "react-js-pagination": "^3.0.3",
         "react-star-ratings": "^2.3.0",
         "react-toastify": "^10.0.5",
@@ -35,6 +36,7 @@
     "devDependencies": {
         "@types/react": "18.3.3",
         "autoprefixer": "^10.4.19",
+        "file-loader": "^6.2.0",
         "postcss": "^8.4.38",
         "typescript": "5.4.5"
     },

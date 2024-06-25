@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useContext, useEffect, useState } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import BreadCrumbs from "../layouts/BreadCrumbs";
 import CartContext from "@/context/CartContext";
 import NewReview from "../review/NewReview";

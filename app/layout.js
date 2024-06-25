@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { GlobalProvider } from "./GlobalProvider";
 import "./globals.css";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,6 +19,10 @@ export default function RootLayout({ children }) {
     return (
         <html lang='ru'>
             <head>
+                <meta
+                    httpEquiv='content-type'
+                    content='text/html; charset=UTF-8'
+                />
                 <link
                     rel='apple-touch-icon'
                     sizes='180x180'
@@ -62,10 +65,36 @@ export default function RootLayout({ children }) {
                         `,
                     }}
                 />
+                {/*Yandex.Metrika counter*/}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+      
+                ym(97637253, "init", {
+                      clickmap:true,
+                      trackLinks:true,
+                      accurateTrackBounce:true
+                });
+              `,
+                    }}
+                />
+                <noscript>
+                    <div>
+                        <img
+                            src='https://mc.yandex.ru/watch/12345678'
+                            style={{ position: "absolute", left: "-9999px" }}
+                            alt=''
+                        />
+                    </div>
+                </noscript>
+                {/* /Yandex.Metrika counter */}
             </head>
             <body>
                 <GlobalProvider>
-                                       <Header />
+                    <Header />
                     <div className='container'>
                         <div className='section'>{children}</div>
                     </div>

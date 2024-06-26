@@ -84,3 +84,36 @@
         line-height: 48.5px;
     }
 }
+
+.modalMenu {
+    position: fixed;
+    min-width: 300px;
+    width: 91vw;
+    background-color: #fff;
+    left: 30px;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 10px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 0.5rem;
+    text-align: justify;
+    line-height: 1.3;
+}
+
+.modalMenu p {
+    color: var(--landing-1);
+    margin: 0.5rem 0;
+}
+
+.modal_box {
+    overflow: auto;
+}
+.modalMenu_title {
+    text-align: center;
+    text-indent: 0;
+    font-size: 1.5rem;
+}

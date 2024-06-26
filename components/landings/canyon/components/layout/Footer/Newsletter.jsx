@@ -3,12 +3,12 @@ import React from "react";
 import { useState } from "react";
 import SubHeading from "../subheading/SubHeading";
 import "./Newsletter.css";
+import { toast } from "react-toastify";
 
 const TLGMessage = function (order) {
-    console.log(order);
     if (order) {
         let message = `<b>Заявка с сайта Canion!</b>\n`;
-        message += `<b>email: </b>${order.mail}\n`;
+        message += `<b>phone: </b>${order.phone}\n`;
 
         fetch(process.env.URI_API_TG, {
             method: "POST",
@@ -33,28 +33,35 @@ const TLGMessage = function (order) {
 
 export default function Newsletter() {
     const [message, setMessage] = useState({
-        mail: "",
+        phone: "",
     });
 
-    const { mail } = message;
+    const { phone } = message;
 
     const onChange = (e) => {
         setMessage({ ...message, [e.target.name]: e.target.value });
     };
     const submitHandler = (e) => {
-        e.preventDefault();
-        TLGMessage(message);
+        if (phone) {
+            e.preventDefault();
+            TLGMessage(message);
+            setMessage({ phone: "" }); // Очистка состояния формы
+            e.target.reset(); // Сброс формы
+            toast.success("Телефон отправлен. Мы Вам скоро с вами свяжемся!");
+        } else {
+            e.preventDefault();
+            toast.error("Введите номер телефона!");
+        }
     };
 
     return (
         <div className='app__newsletter'>
             <div className='app__newsletter-heading'>
-                <SubHeading title='Новостная лента' />
-                <h1 className='headtext__cormorant'>
-                    Подпишись на нашу ленту новостей
-                </h1>
+                <SubHeading title='Заказ столика' />
+                <h2 className='headtext__cormorant'>Заказать столик</h2>
                 <p className='p__opensans'>
-                    И никогда не пропускайте последние обновления!
+                    Отрправьте Ваш телефон и мы Вам перезвоним, или позвоните
+                    нам по телефону указанному ниже.
                 </p>
             </div>
 
@@ -63,14 +70,14 @@ export default function Newsletter() {
                 onSubmit={submitHandler}
             >
                 <input
-                    type='email'
-                    placeholder='Введите Ваш email'
-                    name='mail'
-                    value={mail}
+                    type='tel'
+                    placeholder='Введите Ваш телефон'
+                    name='phone'
+                    value={phone}
                     onChange={onChange}
                 />
                 <button type='submit' className='custom__button'>
-                    Подписаться
+                    Заказать
                 </button>
             </form>
         </div>

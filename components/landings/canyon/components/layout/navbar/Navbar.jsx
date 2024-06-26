@@ -85,6 +85,14 @@ const Navbar = () => {
                                     Контакты
                                 </a>
                             </li>
+                            <li>
+                                <a
+                                    href='#login'
+                                    onClick={() => setToggleMenu(false)}
+                                >
+                                    Заказать столик
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 )}

@@ -1,7 +1,6 @@
 .app__menuitem {
     width: 100%;
     margin: 0.5rem 0;
-
     display: flex;
     flex-direction: column;
 }
@@ -19,6 +18,9 @@
 
 .app__menuitem-name {
     flex: 1;
+}
+.app__menuitem-name p {
+    color: var(--landing-6);
 }
 
 .app__menuitem-dash {

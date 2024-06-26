@@ -36,9 +36,14 @@ const Gallery = () => {
                     Instagram, чтобы не упустить новые впечатления и
                     предложения!
                 </p>
-                <button type='button' className='custom__button'>
+                <a
+                    type='button'
+                    className='custom__button'
+                    href='https://www.instagram.com/kemerkesmebogazi?igsh=c295bWtuMnZnYnF2'
+                    target='blank'
+                >
                     Смотреть больше
-                </button>
+                </a>
             </div>
             <div className='app__gallery-images'>
                 <div className='app__gallery-images_container' ref={scrollRef}>

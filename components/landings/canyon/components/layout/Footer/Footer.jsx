@@ -1,5 +1,6 @@
 import React from "react";
-import { FiFacebook, FiTwitter, FiInstagram } from "react-icons/fi";
+import { FiFacebook, FiTwitter, FiInstagram, FiMail } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 import FooterOverlay from "./FooterOverlay";
 import Newsletter from "./Newsletter";
@@ -34,9 +35,22 @@ const Footer = () => (
                     style={{ marginTop: 15 }}
                 />
                 <div className='app__footer-links_icons'>
-                    <FiFacebook />
-                    <FiTwitter />
-                    <FiInstagram />
+                    <a
+                        href='mailto:kesmebogazi@gmail.com?subject=Important-mail:&body=Hello.'
+                        type='email'
+                        target='_blank'
+                    >
+                        <FiMail />
+                    </a>
+                    <a href='https://wa.me/905322347560' target='_blank'>
+                        <FaWhatsapp />
+                    </a>
+                    <a
+                        href='https://www.instagram.com/kemerkesmebogazi?igsh=c295bWtuMnZnYnF2'
+                        target='_blank'
+                    >
+                        <FiInstagram />
+                    </a>
                 </div>
             </div>
 

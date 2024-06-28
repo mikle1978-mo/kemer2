@@ -11,20 +11,11 @@ const MyOrdersPage = async ({ searchParams }) => {
     const cookieName = getCookieName();
     const nextAuthSessionToken = nextCookies.get(cookieName);
 
-    const urlParams = {
-        page: searchParams.page || 1,
-    };
-
-    const searchQuery = queryString.stringify(urlParams);
-
-    const { data } = await axios.get(
-        `${process.env.API_URL}/api/orders/me?${searchQuery}`,
-        {
-            headers: {
-                Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
-            },
-        }
-    );
+    const { data } = await axios.get(`${process.env.API_URL}/api/orders/me`, {
+        headers: {
+            Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+    });
 
     return <ListOrders orders={data} />;
 };

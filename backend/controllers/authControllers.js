@@ -68,34 +68,12 @@ export const updatePassword = async (req, res) => {
 };
 
 export const getUsers = async (req, res) => {
-    const resPerPage = 5;
     const usersCount = await User.countDocuments();
 
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
-
-    const queryParams = {
-        keyword: searchParams.get("keyword"),
-        page: searchParams.get("page"),
-        category: searchParams.get("category"),
-        "price[gte]": searchParams.get("price[gte]"),
-        "price[lte]": searchParams.get("price[lte]"),
-        "ratings[gte]": searchParams.get("ratings[gte]"),
-    };
-
-    let queryStr = Object.fromEntries(
-        Object.entries(queryParams).filter(([_, v]) => v != null)
-    );
-
-    const apiFilters = new APIFilters(User.find(), queryStr).pagination(
-        resPerPage
-    );
-
-    const users = await apiFilters.query;
+    const users = await User.find();
 
     return {
         usersCount,
-        resPerPage,
         users,
     };
 };

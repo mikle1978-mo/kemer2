@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProducts } from "@/backend/controllers/productControllers";
 import { getAllAds } from "@/backend/controllers/adsControllers";
 import onError from "@/backend/middlewares/errors";

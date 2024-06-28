@@ -11,37 +11,15 @@ export const newOrder = async (req, res) => {
     };
 };
 
-export const getOrders = async (req, res) => {
-    const resPerPage = 20;
+export const getOrders = async () => {
     const ordersCount = await Order.countDocuments();
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
 
-    const queryParams = {
-        keyword: searchParams.get("keyword"),
-        page: searchParams.get("page"),
-        category: searchParams.get("category"),
-        "price[gte]": searchParams.get("price[gte]"),
-        "price[lte]": searchParams.get("price[lte]"),
-        "ratings[gte]": searchParams.get("ratings[gte]"),
-    };
-
-    let queryStr = Object.fromEntries(
-        Object.entries(queryParams).filter(([_, v]) => v != null)
-    );
-
-    const apiFilters = new APIFilters(Order.find(), queryStr).pagination(
-        resPerPage
-    );
-
-    const orders = await apiFilters.query
-        .find()
+    const orders = await Order.find()
         .sort({ createAt: -1 })
         .populate("shippingInfo user");
 
     return {
         ordersCount,
-        resPerPage,
         orders,
     };
 };
@@ -59,35 +37,14 @@ export const getOrder = async (req, id, res) => {
 };
 
 export const myOrders = async (req, res) => {
-    const resPerPage = 10;
     const ordersCount = await Order.countDocuments();
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
 
-    const queryParams = {
-        keyword: searchParams.get("keyword"),
-        page: searchParams.get("page"),
-        category: searchParams.get("category"),
-        "price[gte]": searchParams.get("price[gte]"),
-        "price[lte]": searchParams.get("price[lte]"),
-        "ratings[gte]": searchParams.get("ratings[gte]"),
-    };
-
-    let queryStr = Object.fromEntries(
-        Object.entries(queryParams).filter(([_, v]) => v != null)
-    );
-
-    const apiFilters = new APIFilters(Order.find(), queryStr).pagination(
-        resPerPage
-    );
-    const orders = await apiFilters.query
-        .find({ user: req.user._id })
+    const orders = await Order.find({ user: req.user._id })
         .sort({ createAt: -1 })
         .populate("shippingInfo user");
 
     return {
         ordersCount,
-        resPerPage,
         orders,
     };
 };

@@ -10,11 +10,7 @@ const getUsers = async (searchParams) => {
 
     const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
 
-    const urlParams = {
-        page: searchParams.page || 1,
-    };
-
-    const searchQuery = queryString.stringify(urlParams);
+    const searchQuery = queryString.stringify();
 
     const { data } = await axios.get(
         `${process.env.API_URL}/api/admin/users?${searchQuery}`,

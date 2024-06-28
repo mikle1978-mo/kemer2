@@ -1,6 +1,6 @@
 import cl from "./myCarusel.module.css";
 import Link from "next/link";
- 
+
 export default function Carusel({ data }) {
     const sortedArray = data.sort(() => Math.random() - 0.5);
     return (

@@ -8,6 +8,7 @@ import cl from "./ProductItem.module.css";
 import MyButton from "../UI/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useInView } from "react-intersection-observer";
 
 const ProductItem = ({ product }) => {
     const StarRatings = dynamic(() => import("react-star-ratings"), {
@@ -26,23 +27,31 @@ const ProductItem = ({ product }) => {
             seller: product.seller,
         });
     };
+    const { ref, inView } = useInView({
+        threshold: 0,
+        triggerOnce: true,
+    });
 
     return (
         <article className={cl.card}>
             <Link href={`/product/${product._id}`} className={cl.card__top}>
-                <div className={cl.card__image}>
-                    <Image
-                        src={
-                            product?.images[0]
-                                ? product?.images[0].url
-                                : "/images/default_product.png"
-                        }
-                        alt={product?.name}
-                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
-                        fill
-                        // height="240"
-                        // width="240"
-                    />
+                <div className={cl.card__image} ref={ref}>
+                    {inView ? (
+                        <Image
+                            src={
+                                product?.images[0]
+                                    ? product?.images[0].url
+                                    : "/images/default_product.png"
+                            }
+                            alt={product?.name}
+                            sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                            fill
+                            // height="240"
+                            // width="240"
+                        />
+                    ) : (
+                        <div></div>
+                    )}
                 </div>
                 {/* -- Скидка на товар -- */}
                 {product?.discount ? (

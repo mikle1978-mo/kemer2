@@ -1,15 +1,16 @@
 import axios from "axios";
 import ListProducts from "@/components/products/ListProducts";
 import { dbConnect } from "@/backend/config/dbConnect";
-import queryString from "query-string";
 import Carusel from "../components/layouts/carusel/myCarusel";
-import { insert } from "@/helpers/helpers";
+import queryString from "query-string";
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
     const urlParams = {
         keyword: searchParams.keyword,
         page: searchParams.page,
+        limit: process.env.NUMDER_OF_PRODUCTS,
+        forceRefresh: true,
         category: searchParams.category,
         "price[gte]": searchParams.min,
         "price[lte]": searchParams.max,
@@ -18,25 +19,15 @@ const HomePage = async ({ searchParams }) => {
 
     const searchQuery = queryString.stringify(urlParams);
 
-    const { data } = await axios.get(
+    const response = await axios.get(
         `${process.env.API_URL}/api/products?${searchQuery}`
     );
-    const dataAds = await axios.get(`${process.env.API_URL}/api/ads`);
-    let carouselAds = dataAds.data.allAds.filter(
-        (item) => item.type === "Карусель"
-    );
-    let listAds = dataAds.data.allAds.filter(
-        (item) => item.type !== "Карусель"
-    );
-
-    data.products = data.products.filter((item) => item.stock > 0);
-    data.products = data.products.sort(() => Math.random() - 0.5);
-    insert(data.products, listAds);
+    const data = response.data;
 
     return (
         <>
-            <Carusel data={carouselAds} />
-            <ListProducts data={data} />
+            <Carusel data={data.carouselAds} />
+            <ListProducts data={data} searchParams={searchParams} />
         </>
     );
 };

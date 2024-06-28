@@ -17,13 +17,15 @@ export const newProduct = async (req, res, next) => {
 };
 
 export const getProducts = async (req, res, next) => {
-    // const resPerPage = 4;
     const productsCount = await Product.countDocuments();
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
 
     const queryParams = {
         keyword: searchParams.get("keyword"),
+        limit: searchParams.get("limit"),
+        forceRefresh: searchParams.get("forceRefresh"),
+        offset: searchParams.get("offset"),
         page: searchParams.get("page"),
         category: searchParams.get("category"),
         "price[gte]": searchParams.get("price[gte]"),
@@ -48,7 +50,6 @@ export const getProducts = async (req, res, next) => {
 
     return {
         productsCount,
-        // resPerPage,
         filteredProductsCount,
         products,
     };

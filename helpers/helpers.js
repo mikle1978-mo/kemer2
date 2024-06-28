@@ -42,9 +42,28 @@ export const getCookieName = () => {
     return cookieName;
 };
 
-export const insert = (arr1, arr2) => {
-    arr2.forEach(function (item, index) {
-        if (arr1.length >= index) arr1.splice((index + 1) * 5, 0, item);
-    });
-    return arr1;
+export const insertAds = (products, ads, interval = 5) => {
+    let i = interval;
+    while (i < products.length) {
+        const ad = ads.shift(); // Извлекаем следующий рекламный блок
+        if (ad) {
+            products.splice(i, 0, ad); // Вставляем рекламный блок в массив продуктов
+            i += interval + 1; // Увеличиваем индекс для следующего интервала
+        } else {
+            break; // Прекращаем вставку, если рекламных блоков больше нет
+        }
+    }
+    return products;
 };
+
+export function shuffleArray(array) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [
+            shuffledArray[j],
+            shuffledArray[i],
+        ];
+    }
+    return shuffledArray;
+}

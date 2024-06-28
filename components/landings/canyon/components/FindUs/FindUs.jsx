@@ -24,13 +24,16 @@ const FindUs = () => (
                 <p className='p__opensans'>Пн - Пт: 10:00 - 01:00 </p>
                 <p className='p__opensans'>Сб - Вс: 10:00 - 02:00 </p>
             </div>
-            <button
+            <a></a>
+            <a
+                href='tel:+905322347560'
+                target='_blank'
                 type='button'
                 className='custom__button'
                 style={{ marginTop: "2rem" }}
             >
                 Посетите нас
-            </button>
+            </a>
         </div>
 
         <a

@@ -14,7 +14,7 @@ export const newAds = async (req) => {
 
 export const getAllAds = async () => {
     const adsCount = await Ads.countDocuments();
-    const allAds = await Ads.find();
+    const allAds = await Ads.find().lean();
 
     return {
         adsCount,

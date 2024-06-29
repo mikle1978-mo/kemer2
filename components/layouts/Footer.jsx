@@ -2,22 +2,27 @@
 
 import { useContext, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import CartContext from "@/context/CartContext";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import AuthContext from "@/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faBars,
     faCartShopping,
     faUser,
     faHouse,
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import cl from "./Footer.module.css";
+import "./Footer.css";
 
 const Header = () => {
     const { user, setUser } = useContext(AuthContext);
+    const pathname = usePathname() || "";
+    const isActiveHome = pathname === "/";
+    const isActiveCart = pathname.includes("/cart");
+    const isActiveFilters = pathname.includes("/filters");
+    const isActiveMe = pathname.includes("/me");
+    const isActiveLogin = pathname.includes("/login");
 
     const { data } = useSession();
 
@@ -31,38 +36,41 @@ const Header = () => {
     const cartItems = cart?.cartItems;
 
     return (
-        <footer className={cl.footer}>
-            <Link href='/'>
-                <FontAwesomeIcon icon={faHouse} color='blue' />
+        <footer className='footer'>
+            <Link href='/' className={isActiveHome ? "active" : "links"}>
+                <FontAwesomeIcon icon={faHouse} />
             </Link>
-            <Link href='/filters'>
-                <FontAwesomeIcon icon={faMagnifyingGlass} color='blue' />
+            <Link
+                href='/filters'
+                className={isActiveFilters ? "active" : "links"}
+            >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
             </Link>
 
-            {/* <div className={cl.burger} onClick={clickHandler}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} color='blue' />
-            </div> */}
-
-            <Link className={cl.cart} href='/cart'>
+            <Link
+                href='/cart'
+                className={isActiveCart ? " cart active" : " cart links"}
+            >
                 {cartItems?.length ? (
                     <>
-                        <FontAwesomeIcon icon={faCartShopping} color='blue' />
-                        <span className={cl.cartLength}>
-                            {cartItems?.length}
-                        </span>
+                        <FontAwesomeIcon icon={faCartShopping} />
+                        <span className='cartLength'>{cartItems?.length}</span>
                     </>
                 ) : (
-                    <FontAwesomeIcon icon={faCartShopping} color='blue' />
+                    <FontAwesomeIcon icon={faCartShopping} />
                 )}
             </Link>
 
             {!user ? (
-                <Link href='/login'>
-                    <FontAwesomeIcon icon={faUser} color='blue' />
+                <Link
+                    href='/login'
+                    className={isActiveLogin ? "active" : "links"}
+                >
+                    <FontAwesomeIcon icon={faUser} />
                 </Link>
             ) : (
                 <Link href='/me'>
-                    <div className={cl.me}>
+                    <div className='me'>
                         <img
                             src={
                                 user?.avatar
@@ -73,7 +81,6 @@ const Header = () => {
                     </div>
                 </Link>
             )}
-            {/* <FontAwesomeIcon icon={faUser} /> */}
         </footer>
     );
 };

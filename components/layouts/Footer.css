@@ -15,6 +15,14 @@
     z-index: 3;
 }
 
+.links {
+    color: var(--primary-3);
+}
+
+.active {
+    color: var(--primary-0);
+}
+
 .burger {
     cursor: pointer;
 }

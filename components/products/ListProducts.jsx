@@ -52,6 +52,9 @@ const ListProducts = ({ data, searchParams }) => {
 
     return (
         <>
+            <div style={{ visibility: "hidden" }}>
+                <h1 className='hiddenTitle'>Список товаров и продуктов</h1>
+            </div>
             <main className={cl.listProduct}>
                 {products.map((product) =>
                     product?.advertiser ? (

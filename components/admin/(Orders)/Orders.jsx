@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Orders.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
+import { toast } from "react-toastify";
 
 const Orders = ({ orders }) => {
     const { deleteOrder, error, clearErrors } = useContext(OrderContext);
@@ -26,7 +27,10 @@ const Orders = ({ orders }) => {
     }, [orders]);
 
     const deleteHandler = (id) => {
-        deleteOrder(id);
+        if (confirm("Удалить заказ?")) {
+            deleteOrder(id);
+            toast.success("Заказ удален!");
+        }
     };
     return (
         <div className={cl.wrap}>

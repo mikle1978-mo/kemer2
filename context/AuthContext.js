@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
             );
 
             if (data?.user) {
-                router.push("/");
+                router.push("/login");
             }
         } catch (error) {
             setError(error?.response?.data?.message);

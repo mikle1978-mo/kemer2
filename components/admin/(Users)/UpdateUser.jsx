@@ -16,7 +16,7 @@ const UpdateUser = ({ user }) => {
     useEffect(() => {
         if (updated) {
             setUpdated(false);
-            toast.success("User Updated");
+            toast.success("Пользователь обновлен");
         }
 
         if (error) {
@@ -80,7 +80,7 @@ const UpdateUser = ({ user }) => {
                                 onChange={(e) => setRole(e.target.value)}
                                 required
                             >
-                                {["user", "admin"].map((role) => (
+                                {["user", "seller", "admin"].map((role) => (
                                     <option key={role} value={role}>
                                         {role}
                                     </option>

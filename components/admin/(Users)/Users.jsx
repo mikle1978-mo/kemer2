@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 // import CustomPagination from "../layouts/CustomPagination";
 import AuthContext from "@/context/AuthContext";
@@ -8,9 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Users.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Users = ({ data }) => {
     const { error, deleteUser, clearErrors } = useContext(AuthContext);
+    const router = useRouter();
 
     useEffect(() => {
         if (error) {
@@ -19,8 +21,15 @@ const Users = ({ data }) => {
         }
     }, [error]);
 
+    useEffect(() => {
+        router.refresh();
+    }, [data]);
+
     const deleteHandler = (id) => {
-        deleteUser(id);
+        if (confirm("Удалить пользователя?")) {
+            deleteUser(id);
+            toast.success("Пользователь удален!");
+        }
     };
 
     return (

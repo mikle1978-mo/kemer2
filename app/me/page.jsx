@@ -63,6 +63,39 @@ const Sidebar = () => {
                         <hr />
                     </>
                 )}
+                {user?.role === "seller" && (
+                    <>
+                        <li className={cl.li}>
+                            <Link
+                                href='/admin/products/new'
+                                className={cl.sideBar_link}
+                            >
+                                Новый продукт{" "}
+                                <span className={cl.admin}>(Seller)</span>
+                            </Link>
+                        </li>
+                        <li className={cl.li}>
+                            <Link
+                                href='/admin/products'
+                                className={cl.sideBar_link}
+                            >
+                                Все продукты{" "}
+                                <span className={cl.admin}>(Seller)</span>
+                            </Link>
+                        </li>
+                        {/* <li className={cl.li}>
+                            <Link
+                                href='/admin/orders'
+                                className={cl.sideBar_link}
+                            >
+                                Все заказы{" "}
+                                <span className={cl.admin}>(Seller)</span>
+                            </Link>
+                        </li> */}
+
+                        <hr />
+                    </>
+                )}
 
                 <li className={cl.li}>
                     <Link href='/me/addresses' className={cl.sideBar_link}>

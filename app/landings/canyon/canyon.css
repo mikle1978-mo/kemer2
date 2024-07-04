@@ -9,11 +9,12 @@
 }
 
 .app__bg {
-    background: url("../../../public/images/landings/canyon/bg2.webp");
+    /* background: url("../../../public/images/landings/canyon/bg2.webp");
     background-position: center;
     background-size: cover;
     background-repeat: repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; */
+    background-color: var(--landing-3);
 }
 
 .app__wrapper {

@@ -1,7 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/backend/models/user";
 import bcrypt from "bcryptjs";
-import { dbConnect } from "@/backend/config/dbConnect";
 
 export const AuthOptions = {
     session: {
@@ -11,8 +10,6 @@ export const AuthOptions = {
         CredentialsProvider({
             async authorize(credentials, NextRequest) {
                 try {
-                    // ваш текущий код
-                    // dbConnect();
                     const { email, password } = credentials;
 
                     const user = await User.findOne({ email }).select(
@@ -20,7 +17,7 @@ export const AuthOptions = {
                     );
 
                     if (!user) {
-                        throw new Error("Invalid Email or Password");
+                        throw new Error("Неверный логин ");
                     }
 
                     const isPasswordMatched = await bcrypt.compare(
@@ -29,12 +26,12 @@ export const AuthOptions = {
                     );
 
                     if (!isPasswordMatched) {
-                        throw new Error("Invalid Email or Password");
+                        throw new Error("Неверный пароль");
                     }
                     return user;
                 } catch (error) {
-                    console.error("Authorization Error:", error.message);
-                    throw new Error("Invalid Email or Password");
+                    console.error("Ошибка авторизации:", error.message);
+                    throw new Error("Неверный логин или пароль");
                 }
             },
         }),

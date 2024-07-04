@@ -23,10 +23,15 @@ const Products = ({ data }) => {
         }
     }, [error]);
 
-    const deleteHandler = (id) => {
-        deleteProduct(id);
+    useEffect(() => {
         router.refresh();
-        toast.success("Продукт удален");
+    }, [data]);
+
+    const deleteHandler = (id) => {
+        if (confirm("Удалить продукт?")) {
+            deleteProduct(id);
+            toast.success("Продукт удален");
+        }
     };
     return (
         <div className={cl.products}>

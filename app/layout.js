@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
     title: {
-        default: "Кемер-онлайн, продукты, товары и услуги в Кемере",
+        default: "Кемер-онлайн магазин, продуктов, товаров и услуг в Кемере",
         template: "%s - Кемер-онлайн",
     },
     description:
@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
                 <noscript>
                     <div>
                         <img
-                            src='https://mc.yandex.ru/watch/12345678'
+                            src='https://mc.yandex.ru/watch/97637253'
                             style={{ position: "absolute", left: "-9999px" }}
                             alt=''
                         />

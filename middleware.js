@@ -13,7 +13,7 @@ export default withAuth(
                 "*"
             );
         }
-        if (url?.startsWith("/admin") && userRole !== "admin") {
+        if (url?.startsWith("/admin") && userRole === "user") {
             return NextResponse.redirect(new URL("/", req.url));
         }
     },

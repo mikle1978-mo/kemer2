@@ -8,8 +8,8 @@ import { cache } from "react";
 export async function generateMetadata({ params }) {
     const product = await getProductDetails(params?.id);
     return {
-        title: `${product.name} `,
-        description: `${product.name} купить за ${product.price} ${mark} на кемер-онлайн. Постоянные скидки, оптовые цены!`,
+        title: `${product.name} ${""}${product?.brand}`,
+        description: `${product.name} купить за ${product.price} ${mark} на кемер-онлайн. Фирма ${product?.brand}. Продавец ${product?.seller}. Постоянные скидки, оптовые цены!`,
         openGraph: {
             images: [product.images[0]],
         },

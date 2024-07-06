@@ -178,11 +178,13 @@ const Filters = () => {
                                         )}
                                         onClick={(e) => handleClick(e.target)}
                                     />
-                                    <span className='ml-2 text-gray-500'>
+                                    <span
+                                        style={{ textTransform: "capitalize" }}
+                                    >
                                         {" "}
                                         {item.category}
                                     </span>
-                                    <span className='ml-2 text-gray-500'>
+                                    <span>
                                         <FontAwesomeIcon
                                             icon={faChevronRight}
                                         />

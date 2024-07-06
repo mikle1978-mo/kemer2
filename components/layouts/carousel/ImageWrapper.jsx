@@ -13,8 +13,8 @@ export default function ImageWrapper({ child }) {
             <div className={cl.card__image}>
                 <Image
                     onClick={toggleOpen}
-                    sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
-                    fill
+                    width={768}
+                    height={1000}
                     src={
                         child?.url ? child?.url : "/images/default_product.png"
                     }
@@ -24,8 +24,8 @@ export default function ImageWrapper({ child }) {
             <MyModal isOpen={isOpen} toggleOpen={toggleOpen}>
                 <div className={cl.card__image}>
                     <Image
-                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
-                        fill
+                        width={768}
+                        height={1000}
                         src={
                             child?.url
                                 ? child?.url

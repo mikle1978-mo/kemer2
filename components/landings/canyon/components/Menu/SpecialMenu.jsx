@@ -21,7 +21,7 @@ export default function SpecialMenu() {
             >
                 <div className='app__specialMenu-title'>
                     <SubHeading title='Меню по вашему вкусу' />
-                    <h1 className='headtext__cormorant'>Предложение дня</h1>
+                    <h2 className='headtext__cormorant'>Предложение дня</h2>
                 </div>
 
                 <div className='app__specialMenu-menu'>

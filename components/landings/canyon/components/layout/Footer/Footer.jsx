@@ -14,7 +14,7 @@ const Footer = () => (
 
         <div className='app__footer-links'>
             <div className='app__footer-links_contact'>
-                <h1 className='app__footer-headtext'>Свяжитесь с нами</h1>
+                <h2 className='app__footer-headtext'>Свяжитесь с нами</h2>
                 <p className='p__opensans'>Kuzdere, 07982 Kemer/Antalya</p>
                 <a href='tel:+905322347560' target='_blank'>
                     <p className='p__phone'>+90 532 234 75 60</p>
@@ -56,7 +56,7 @@ const Footer = () => (
             </div>
 
             <div className='app__footer-links_work'>
-                <h1 className='app__footer-headtext'>Рабочие часы</h1>
+                <h2 className='app__footer-headtext'>Рабочие часы</h2>
                 <p className='p__opensans'>Понедельник-Пятница:</p>
                 <p className='p__opensans'>10:00 - 01:00 </p>
                 <p className='p__opensans'>Суббота-Воскресенье:</p>

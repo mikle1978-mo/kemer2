@@ -3,7 +3,7 @@ import cl from "../tosellers.module.css";
 
 export const metadata = {
     title: {
-        default: "Условия размещения товаров на сайте Кемер-онлайн",
+        default: "Условия размещения товаров ",
     },
     description:
         "Условия продажи товаров, продуктов и услуг на сайте Кемер-онлайн",

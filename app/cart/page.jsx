@@ -3,7 +3,7 @@ import React from "react";
 
 export const metadata = {
     title: {
-        default: "Корзина",
+        default: "Корзина продуктов и товаров",
     },
     description:
         "Ваша корзина в Кемер-онлайн, Анталия, Турция, бесплатная доставка по городу Кемер",

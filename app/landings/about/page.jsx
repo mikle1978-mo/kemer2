@@ -4,10 +4,9 @@ import LandingsContact from "@/components/landings/LandingsContact";
 
 export const metadata = {
     title: {
-        default: "О Кемер-онлайн",
+        default: "Информация о нас",
     },
-    description:
-        "Описание интернет-магазина Кемер-онлайн",
+    description: "Описание интернет-магазина Кемер-онлайн",
     alternates: {
         canonical: `${process.env.API_URL}/landings/about`,
     },

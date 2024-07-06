@@ -2,7 +2,7 @@ import Login from "@/components/auth/Login";
 
 export const metadata = {
     title: {
-        default: "Страница входа в личный кабинет Кемер-онлайн",
+        default: "Страница входа в личный кабинет",
     },
     description:
         "Страница входа в личный кабинет Кемер-онлайн. Ввод логина и пароля",

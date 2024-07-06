@@ -3,7 +3,7 @@ import cl from "../tosellers.module.css";
 
 export const metadata = {
     title: {
-        default: "Продуктовые карточки на сайте Кемер-онлайн",
+        default: "Продуктовые карточки ",
     },
     description:
         "Требования к формату, размеру и содержанию продуктовых карточек на сайте Кемер-онлайн",

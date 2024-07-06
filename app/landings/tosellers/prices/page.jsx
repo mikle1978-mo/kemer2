@@ -3,7 +3,7 @@ import cl from "../tosellers.module.css";
 
 export const metadata = {
     title: {
-        default: "Размеры комиссий на сайте Кемер-онлайн",
+        default: "Размеры комиссий ",
     },
     description:
         "Размеры комиссий, тарифы, цены на торговой площадке Кемер-онлайн",

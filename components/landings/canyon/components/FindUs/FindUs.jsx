@@ -7,12 +7,12 @@ const FindUs = () => (
     <div className='app__bg app__wrapper section__padding' id='contact'>
         <div className='app__wrapper_info'>
             <SubHeading title='Контакты' />
-            <h1
+            <h2
                 className='headtext__cormorant'
                 style={{ marginBottom: "1rem" }}
             >
                 Найти нас
-            </h1>
+            </h2>
             <div className='app__wrapper-content'>
                 <p className='p__opensans'>Kuzdere, 07982 Kemer/Antalya</p>
                 <p

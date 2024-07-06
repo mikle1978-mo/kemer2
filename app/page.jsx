@@ -4,17 +4,19 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import Carusel from "../components/layouts/carusel/myCarusel";
 import queryString from "query-string";
 
-export const metadata = {
-    title: {
-        default: "Интернет магазин 'Кемер-онлайн'",
-        template: "%s - Кемер-онлайн",
-    },
-    description:
-        "Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер",
-    alternates: {
-        canonical: `${process.env.API_URL}`,
-    },
-};
+export async function generateMetadata({ searchParams }) {
+    const category = searchParams.category;
+    const inputTitle = category ? `категория ${category}` : "";
+    const inputUrlQuery = category ? `/?category=${category}` : "";
+
+    return {
+        title: `Интернет магазин Кемер-онлайн  ${inputTitle}`,
+        description: `Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер ${inputTitle}`,
+        alternates: {
+            canonical: `${process.env.API_URL}${inputUrlQuery}`,
+        },
+    };
+}
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();

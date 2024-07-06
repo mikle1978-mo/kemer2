@@ -21,7 +21,7 @@ const Laurels = () => (
     <div className='app__bg app__wrapper section__padding' id='awards'>
         <div className='app__wrapper_info'>
             <SubHeading title='Достижения & признание' />
-            <h1 className='headtext__cormorant'>Наши награды</h1>
+            <h2 className='headtext__cormorant'>Наши награды</h2>
 
             <div className='app__laurels_awards'>
                 {data.awards.map((award) => (

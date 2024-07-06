@@ -13,9 +13,6 @@ export const metadata = {
     },
     description:
         "Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер",
-    alternates: {
-        canonical: `${process.env.API_URL}`,
-    },
     keywords: [
         `Продать в Кемере`,
         "Интернет магазин в Кемере",

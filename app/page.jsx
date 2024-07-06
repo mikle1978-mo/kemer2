@@ -4,6 +4,18 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import Carusel from "../components/layouts/carusel/myCarusel";
 import queryString from "query-string";
 
+export const metadata = {
+    title: {
+        default: "Интернет магазин 'Кемер-онлайн'",
+        template: "%s - Кемер-онлайн",
+    },
+    description:
+        "Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер",
+    alternates: {
+        canonical: `${process.env.API_URL}`,
+    },
+};
+
 const HomePage = async ({ searchParams }) => {
     dbConnect();
     const urlParams = {

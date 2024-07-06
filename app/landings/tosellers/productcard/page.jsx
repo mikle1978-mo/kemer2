@@ -1,6 +1,17 @@
 import React from "react";
 import cl from "../tosellers.module.css";
 
+export const metadata = {
+    title: {
+        default: "Продуктовые карточки на сайте Кемер-онлайн",
+    },
+    description:
+        "Требования к формату, размеру и содержанию продуктовых карточек на сайте Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/tosellers/productcard`,
+    },
+};
+
 export default function PropductCard() {
     return (
         <>

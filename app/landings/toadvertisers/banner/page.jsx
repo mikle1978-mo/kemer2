@@ -1,6 +1,17 @@
 import cl from "../toadvertisers.module.css";
 import Image from "next/image";
 
+export const metadata = {
+    title: {
+        default: "Баннеры на сайте Кемер-онлайн",
+    },
+    description:
+        "Условия, цены и порядок размещения баннеров на сайте Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/toadvertisers/banner`,
+    },
+};
+
 export default function Banner() {
     return (
         <>

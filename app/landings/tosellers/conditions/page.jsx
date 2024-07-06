@@ -1,6 +1,17 @@
 import React from "react";
 import cl from "../tosellers.module.css";
 
+export const metadata = {
+    title: {
+        default: "Условия размещения товаров на сайте Кемер-онлайн",
+    },
+    description:
+        "Условия продажи товаров, продуктов и услуг на сайте Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/tosellers/conditions`,
+    },
+};
+
 const ConditionsPage = () => {
     return (
         <>

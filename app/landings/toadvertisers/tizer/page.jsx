@@ -1,5 +1,16 @@
 import cl from "../toadvertisers.module.css";
 
+export const metadata = {
+    title: {
+        default: "Тизер на сайте Кемер-онлайн",
+    },
+    description:
+        "Условия, цены и порядок размещения тизеров на сайте Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/toadvertisers/tizer`,
+    },
+};
+
 export default function Tizer() {
     return (
         <>

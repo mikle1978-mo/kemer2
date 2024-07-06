@@ -1,7 +1,17 @@
 import React from "react";
 import cl from "./about.module.css";
 import LandingsContact from "@/components/landings/LandingsContact";
-import Image from "next/image";
+
+export const metadata = {
+    title: {
+        default: "О Кемер-онлайн",
+    },
+    description:
+        "Описание интернет-магазина Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/about`,
+    },
+};
 
 const AboutPage = () => {
     return (
@@ -17,7 +27,6 @@ const AboutPage = () => {
                 и наслаждаться выгодными предложениями.
             </p>
 
-           
             <h2 className={cl.title2}>Что делает нас особенными?</h2>
 
             <ol className={cl.price_list}>

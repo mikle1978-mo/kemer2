@@ -1,5 +1,16 @@
 import cl from "../toadvertisers.module.css";
 
+export const metadata = {
+    title: {
+        default: "Лендинги на сайте Кемер-онлайн",
+    },
+    description:
+        "Условия, цены и порядок размещения лендингов на сайте Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/toadvertisers/landingpage`,
+    },
+};
+
 export default function Landing() {
     return (
         <>

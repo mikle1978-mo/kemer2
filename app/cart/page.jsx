@@ -7,6 +7,9 @@ export const metadata = {
     },
     description:
         "Ваша корзина в Кемер-онлайн, Анталия, Турция, бесплатная доставка по городу Кемер",
+    alternates: {
+        canonical: `${process.env.API_URL}/cart`,
+    },
 };
 
 const CartPage = () => {

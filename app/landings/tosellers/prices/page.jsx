@@ -1,6 +1,17 @@
 import React from "react";
 import cl from "../tosellers.module.css";
 
+export const metadata = {
+    title: {
+        default: "Размеры комиссий на сайте Кемер-онлайн",
+    },
+    description:
+        "Размеры комиссий, тарифы, цены на торговой площадке Кемер-онлайн",
+    alternates: {
+        canonical: `${process.env.API_URL}/landings/tosellers/prices`,
+    },
+};
+
 const PricesPage = () => {
     return (
         <>

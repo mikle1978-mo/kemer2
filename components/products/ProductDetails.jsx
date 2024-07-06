@@ -127,7 +127,9 @@ const ProductDetails = ({ product }) => {
                         </li>
                     </ul>
                     <details className={cl.details}>
-                        <summary>Развернуть описание</summary>
+                        <summary>
+                            <h2>Развернуть описание</h2>
+                        </summary>
 
                         <p className={cl.desc}>{product?.description}</p>
                     </details>

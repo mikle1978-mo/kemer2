@@ -22,7 +22,7 @@ export default function Landing() {
                 привлеките максимальное количество клиентов!
             </p>
 
-            <h2 className={cl.title2}>Наши предложения:</h2>
+            <h2 className={cl.title2}>Наши услуги:</h2>
             <ul className={cl.price_list}>
                 <li>
                     <h3 className={cl.title3}>Базовый пакет</h3>
@@ -70,7 +70,7 @@ export default function Landing() {
                 </li>
             </ul>
 
-            <h2 className={cl.title2}>Дополнительные услуги:</h2>
+            <h2 className={cl.title2}>Дополнительно:</h2>
             <ul className={cl.price_list}>
                 <li>
                     <h3 className={cl.title3}>Разработка лендинга</h3>

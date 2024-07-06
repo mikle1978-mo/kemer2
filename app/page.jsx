@@ -6,11 +6,11 @@ import queryString from "query-string";
 
 export async function generateMetadata({ searchParams }) {
     const category = searchParams.category;
-    const inputTitle = category ? `категория ${category}` : "";
+    const inputTitle = category ? ` ${category}` : "";
     const inputUrlQuery = category ? `/?category=${category}` : "";
 
     return {
-        title: `Интернет магазин Кемер-онлайн  ${inputTitle}`,
+        title: `Интернет-магазин товаров Кемер-онлайн  ${inputTitle}`,
         description: `Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер ${inputTitle}`,
         alternates: {
             canonical: `${process.env.API_URL}${inputUrlQuery}`,

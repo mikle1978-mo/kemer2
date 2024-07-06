@@ -17,7 +17,7 @@ export default function AboutUs() {
             >
                 <div className='app__aboutus-content flex__center'>
                     <div className='app__aboutus-content_about'>
-                        <h1 className='headtext__cormorant'>О нас</h1>
+                        <h2 className='headtext__cormorant'>О нас</h2>
                         <img
                             src={images.spoon.src}
                             alt='about_spoon'

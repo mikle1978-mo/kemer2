@@ -28,7 +28,10 @@ const HomePage = async ({ searchParams }) => {
         <>
             <div style={{ visibility: "hidden" }}>
                 <h1 className='hiddenTitle'>
-                    Кемер-онлайн магазин, продуктов, товаров и услуг в Кемере
+                    Продукты, товары и услуги в Кемере{" "}
+                    {searchParams.category
+                        ? `категория ${searchParams.category}`
+                        : ""}
                 </h1>
             </div>
             <Carusel data={data.carouselAds} />

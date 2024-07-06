@@ -57,7 +57,9 @@ const Cart = () => {
     return (
         <>
             <div style={{ visibility: "hidden" }}>
-                <h1 className='hiddenTitle'>Корзина товаров и продуктов</h1>
+                <h1 className='hiddenTitle'>
+                    Ваша корзина товаров и продуктов
+                </h1>
             </div>
             {cart?.cartItems?.length ? (
                 <h2 className='title'>

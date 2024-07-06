@@ -10,6 +10,13 @@ export async function generateMetadata({ params }) {
     return {
         title: `${product.name} `,
         description: `${product.name} купить за ${product.price} ${mark} на кемер-онлайн. Постоянные скидки, оптовые цены!`,
+        openGraph: {
+            images: [product.images[0]],
+        },
+        alternates: {
+            canonical: `${process.env.API_URL}/product/${product._id}`,
+        },
+        keywords: [`${product.name} `],
     };
 }
 

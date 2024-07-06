@@ -245,3 +245,11 @@ export const createProductReview = async (req, res, next) => {
         success: true,
     };
 };
+
+export const getSitemap = async () => {
+    let products = await Product.find();
+
+    return {
+        products,
+    };
+};

@@ -33,6 +33,7 @@ const Footer = () => (
                     src={images.spoon.src}
                     className='spoon__img'
                     style={{ marginTop: 15 }}
+                    alt="spoon_footer"
                 />
                 <div className='app__footer-links_icons'>
                     <a

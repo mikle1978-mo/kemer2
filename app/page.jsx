@@ -5,7 +5,6 @@ import Carusel from "../components/layouts/carusel/myCarusel";
 import queryString from "query-string";
 
 export async function generateMetadata({ searchParams }) {
-    console.log("searchParams", searchParams);
     const category = searchParams.category;
     const inputTitle = category ? ` ${category}` : "";
     const inputUrlQuery = category ? `/?category=${category}` : "";
@@ -32,7 +31,7 @@ const HomePage = async ({ searchParams }) => {
                         : ""}
                 </h1>
             </div>
-            {/* <Carusel /> */}
+            <Carusel />
             <ListProducts searchParams={searchParams} />
         </>
     );

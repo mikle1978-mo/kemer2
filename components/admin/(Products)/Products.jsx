@@ -35,7 +35,7 @@ const Products = ({ data }) => {
     };
     return (
         <div className={cl.products}>
-            <h1 className='title'>{data?.productsCount} Продуктов</h1>
+            <h1 className='title'> Всего товаров: {data?.productsCount}</h1>
             <table className={cl.table}>
                 <thead className={cl.table_head}>
                     <tr>

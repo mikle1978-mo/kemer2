@@ -1,8 +1,11 @@
 import cl from "./myCarusel.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
-export default function Carusel({ data }) {
+export default async function Carusel() {
+    const response = await axios.get(`${process.env.API_URL}/api/ads`);
+    const data = response.data.allAds;
     const sortedArray = data.sort(() => Math.random() - 0.5);
     return (
         <div className={cl.main_container}>

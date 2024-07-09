@@ -96,21 +96,22 @@
 .price_wrap {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 1rem;
-}
-
-.price {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
     line-height: 1.75rem;
+}
+
+.price {
     font-weight: 600;
 }
 .old_price {
     text-decoration: line-through;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
     color: gray;
+}
+.discount {
+    color: var(--complement-0);
 }
 
 .desc {

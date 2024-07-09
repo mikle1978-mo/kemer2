@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
 import Carousel from "../layouts/carousel/Carousel";
+// export const dynamic = "force-dinamic";
 
 const ProductDetails = ({ product }) => {
     const StarRatings = dynamic(() => import("react-star-ratings"), {
@@ -57,13 +58,18 @@ const ProductDetails = ({ product }) => {
                             {product?.price}
                         </p>
                         {product.discount ? (
-                            <p className={cl.old_price}>
-                                {mark}
-                                {(
-                                    (product?.price * 100) /
-                                    (100 - product?.discount)
-                                ).toFixed(2)}
-                            </p>
+                            <>
+                                <p className={cl.old_price}>
+                                    {mark}
+                                    {(
+                                        (product?.price * 100) /
+                                        (100 - product?.discount)
+                                    ).toFixed(2)}
+                                </p>
+                                <p className={cl.discount}>
+                                    Скидка: {product?.discount}%
+                                </p>
+                            </>
                         ) : (
                             ""
                         )}

@@ -8,11 +8,14 @@ import cl from "./ListProducts.module.css";
 import { useInView } from "react-intersection-observer";
 import queryString from "query-string";
 
-const ListProducts = ({ searchParams }) => {
+export const dynamic = "force-dinamic";
+
+export const ListProducts = ({ searchParams }) => {
     const [offset, setOffset] = useState(0);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [productsCount, setProductsCount] = useState(0); // Добавляем productsCount в состояние
+    const [productsCount, setProductsCount] = useState(0);
+    const [productsLoaded, setProductsLoaded] = useState(false); // Новое состояние для отслеживания загрузки продуктов
     const { ref, inView } = useInView({
         threshold: 0,
     });
@@ -20,43 +23,52 @@ const ListProducts = ({ searchParams }) => {
     const prevSearchParams = useRef({});
 
     useEffect(() => {
-        // При изменении searchParams сбрасываем offset, продукты и productsCount
-        setOffset(0);
-        setProducts([]);
-        setProductsCount(0);
-        prevSearchParams.current = searchParams;
-        fetchProducts(true); // Передаем true для forceRefresh
+        if (
+            JSON.stringify(prevSearchParams.current) !==
+            JSON.stringify(searchParams)
+        ) {
+            setOffset(0);
+            setProducts([]);
+            setProductsCount(0);
+            setProductsLoaded(false); // Сбрасываем состояние загрузки продуктов
+            prevSearchParams.current = searchParams;
+            fetchProducts(true, 0); // Передаем true для forceRefresh и сбрасываем offset на 0
+        }
     }, [searchParams]);
 
-    const fetchProducts = async (forceRefresh = false) => {
+    const fetchProducts = async (forceRefresh = false, newOffset = offset) => {
+        const limit = process.env.NUMBER_OF_PRODUCTS || 10;
+
         const urlParams = {
-            keyword: searchParams.keyword,
-            page: searchParams.page,
-            limit: process.env.NUMBER_OF_PRODUCTS,
-            offset: offset,
-            forceRefresh: forceRefresh, // Используем переданный параметр
-            category: searchParams.category,
-            "price[gte]": searchParams.min,
-            "price[lte]": searchParams.max,
-            "ratings[gte]": searchParams.ratings,
+            keyword: searchParams.keyword || undefined,
+            page: searchParams.page || undefined,
+            limit: limit,
+            offset: newOffset,
+            forceRefresh: forceRefresh,
+            category: searchParams.category || undefined,
+            "price[gte]": searchParams.min || undefined,
+            "price[lte]": searchParams.max || undefined,
+            "ratings[gte]": searchParams.ratings || undefined,
         };
 
-        const searchQuery = queryString.stringify(urlParams);
+        const filteredParams = Object.fromEntries(
+            Object.entries(urlParams).filter(
+                ([_, value]) => value !== undefined
+            )
+        );
+
+        const searchQuery = queryString.stringify(filteredParams);
 
         try {
             setLoading(true);
-            console.log(`Fetching products with query: ${searchQuery}`);
             const apiProducts = await axios.get(
                 `${process.env.API_URL}/api/products?${searchQuery}`
             );
-            console.log("Received products:", apiProducts.data);
 
-            // Обновляем состояние продуктов, добавляя новые к уже загруженным
             setProducts((prevProducts) => [
                 ...prevProducts,
                 ...apiProducts.data.products.filter(
                     (newProduct) =>
-                        // Фильтруем, чтобы не добавлять продукты с уже существующими id
                         !prevProducts.some(
                             (existingProduct) =>
                                 existingProduct._id === newProduct._id
@@ -64,13 +76,10 @@ const ListProducts = ({ searchParams }) => {
                 ),
             ]);
 
-            // Обновляем offset на основе уже загруженных продуктов
-            setOffset(offset + apiProducts.data.products.length);
-
-            // Обновляем productsCount после загрузки новых данных
+            setOffset(newOffset + apiProducts.data.products.length);
             setProductsCount(apiProducts.data.productsCount);
-
             setLoading(false);
+            setProductsLoaded(true); // Устанавливаем состояние загрузки продуктов как выполненное
         } catch (error) {
             console.error("Error loading products:", error);
             setLoading(false);
@@ -78,38 +87,52 @@ const ListProducts = ({ searchParams }) => {
     };
 
     useEffect(() => {
-        // Загружаем больше продуктов при прокрутке, если есть что загружать
         if (
             inView &&
             products.length > 0 &&
             !loading &&
             products.length < productsCount
         ) {
-            fetchProducts();
+            fetchProducts(false, offset);
         }
     }, [inView, products.length, loading, productsCount]);
+
+    useEffect(() => {
+        fetchProducts(true, 0); // Fetch products initially when component mounts
+    }, []);
 
     return (
         <>
             <main className={cl.listProduct}>
-                {products.length > 0 ? (
-                    products.map((product) =>
-                        product?.advertiser ? (
-                            <ReclamItem key={product?._id} product={product} />
-                        ) : (
-                            <ProductItem key={product?._id} product={product} />
-                        )
-                    )
-                ) : (
-                    <div>No products found.</div>
+                {productsLoaded && products.length === 0 && !loading ? (
+                    <div>Продукты не найдены.</div> // Отображаем только если продукты загружены и их нет
+                ) : null}
+                {products.length > 0
+                    ? products.map((product) =>
+                          product?.advertiser ? (
+                              <ReclamItem
+                                  key={product?._id}
+                                  product={product}
+                              />
+                          ) : (
+                              <ProductItem
+                                  key={product?._id}
+                                  product={product}
+                              />
+                          )
+                      )
+                    : null}
+                {loading && (
+                    <div className='roller_wrap'>
+                        <div className='roller'></div>
+                    </div>
                 )}
-                {loading && <div>Loading more...</div>}
                 {!loading && products.length > 0 && (
                     <div ref={ref}>
                         {products.length >= productsCount ? (
-                            <div>No more products to load</div>
+                            <div>нет продуктов для загрузки</div>
                         ) : (
-                            <div>Scroll down to load more...</div>
+                            <div>листай дальше...</div>
                         )}
                     </div>
                 )}

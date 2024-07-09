@@ -59,7 +59,8 @@ export default function RootLayout({ children }) {
                 />
                 <meta name='msapplication-TileColor' content='#00aba9' />
                 <meta name='theme-color' content='#ffffff' />
-                <meta name='yandex-verification' content='bfa50507e825995b' />
+                {/* <meta name='yandex-verification' content='bfa50507e825995b' /> */}
+                <meta name='yandex-verification' content='4910d4d4a23be827' />
                 {/* Add Google Analytics script */}
                 <script
                     async

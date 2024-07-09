@@ -3,8 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import cl from "./Search.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const Search = () => {
     const [keyword, setKeyword] = useState("");
@@ -21,6 +20,11 @@ const Search = () => {
         }
     };
 
+    const resetHandler = () => {
+        setKeyword("");
+        router.push("/");
+    };
+
     return (
         <form className={cl.search} onSubmit={submitHandler}>
             <input
@@ -33,6 +37,15 @@ const Search = () => {
                 onChange={(e) => setKeyword(e.target.value)}
                 required
             />
+            {keyword && (
+                <button
+                    type='button'
+                    className={cl.resetButton}
+                    onClick={resetHandler}
+                >
+                    <IoCloseCircleOutline />
+                </button>
+            )}
         </form>
     );
 };

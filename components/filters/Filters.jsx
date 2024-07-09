@@ -56,6 +56,7 @@ const Filters = () => {
             }
         }
         const path = "/" + "?" + queryParams.toString();
+
         router.push(path);
     }
 

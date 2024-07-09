@@ -5,6 +5,7 @@ import Carusel from "../components/layouts/carusel/myCarusel";
 import queryString from "query-string";
 
 export async function generateMetadata({ searchParams }) {
+    console.log("searchParams", searchParams);
     const category = searchParams.category;
     const inputTitle = category ? ` ${category}` : "";
     const inputUrlQuery = category ? `/?category=${category}` : "";
@@ -20,23 +21,6 @@ export async function generateMetadata({ searchParams }) {
 
 const HomePage = async ({ searchParams }) => {
     dbConnect();
-    const urlParams = {
-        keyword: searchParams.keyword,
-        page: searchParams.page,
-        limit: process.env.NUMDER_OF_PRODUCTS,
-        forceRefresh: true,
-        category: searchParams.category,
-        "price[gte]": searchParams.min,
-        "price[lte]": searchParams.max,
-        "ratings[gte]": searchParams.ratings,
-    };
-
-    const searchQuery = queryString.stringify(urlParams);
-
-    const response = await axios.get(
-        `${process.env.API_URL}/api/products?${searchQuery}`
-    );
-    const data = response.data;
 
     return (
         <>
@@ -48,8 +32,8 @@ const HomePage = async ({ searchParams }) => {
                         : ""}
                 </h1>
             </div>
-            <Carusel data={data.carouselAds} />
-            <ListProducts data={data} searchParams={searchParams} />
+            {/* <Carusel /> */}
+            <ListProducts searchParams={searchParams} />
         </>
     );
 };

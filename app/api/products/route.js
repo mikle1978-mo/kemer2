@@ -31,7 +31,7 @@ export async function GET(req) {
             "price[lte]": searchParams.get("price[lte]"),
             "ratings[gte]": searchParams.get("ratings[gte]"),
         };
-
+        console.log("server params: ", queryParams);
         // Проверка актуальности кэшированных данных
         if (
             !queryParams.forceRefresh &&
@@ -53,6 +53,7 @@ export async function GET(req) {
 
         // Получение свежих данных с бэкэнда (MongoDB), если кэш неактуален или forceRefresh равен true
         const products = await getProducts(req);
+
         const ads = await getAllAds(req);
 
         const carouselAds = ads.allAds.filter((ad) => ad.type === "Карусель");
@@ -81,7 +82,6 @@ export async function GET(req) {
             products: slicedData,
             productsCount: cachedData.products.length, // Используем полное количество продуктов
         };
-
         return NextResponse.json(slicedFreshData);
     } catch (error) {
         // Обработка ошибок с помощью middleware для ошибок

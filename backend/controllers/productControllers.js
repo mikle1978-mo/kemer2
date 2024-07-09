@@ -42,6 +42,7 @@ export const getProducts = async (req, res, next) => {
         .filter();
 
     let products = await apiFilters.query;
+
     const filteredProductsCount = products.length;
 
     // apiFilters.pagination(resPerPage);

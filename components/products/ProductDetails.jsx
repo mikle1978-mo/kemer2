@@ -56,13 +56,17 @@ const ProductDetails = ({ product }) => {
                             {mark}
                             {product?.price}
                         </p>
-                        <p className={cl.old_price}>
-                            {mark}
-                            {(
-                                (product?.price * 100) /
-                                (100 - product?.discount)
-                            ).toFixed(2)}
-                        </p>
+                        {product.discount ? (
+                            <p className={cl.old_price}>
+                                {mark}
+                                {(
+                                    (product?.price * 100) /
+                                    (100 - product?.discount)
+                                ).toFixed(2)}
+                            </p>
+                        ) : (
+                            ""
+                        )}
                     </div>
                     <div className={cl.li_wrap}>
                         <span className={cl.brand_value}>

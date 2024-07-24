@@ -1,3 +1,4 @@
+import { dbConnect } from "@/backend/config/dbConnect";
 import { newProduct } from "@/backend/controllers/productControllers";
 import {
     isAuthenticatedUser,
@@ -6,6 +7,7 @@ import {
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
+    dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
 

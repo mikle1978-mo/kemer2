@@ -18,7 +18,7 @@ export default function MainList({ data }) {
 
     let threshold = 0;
     if (typeof window !== "undefined") {
-        threshold = 500 / window.innerHeight;
+        threshold = 300 / window.innerHeight;
     }
 
     const { ref, inView } = useInView({

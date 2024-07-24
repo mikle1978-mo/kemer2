@@ -22,15 +22,6 @@ export const getAdvertisers = async () => {
     };
 };
 
-export const getAllCarouselAds = async () => {
-    const adsCarouselCount = await Ads.countDocuments();
-    const allCarouselAds = await Ads.find({ type: "Карусель" }).lean();
-
-    return {
-        adsCarouselCount,
-        allCarouselAds,
-    };
-};
 export const getAllListAds = async () => {
     const adsCarouselCount = await Ads.countDocuments();
     const allCarouselAds = await Ads.find({ type: "Карусель" }).lean();

@@ -18,24 +18,20 @@ const HomePage = async () => {
     let adsData;
 
     try {
-        const productResponse = await axios.get(
-            `${process.env.API_URL}/api/products`
-        );
+        const [productResponse, adsResponse] = await Promise.all([
+            axios.get(`${process.env.API_URL}/api/products`),
+            axios.get(`${process.env.API_URL}/api/ads`),
+        ]);
+
         productData = productResponse.data;
+        adsData = adsResponse.data.advertisers;
     } catch (error) {
-        console.error("Ошибка запроса продуктов на главной странице:", error);
+        console.error("Ошибка запроса на главной странице:", error);
         productData = {
             products: [],
             filteredProductsCount: 0,
             productsCount: 0,
         };
-    }
-
-    try {
-        const adsResponse = await axios.get(`${process.env.API_URL}/api/ads`);
-        adsData = adsResponse.data.advertisers;
-    } catch (error) {
-        console.error("Ошибка запроса рекламы на главной странице:", error);
         adsData = [];
     }
 

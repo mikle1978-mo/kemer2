@@ -4,8 +4,10 @@ import {
     isAuthenticatedUser,
     authorizeRoles,
 } from "@/backend/middlewares/auth";
+import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function GET(req, { params }) {
+    dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
 

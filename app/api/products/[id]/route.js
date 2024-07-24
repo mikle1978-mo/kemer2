@@ -1,7 +1,9 @@
+import { dbConnect } from "@/backend/config/dbConnect";
 import { getProductById } from "@/backend/controllers/productControllers";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
+    dbConnect();
     const { id } = params;
     try {
         const product = await getProductById(id);

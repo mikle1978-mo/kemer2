@@ -5,7 +5,15 @@ import { isAuthenticatedUser } from "@/backend/middlewares/auth";
 
 export async function DELETE(req, { params }) {
     await isAuthenticatedUser(req);
-    const data = await deleteAddress(req, params.id);
+    try {
+        const data = await deleteAddress(req, params.id);
 
-    return NextResponse.json(data, { status: 200 });
+        NextResponse.json(data, { status: 200 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json(
+            { error: "Ошибка при получении данных" },
+            { status: 500 }
+        );
+    }
 }

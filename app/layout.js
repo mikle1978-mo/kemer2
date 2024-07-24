@@ -2,6 +2,7 @@ import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 import { Inter } from "next/font/google";
 import { GlobalProvider } from "./GlobalProvider";
+import Navigation from "@/components/layouts/Navigation/Navigation";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +26,7 @@ export const metadata = {
     ],
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
     return (
         <html lang='ru'>
             <head>
@@ -106,6 +107,7 @@ export default function RootLayout({ children }) {
             <body>
                 <GlobalProvider>
                     <Header />
+                    <Navigation />
                     <div className='container'>
                         <div className='section'>{children}</div>
                     </div>

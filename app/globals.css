@@ -148,6 +148,7 @@ textarea {
 }
 
 .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,6 +157,9 @@ textarea {
 
 .hr {
     margin: 0.5rem 0;
+}
+.none {
+    display: none;
 }
 
 .roller_wrap {

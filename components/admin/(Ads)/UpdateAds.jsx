@@ -11,6 +11,9 @@ import { adsType } from "@/lib/adsType/adsType";
 const UpdateAds = ({ data }) => {
     const { updateAds, error, updated, setUpdated, clearErrors } =
         useContext(AdsContext);
+        if (!updateAds && !updated && !setUpdated && !loading && !error) {
+            throw new Error(" components admin ads UpdateAds ошибка контекста");
+        }
 
     const router = useRouter();
 

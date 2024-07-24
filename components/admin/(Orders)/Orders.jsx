@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+
 import React, { useContext, useEffect } from "react";
 // import CustomPagination from "../layouts/CustomPagination";
 import OrderContext from "@/context/OrderContext";
@@ -13,6 +13,10 @@ import { toast } from "react-toastify";
 
 const Orders = ({ orders }) => {
     const { deleteOrder, error, clearErrors } = useContext(OrderContext);
+    if (!deleteOrder && !clearErrors && !error) {
+        throw new Error(" components Orders ошибка контекста");
+    }
+
     const router = useRouter();
 
     useEffect(() => {
@@ -87,7 +91,7 @@ const Orders = ({ orders }) => {
                                         style={{ color: "#d97706" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            window.location.href = `/admin/orders/${order?._id}`;
+                                            window.location.href = `/me/admin/orders/${order?._id}`;
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />

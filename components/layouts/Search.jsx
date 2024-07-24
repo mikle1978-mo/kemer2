@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import cl from "./Search.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-const Search = () => {
+const Search = ({ name }) => {
     const [keyword, setKeyword] = useState("");
 
     const router = useRouter();
@@ -14,7 +14,7 @@ const Search = () => {
         e.preventDefault();
 
         if (keyword) {
-            router.push(`/?keyword=${keyword}`);
+            router.push(`/catalog/0/search?keyword=${keyword}`);
         } else {
             router.push("/");
         }
@@ -28,8 +28,8 @@ const Search = () => {
     return (
         <form className={cl.search} onSubmit={submitHandler}>
             <input
-                id='search'
-                name='search'
+                id={name}
+                name={name}
                 className={cl.input}
                 type='text'
                 placeholder='найти на Kemer-online'

@@ -24,7 +24,7 @@ export const ProductProvider = ({ children }) => {
             if (data) {
                 setUpdated(true);
                 setLoading(false);
-                router.replace(`/admin/products/${id}`);
+                router.replace(`/me/admin/products/${id}`);
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -42,7 +42,6 @@ export const ProductProvider = ({ children }) => {
             if (data) {
                 setUpdated(true);
                 setLoading(false);
-                router.replace("/admin/products");
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -83,7 +82,7 @@ export const ProductProvider = ({ children }) => {
             if (data?.success) {
                 setUpdated(true);
                 setLoading(false);
-                router.replace(`/admin/products`);
+                router.refresh();
             }
         } catch (error) {
             setError(error?.response?.data?.message);

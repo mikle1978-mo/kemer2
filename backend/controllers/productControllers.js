@@ -4,51 +4,14 @@ import { cloudinary, uploadToCloudinary } from "../utils/cloudinary";
 import ErrorHandler from "../utils/errorHandler";
 import { NextResponse } from "next/server";
 
-export const newProduct = async (req, res, next) => {
-    const body = await req.json();
-
-    const timestamp = new Date();
-    const articul = timestamp.getTime();
-    body.articul = articul;
-    const product = await Product.create(body);
-    return {
-        product,
-    };
-};
-
-export const getProducts = async (req, res, next) => {
+export const getProducts = async (queryParams) => {
     const productsCount = await Product.countDocuments();
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
-
-    const queryParams = {
-        keyword: searchParams.get("keyword"),
-        limit: searchParams.get("limit"),
-        forceRefresh: searchParams.get("forceRefresh"),
-        offset: searchParams.get("offset"),
-        page: searchParams.get("page"),
-        category: searchParams.get("category"),
-        "price[gte]": searchParams.get("price[gte]"),
-        "price[lte]": searchParams.get("price[lte]"),
-        "ratings[gte]": searchParams.get("ratings[gte]"),
-    };
-
-    let queryStr = Object.fromEntries(
-        Object.entries(queryParams).filter(([_, v]) => v != null)
-    );
-
-    const apiFilters = new APIFilters(Product.find(), queryStr)
+    const apiFilters = new APIFilters(Product.find(), queryParams)
         .search()
         .filter();
-
     let products = await apiFilters.query;
-
     const filteredProductsCount = products.length;
-
-    // apiFilters.pagination(resPerPage);
-
     products = await apiFilters.query.clone();
-
     return {
         productsCount,
         filteredProductsCount,
@@ -56,43 +19,7 @@ export const getProducts = async (req, res, next) => {
     };
 };
 
-export const getAdminProducts = async (req, res, next) => {
-    // const resPerPage = 6;
-    const productsCount = await Product.countDocuments();
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.search);
-    const queryParams = {
-        keyword: searchParams.get("keyword"),
-        page: searchParams.get("page"),
-        category: searchParams.get("category"),
-        "price[gte]": searchParams.get("price[gte]"),
-        "price[lte]": searchParams.get("price[lte]"),
-        "ratings[gte]": searchParams.get("ratings[gte]"),
-    };
-
-    let queryStr = Object.fromEntries(
-        Object.entries(queryParams).filter(([_, v]) => v != null)
-    );
-    const apiFilters = new APIFilters(Product.find(), queryStr)
-        .search()
-        .filter();
-
-    let products = await apiFilters.query;
-    const filteredProductsCount = products.length;
-
-    // apiFilters.pagination(resPerPage);
-
-    products = await apiFilters.query.clone();
-
-    return {
-        productsCount,
-        // resPerPage,
-        filteredProductsCount,
-        products,
-    };
-};
-
-export const getProduct = async (req, id) => {
+export const getProductById = async (id) => {
     const product = await Product.findById(id);
 
     if (!product) {
@@ -113,6 +40,51 @@ export const getProduct = async (req, id) => {
     //     };
     // }
 
+    return {
+        product,
+    };
+};
+
+export const getProductsByCategory = async (categoryId) => {
+    try {
+        const products = await Product.find({ categoryId });
+        if (!products || products.length === 0) {
+            throw new ErrorHandler("Нет продуктов в этой категории.", 404);
+        }
+
+        return {
+            products,
+        };
+    } catch (error) {
+        console.error("Ошибка при поиске товаров в категории:", error);
+        throw error;
+    }
+};
+
+export const getProductsBySeller = async (sellerId) => {
+    try {
+        const products = await Product.find({ sellerId });
+
+        if (!products || products.length === 0) {
+            throw new ErrorHandler("Нет продуктов в этой категории.", 404);
+        }
+
+        return {
+            products,
+        };
+    } catch (error) {
+        console.error("Ошибка при поиске товаров в категории:", error);
+        throw error;
+    }
+};
+
+export const newProduct = async (req, res, next) => {
+    const body = await req.json();
+
+    const timestamp = new Date();
+    const articul = timestamp.getTime();
+    body.articul = articul;
+    const product = await Product.create(body);
     return {
         product,
     };
@@ -171,13 +143,11 @@ export const uploadProductImages = async (req, id) => {
 
 export const updateProduct = async (req, id) => {
     let product = await Product.findById(id);
-
     if (!product) {
         return new ErrorHandler("Продукт не найден.", 404);
     }
 
     const body = await req.json();
-
     product = await Product.findByIdAndUpdate(id, body);
 
     return {
@@ -206,7 +176,7 @@ export const deleteProduct = async (req, id, next) => {
     };
 };
 
-export const createProductReview = async (req, res, next) => {
+export const createProductReview = async (req) => {
     const { rating, comment, productId } = await req.json();
 
     const review = {

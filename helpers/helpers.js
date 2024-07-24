@@ -67,3 +67,16 @@ export function shuffleArray(array) {
     }
     return shuffledArray;
 }
+
+export function byField(fieldName) {
+    return (a, b) => (a[fieldName] > b[fieldName] ? 1 : -1);
+}
+
+export const lifeFilter = function (keyword, data) {
+    if (!keyword) {
+        return data;
+    }
+    return data.filter(({ name }) => {
+        name.toLowerCase().includes(keyword.toLowerCase());
+    });
+};

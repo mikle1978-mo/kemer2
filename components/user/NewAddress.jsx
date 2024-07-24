@@ -10,9 +10,6 @@ import { regions } from "@/lib/regions/region";
 
 const NewAddress = () => {
     const { error, addNewAddress, clearErrors } = useContext(AuthContext);
-
-    const countriesList = Object.values(countries);
-
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");

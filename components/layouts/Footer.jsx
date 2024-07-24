@@ -6,6 +6,7 @@ import CartContext from "@/context/CartContext";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import AuthContext from "@/context/AuthContext";
+import NavigationContext from "@/context/NavigationContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCartShopping,
@@ -17,6 +18,7 @@ import "./Footer.css";
 
 const Header = () => {
     const { user, setUser } = useContext(AuthContext);
+    const { open, setOpen } = useContext(NavigationContext);
     const pathname = usePathname() || "";
     const isActiveHome = pathname === "/";
     const isActiveCart = pathname.includes("/cart");
@@ -40,12 +42,12 @@ const Header = () => {
             <Link href='/' className={isActiveHome ? "active" : "links"}>
                 <FontAwesomeIcon icon={faHouse} />
             </Link>
-            <Link
-                href='/filters'
+            <p
                 className={isActiveFilters ? "active" : "links"}
+                onClick={() => setOpen(!open)}
             >
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </Link>
+            </p>
 
             <Link
                 href='/cart'

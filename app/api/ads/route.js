@@ -1,20 +1,19 @@
-export const dynamic = "force-dynamic";
-
-import { getAllAds } from "@/backend/controllers/adsControllers";
+import { getAdvertisers } from "@/backend/controllers/adsControllers";
 import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function GET(req) {
+    dbConnect();
     try {
-        dbConnect();
-        const data = await getAllAds(req);
+        const data = await getAdvertisers(req);
 
         return NextResponse.json(data);
     } catch (error) {
-        // В случае ошибки вызываем middleware для обработки ошибок
-        onError(error, req);
+        console.error(error);
+        return NextResponse.json(
+            { error: "Ошибка при получении данных" },
+            { status: 500 }
+        );
     }
-
-    return NextResponse.json(data);
 }

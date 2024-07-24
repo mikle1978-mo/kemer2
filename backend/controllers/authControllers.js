@@ -2,7 +2,7 @@ import User from "../models/user";
 import { uploadToCloudinary } from "../utils/cloudinary";
 import ErrorHandler from "../utils/errorHandler";
 import bcrypt from "bcryptjs";
-import APIFilters from "../utils/APIFilters";
+import mongoose from "mongoose";
 
 export const registerUser = async (req, res) => {
     const body = await req.json();
@@ -17,10 +17,12 @@ export const updateProfile = async (req, res) => {
     const data = await req.formData();
     const name = await data.get("name");
     const email = await data.get("email");
+    const sellerId = await data.get("sellerId");
     const image = await data.get("image");
     const newUserData = {
         name: name,
         email: email,
+        sellerId: sellerId,
     };
     if (image) {
         const fileBuffer = await image.arrayBuffer();

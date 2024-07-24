@@ -1,4 +1,4 @@
-import { getAds } from "@/backend/controllers/adsControllers";
+import { getAdvertisers } from "@/backend/controllers/adsControllers";
 import { NextResponse } from "next/server";
 import {
     isAuthenticatedUser,
@@ -12,7 +12,7 @@ export async function GET(req, { params }) {
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
 
-    const data = await getAds(req, params.id);
+    const data = await getAdvertisers(req, params.id);
 
     return NextResponse.json(data, { status: 200 });
 }

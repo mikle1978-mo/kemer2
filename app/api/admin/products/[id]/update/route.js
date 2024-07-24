@@ -5,10 +5,8 @@ import {
     authorizeRoles,
 } from "@/backend/middlewares/auth";
 import { updateProduct } from "@/backend/controllers/productControllers";
-import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function PUT(req, { params }) {
-    dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
 

@@ -1,22 +1,21 @@
 import mongoose from "mongoose";
-import { categories } from "@/lib/categoty/category";
 
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "Please enter product name"],
+        required: [true, "Пожалуйста введите наименование продукта"],
     },
     description: {
         type: String,
-        required: [true, "Please enter product description"],
+        required: [true, "Пожалуйста введите описание продукта"],
     },
     price: {
         type: Number,
-        required: [true, "Please enter product price"],
+        required: [true, "Пожалуйста введите цену продукта"],
     },
     discount: {
         type: Number,
-        required: [false, "Please enter product discount"],
+        required: false,
     },
     images: [
         {
@@ -28,36 +27,28 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-
-    category: {
-        type: String,
-        required: [true, "Please enter product category"],
-        enum: {
-            values: categories.map((item) => item.category),
-            message: "Please select correct category",
-        },
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: [true, "Пожалуйста введите категорию продукта"],
     },
-    seller: {
-        type: String,
-        required: [true, "Please enter product seller"],
+    sellerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seller",
+        required: [true, "Пожалуйста введите наименование продавца"],
     },
     brand: {
         type: String,
-        required: [true, "Please enter product seller"],
-    },
-    deliveryPrice: {
-        type: Number,
-        required: [true, "Pleasr enter delivery price"],
-        default: 50,
+        required: [true, "Пожалуйста введите марку продукта"],
     },
     deliveryTime: {
         type: Number,
-        required: [true, "Please enter delivery time"],
+        required: [true, "Пожалуйста введите срок доставки"],
         default: 24,
     },
     stock: {
         type: Number,
-        required: [true, "Please enter product stock"],
+        required: [true, "Пожалуйста введите количество продукта на складе"],
     },
     ratings: {
         type: Number,

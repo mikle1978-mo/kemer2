@@ -11,6 +11,10 @@ import MyButton from "../../UI/myButton/myButton";
 const UpdateOrder = ({ order }) => {
     const { updateOrder, error, clearErrors, updated, setUpdated } =
         useContext(OrderContext);
+    if (!updateOrder && !updated && !setUpdated && !clearErrors && !error) {
+        throw new Error(" components  UpdateOrder ошибка контекста");
+    }
+
     const router = useRouter();
 
     const [orderStatus, setOrderStatus] = useState(order?.orderStatus);
@@ -19,7 +23,7 @@ const UpdateOrder = ({ order }) => {
         if (updated) {
             setUpdated(false);
             toast.success("Заказ успешно обовлен");
-            router.push("/admin/orders");
+            router.push("/me/admin/orders");
         }
 
         if (error) {

@@ -14,6 +14,9 @@ import LandingsContact from "../landings/LandingsContact";
 const Cart = () => {
     const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
         useContext(CartContext);
+    if (!addItemToCart && !deleteItemFromCart && !cart && !saveOnCheckout) {
+        throw new Error(" component cart ошибка контекста");
+    }
 
     const increaseQty = (cartItem) => {
         const newQty = cartItem?.quantity + 1;

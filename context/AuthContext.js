@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     const updateProfile = async (formData) => {
         try {
             setLoading(true);
-
             const { data } = await axios.put(
                 `${process.env.API_URL}/api/auth/me/update`,
                 formData,
@@ -102,10 +101,7 @@ export const AuthProvider = ({ children }) => {
 
             if (data?.success) {
                 setUpdated(true);
-                console.log(
-                    "Navigating to:",
-                    `${process.env.API_URL}/api/admin/users/${id}/update`
-                );
+
                 router.replace(`/admin/users/${id}`);
             }
         } catch (error) {

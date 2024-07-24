@@ -1,10 +1,7 @@
 import cl from "./CartFooter.module.css";
 import { cartFooterMenu } from "@/lib/cartFooterMenu/cartFooterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faMagnifyingGlass,
-    faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 export default function CartFooter() {

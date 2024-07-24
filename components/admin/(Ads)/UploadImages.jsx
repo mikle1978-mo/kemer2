@@ -10,6 +10,9 @@ import MyButton from "../../UI/myButton/myButton";
 const UploadImages = ({ id }) => {
     const { uploadAdsImages, error, loading, clearErrors } =
         useContext(AdsContext);
+    if (!uploadAdsImages && !error && !loading && !clearErrors) {
+        throw new Error(" components admin ads UploadImage ошибка контекста");
+    }
 
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);

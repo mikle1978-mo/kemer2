@@ -12,6 +12,10 @@ import { useRouter } from "next/navigation";
 
 const Users = ({ data }) => {
     const { error, deleteUser, clearErrors } = useContext(AuthContext);
+    if (!error && !deleteUser && !clearErrors) {
+        throw new Error(" components admin Users ошибка контекста");
+    }
+
     const router = useRouter();
 
     useEffect(() => {
@@ -20,10 +24,6 @@ const Users = ({ data }) => {
             clearErrors();
         }
     }, [error]);
-
-    useEffect(() => {
-        router.refresh();
-    }, [data]);
 
     const deleteHandler = (id) => {
         if (confirm("Удалить пользователя?")) {
@@ -67,7 +67,7 @@ const Users = ({ data }) => {
                                         style={{ color: "#d97706" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            window.location.href = `/admin/users/${user?._id}`;
+                                            window.location.href = `/me/admin/users/${user?._id}`;
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />

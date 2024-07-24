@@ -15,7 +15,6 @@
 import { canReview } from "@/backend/controllers/orderControllers";
 import { NextResponse } from "next/server";
 import { isAuthenticatedUser } from "@/backend/middlewares/auth";
-import { requestToBodyStream } from "next/dist/server/body-streams";
 import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function GET(req) {

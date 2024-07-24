@@ -170,12 +170,12 @@ const Filters = () => {
                                         id={item.id}
                                         name='category'
                                         type='checkbox'
-                                        value={item.category}
+                                        value={item._id}
                                         style={{ display: "none" }}
                                         className={cl.checkbox}
                                         defaultChecked={checkHandler(
                                             "category",
-                                            `${item.category}`
+                                            `${item._id}`
                                         )}
                                         onClick={(e) => handleClick(e.target)}
                                     />
@@ -183,7 +183,7 @@ const Filters = () => {
                                         style={{ textTransform: "capitalize" }}
                                     >
                                         {" "}
-                                        {item.category}
+                                        {item._id}
                                     </span>
                                     <span>
                                         <FontAwesomeIcon

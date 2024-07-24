@@ -1,11 +1,16 @@
-import { getProduct } from "@/backend/controllers/productControllers";
-import onError from "@/backend/middlewares/errors";
+import { getProductById } from "@/backend/controllers/productControllers";
 import { NextResponse } from "next/server";
-import { dbConnect } from "@/backend/config/dbConnect";
 
 export async function GET(req, { params }) {
-    dbConnect();
-    const data = await getProduct(req, params.id);
-
-    return NextResponse.json(data, { status: 200 });
+    const { id } = params;
+    try {
+        const product = await getProductById(id);
+        return NextResponse.json(product);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json(
+            { error: "Ошибка при получении продукта" },
+            { status: 500 }
+        );
+    }
 }

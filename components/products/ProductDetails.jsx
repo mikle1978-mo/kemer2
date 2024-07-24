@@ -7,16 +7,14 @@ import NewReview from "../review/NewReview";
 import OrderContext from "@/context/OrderContext";
 import Reviews from "../review/Reviews";
 import { mark } from "@/lib/const/const";
-import dynamic from "next/dynamic";
+
 import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
 import Carousel from "../layouts/carousel/Carousel";
+import BackButton from "../UI/myButton/backButton";
 // export const dynamic = "force-dinamic";
 
 const ProductDetails = ({ product }) => {
-    const StarRatings = dynamic(() => import("react-star-ratings"), {
-        ssr: false,
-    });
     const { addItemToCart } = useContext(CartContext);
     const { canUserReview, canReview } = useContext(OrderContext);
 
@@ -82,7 +80,7 @@ const ProductDetails = ({ product }) => {
                     <h1 className='title'>{product?.name}</h1>
 
                     <div className={cl.main_wrap}>
-                        <div className='ratings'>
+                        {/* <div className='ratings'>
                             <StarRatings
                                 rating={product?.ratings}
                                 starRatedColor='#ffb829'
@@ -91,7 +89,7 @@ const ProductDetails = ({ product }) => {
                                 starSpacing='1px'
                                 name={`rating-${product?._id}`}
                             />
-                        </div>
+                        </div> */}
                         <span className={cl.rating}>{product?.ratings}</span>
 
                         <svg

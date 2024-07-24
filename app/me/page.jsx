@@ -3,11 +3,26 @@
 import AuthContext from "@/context/AuthContext";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import cl from "./page.module.css";
 
-const Sidebar = () => {
+export default function PageMe() {
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            setLoading(false);
+        }
+    }, [user]);
+
+    if (loading) {
+        return <p>Loading...</p>; // Или другой индикатор загрузки
+    }
+
+    if (!user) {
+        return <p>Пользователь не найден</p>;
+    }
 
     const logoutHandler = () => {
         signOut();
@@ -20,16 +35,16 @@ const Sidebar = () => {
                     <>
                         <li className={cl.li}>
                             <Link
-                                href='/admin/products/new'
+                                href='/me/admin/sellers'
                                 className={cl.sideBar_link}
                             >
-                                Новый продукт{" "}
+                                Все продавцы{" "}
                                 <span className={cl.admin}>(Admin)</span>
                             </Link>
                         </li>
                         <li className={cl.li}>
                             <Link
-                                href='/admin/products'
+                                href='/me/admin/products'
                                 className={cl.sideBar_link}
                             >
                                 Все продукты{" "}
@@ -38,7 +53,16 @@ const Sidebar = () => {
                         </li>
                         <li className={cl.li}>
                             <Link
-                                href='/admin/orders'
+                                href='/me/admin/categories'
+                                className={cl.sideBar_link}
+                            >
+                                Все категории{" "}
+                                <span className={cl.admin}>(Admin)</span>
+                            </Link>
+                        </li>
+                        <li className={cl.li}>
+                            <Link
+                                href='/me/admin/orders'
                                 className={cl.sideBar_link}
                             >
                                 Все заказы{" "}
@@ -47,7 +71,7 @@ const Sidebar = () => {
                         </li>
                         <li className={cl.li}>
                             <Link
-                                href='/admin/users'
+                                href='/me/admin/users'
                                 className={cl.sideBar_link}
                             >
                                 Все пользователи{" "}
@@ -55,7 +79,10 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li className={cl.li}>
-                            <Link href='/admin/ads' className={cl.sideBar_link}>
+                            <Link
+                                href='/me/admin/ads'
+                                className={cl.sideBar_link}
+                            >
                                 Реклама{" "}
                                 <span className={cl.admin}>(Admin)</span>
                             </Link>
@@ -67,32 +94,13 @@ const Sidebar = () => {
                     <>
                         <li className={cl.li}>
                             <Link
-                                href='/admin/products/new'
-                                className={cl.sideBar_link}
-                            >
-                                Новый продукт{" "}
-                                <span className={cl.admin}>(Seller)</span>
-                            </Link>
-                        </li>
-                        <li className={cl.li}>
-                            <Link
-                                href='/admin/products'
+                                href={`/me/admin/products/seller/${user?.sellerId}`}
                                 className={cl.sideBar_link}
                             >
                                 Все продукты{" "}
                                 <span className={cl.admin}>(Seller)</span>
                             </Link>
                         </li>
-                        {/* <li className={cl.li}>
-                            <Link
-                                href='/admin/orders'
-                                className={cl.sideBar_link}
-                            >
-                                Все заказы{" "}
-                                <span className={cl.admin}>(Seller)</span>
-                            </Link>
-                        </li> */}
-
                         <hr />
                     </>
                 )}
@@ -128,6 +136,4 @@ const Sidebar = () => {
             </ul>
         </aside>
     );
-};
-
-export default Sidebar;
+}

@@ -17,13 +17,22 @@
 }
 
 .figcaption {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.1rem;
     font-size: 1rem;
     line-height: 1.25rem;
 }
+.figcaption p {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
 .figcaption_name {
-    margin: 0;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 1rem;
+    margin: 0 0 0.2rem 0;
 }
 
 .hr {

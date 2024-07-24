@@ -14,9 +14,7 @@ export const newOrder = async (req, res) => {
 export const getOrders = async () => {
     const ordersCount = await Order.countDocuments();
 
-    const orders = await Order.find()
-        .sort({ createAt: -1 })
-        .populate("shippingInfo user");
+    const orders = await Order.find().populate("shippingInfo user");
 
     return {
         ordersCount,
@@ -40,8 +38,7 @@ export const myOrders = async (req, res) => {
     const ordersCount = await Order.countDocuments();
 
     const orders = await Order.find({ user: req.user._id })
-        .sort({ createAt: -1 })
-        .populate("shippingInfo user");
+    .populate("shippingInfo user");
 
     return {
         ordersCount,
@@ -79,7 +76,7 @@ export const deleteOrder = async (req, id, res) => {
     };
 };
 
-export const canReview = async (req, res) => {
+export const canReview = async (req) => {
     const url = new URL(req.url);
     const searchParams = new URLSearchParams(url.search);
 

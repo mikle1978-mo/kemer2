@@ -2,16 +2,11 @@ import AuthContext from "@/context/AuthContext";
 import ProductContext from "@/context/ProductContext";
 import { getUserReview } from "@/helpers/helpers";
 import React, { useContext, useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-// import StarRatings from "react-star-ratings";
 import { toast } from "react-toastify";
 import cl from "./NewReview.module.css";
 import MyButton from "../UI/myButton/myButton";
 
 const NewReview = ({ product }) => {
-    const StarRatings = dynamic(() => import("react-star-ratings"), {
-        ssr: false,
-    });
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
@@ -45,7 +40,7 @@ const NewReview = ({ product }) => {
             <div className={cl.subtitle}>Рейтинг</div>
             <div className={cl.ratings_wrap}>
                 <div className={cl.ratings}>
-                    <StarRatings
+                    {/* <StarRatings
                         rating={rating}
                         starRatedColor='#ffb829'
                         numberOfStars={5}
@@ -53,7 +48,7 @@ const NewReview = ({ product }) => {
                         starDimension='18px'
                         starSpacing='1px'
                         changeRating={(e) => setRating(e)}
-                    />
+                    /> */}
                 </div>
             </div>
             <div className={cl.comments_wrap}>

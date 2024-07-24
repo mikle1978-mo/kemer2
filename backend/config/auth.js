@@ -17,7 +17,7 @@ export const AuthOptions = {
                     );
 
                     if (!user) {
-                        throw new Error("Неверный логин ");
+                        throw new Error("Неверный логин");
                     }
 
                     const isPasswordMatched = await bcrypt.compare(
@@ -28,6 +28,8 @@ export const AuthOptions = {
                     if (!isPasswordMatched) {
                         throw new Error("Неверный пароль");
                     }
+
+                    // Возвращаем пользователя
                     return user;
                 } catch (error) {
                     console.error("Ошибка авторизации:", error.message);
@@ -38,18 +40,29 @@ export const AuthOptions = {
     ],
     callbacks: {
         jwt: async ({ token, user }) => {
-            user && (token.user = user);
+            if (user) {
+                token.user = user;
 
+                // Добавляем sellerId, если у пользователя есть эта роль и sellerId
+                if (user.role === "seller" && user.sellerId) {
+                    token.user.sellerId = user.sellerId;
+                }
+            }
+
+            // Обновляем пользователя в токене, чтобы включить возможные изменения
             const updatedUser = await User.findById(token.user._id);
-            token.user = updatedUser;
+            if (updatedUser) {
+                token.user = updatedUser;
+            }
 
             return token;
         },
         session: async ({ session, token }) => {
             session.user = token.user;
 
-            // delete password from session
+            // Удаляем пароль из сессии
             delete session?.user?.password;
+
             return session;
         },
     },

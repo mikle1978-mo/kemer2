@@ -33,14 +33,9 @@ const Header = () => {
             <div className='container'>
                 <div className={cl.line}>
                     <Link className={cl.logo} href='/'>
-                        {/* <img
-                            src='/images/logo.png'
-                            alt='Kemer-online'
-                            priority='true'
-                        /> */}{" "}
                         KEMER-ONLINE
                     </Link>
-                    <Search />
+                    <Search name={"header"} />
                     <div className={cl.left}>
                         <Link href='/cart' className={cl.cart}>
                             {cartItems?.length ? (

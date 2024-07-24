@@ -1,36 +1,42 @@
 "use client";
 
 import ProductContext from "@/context/ProductContext";
+import CategoryContext from "@/context/CategoryContext";
+import SellerContext from "@/context/SellerContext";
+import AuthContext from "@/context/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { categories } from "@/lib/categoty/category";
 import cl from "./UpdateProduct.module.css";
 import MyButton from "../../UI/myButton/myButton";
 import { useRouter } from "next/navigation";
+import { byField } from "@/helpers/helpers";
 
 const UpdateProduct = ({ data }) => {
     const { updateProduct, error, updated, setUpdated, clearErrors } =
         useContext(ProductContext);
+    const { categories } = useContext(CategoryContext);
+    const { sellers } = useContext(SellerContext);
+    const { user } = useContext(AuthContext);
 
     const router = useRouter();
 
     const [product, setProduct] = useState({
         name: data?.name,
         description: data?.description,
-        seller: data?.seller,
+        sellerId: data?.sellerId,
         brand: data?.brand,
         price: data?.price,
         discount: data?.discount,
         deliveryPrice: data?.deliveryPrice,
         deliveryTime: data?.deliveryTime,
         stock: data?.stock,
-        category: data?.category,
+        categoryId: data?.categoryId,
     });
 
     useEffect(() => {
         if (updated) {
             toast.success("Продукт обновлен");
-            router.push("/admin/products");
+            router.refresh();
             setUpdated(false);
         }
 
@@ -43,14 +49,14 @@ const UpdateProduct = ({ data }) => {
     const {
         name,
         description,
-        seller,
+        sellerId,
         brand,
         price,
         discount,
         deliveryPrice,
         deliveryTime,
         stock,
-        category,
+        categoryId,
     } = product;
 
     const onChange = (e) => {
@@ -146,8 +152,8 @@ const UpdateProduct = ({ data }) => {
                                 <select
                                     className={cl.input}
                                     style={{ display: "block" }}
-                                    name='category'
-                                    value={category}
+                                    name='categoryId'
+                                    value={categoryId}
                                     onChange={onChange}
                                     required
                                 >
@@ -155,11 +161,8 @@ const UpdateProduct = ({ data }) => {
                                         --Выберите категорию--
                                     </option>
                                     {categories.map((item) => (
-                                        <option
-                                            key={item.id}
-                                            value={item.category}
-                                        >
-                                            {item.category}
+                                        <option key={item._id} value={item._id}>
+                                            {item.name}
                                         </option>
                                     ))}
                                 </select>
@@ -179,7 +182,7 @@ const UpdateProduct = ({ data }) => {
                 </div>
 
                 <div className={cl.wrap_top}>
-                    <div className={cl.input_wrap}>
+                    {/* <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
                             Продавец
@@ -193,7 +196,7 @@ const UpdateProduct = ({ data }) => {
                                 required
                             />
                         </label>
-                    </div>
+                    </div> */}
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}
@@ -260,6 +263,45 @@ const UpdateProduct = ({ data }) => {
                         </label>
                     </div>
                 </div>
+                {user.role === "admin" && (
+                    <div className={cl.input_wrap}>
+                        <label className={cl.label}>
+                            Продавец
+                            <div className={cl.relative}>
+                                <select
+                                    style={{ display: "block" }}
+                                    className={cl.input}
+                                    name='sellerId'
+                                    value={sellerId}
+                                    onChange={onChange}
+                                    required
+                                >
+                                    <option value={"undefind"}>
+                                        {"Выберите продавца"}
+                                    </option>
+                                    {sellers.sellers.map((seller) => (
+                                        <option
+                                            key={seller._id}
+                                            value={seller._id}
+                                        >
+                                            {seller.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <i className={cl.arrow}>
+                                    <svg
+                                        width='22'
+                                        height='22'
+                                        className='fill-current'
+                                        viewBox='0 0 20 20'
+                                    >
+                                        <path d='M7 10l5 5 5-5H7z'></path>
+                                    </svg>
+                                </i>
+                            </div>
+                        </label>
+                    </div>
+                )}
 
                 <MyButton type='submit'>Обновить продукт</MyButton>
             </form>

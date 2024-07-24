@@ -1,13 +1,7 @@
 import React from "react";
-// import StarRatings from "react-star-ratings";
 import cl from "./Reviews.module.css";
-import dynamic from "next/dynamic";
 
 const Reviews = ({ reviews }) => {
-    const StarRatings = dynamic(() => import("react-star-ratings"), {
-        ssr: false,
-    });
-
     return (
         <div className={cl.grid}>
             {reviews?.map((review) => (

@@ -1,7 +1,7 @@
 class APIFilters {
     constructor(query, queryStr) {
         this.query = query;
-        this.queryStr = queryStr;
+        this.queryStr = queryStr || {};
     }
 
     search() {
@@ -20,23 +20,21 @@ class APIFilters {
 
     filter() {
         const queryCopy = { ...this.queryStr };
-        const removeFields = [
-            "keyword",
-            "page",
-            "limit",
-            "offset",
-            "forceRefresh",
-        ];
+
+        // Remove fields that are not needed
+        const removeFields = ["keyword", "page"];
         removeFields.forEach((el) => delete queryCopy[el]);
+
         let output = {};
         let prop = "";
 
         for (let key in queryCopy) {
+            if (queryCopy[key] == null) continue;
+
             if (!key.match(/\b(gt|gte|lt|lte)/)) {
                 output[key] = queryCopy[key];
             } else {
                 prop = key.split("[")[0];
-
                 let operator = key.match(/\[(.*)\]/)[1];
 
                 if (!output[prop]) {
@@ -48,18 +46,12 @@ class APIFilters {
         }
 
         this.query = this.query.find(output);
-        return this;
-    }
 
-    pagination() {
-        const limit = Number(this.queryStr.limit) || 10;
-        const skip = Number(this.queryStr.offset);
+        // Apply sellerId filter if provided
+        if (this.queryStr.sellerId) {
+            this.query = this.query.find({ sellerId: this.queryStr.sellerId });
+        }
 
-        this.query = this.query
-            .find({ stock: { $gt: 0 } })
-            .sort({ _id: -1 })
-            .limit(limit)
-            .skip(skip);
         return this;
     }
 }

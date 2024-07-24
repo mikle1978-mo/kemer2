@@ -17,7 +17,11 @@ import MyButton from "../../UI/myButton/myButton";
 import Link from "next/link";
 
 const AdsList = ({ data }) => {
-    const { deleteAds, error, clearErrors } = useContext(AdsContext);
+    const { deleteAds } = useContext(AdsContext);
+    if (!deleteAds) {
+        throw new Error(" components admin ads adslist ошибка контекста");
+    }
+
     const router = useRouter();
 
     const deleteHandler = (id) => {
@@ -86,7 +90,7 @@ const AdsList = ({ data }) => {
                                             style={{ color: "green" }}
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                window.location.href = `/admin/ads/${ads?._id}/upload_images`;
+                                                window.location.href = `/me/admin/ads/${ads?._id}/upload_images`;
                                             }}
                                         >
                                             <FontAwesomeIcon icon={faImage} />
@@ -96,7 +100,7 @@ const AdsList = ({ data }) => {
                                             style={{ color: "#d97706" }}
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                window.location.href = `/admin/ads/${ads?._id}`;
+                                                window.location.href = `/me/admin/ads/${ads?._id}`;
                                             }}
                                         >
                                             <FontAwesomeIcon icon={faPencil} />
@@ -116,7 +120,7 @@ const AdsList = ({ data }) => {
                     </tbody>
                 </table>
             </div>
-            <Link href='/admin/ads/new'>
+            <Link href='/me/admin/ads/new'>
                 <MyButton>
                     <FontAwesomeIcon icon={faPlus} className={cl.icon} />{" "}
                     Добавить новую рекламу

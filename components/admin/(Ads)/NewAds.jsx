@@ -11,6 +11,10 @@ const NewAds = () => {
     const { newAds, updated, setUpdated, loading, error } =
         useContext(AdsContext);
 
+    if (!newAds && !updated && !setUpdated && !loading && !error) {
+        throw new Error(" components admin ads newAds ошибка контекста");
+    }
+
     const [ads, setAds] = useState({
         type: "",
         advertiser: "",

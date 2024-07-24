@@ -1,38 +1,53 @@
+import MainList from "@/components/products/MainList";
+import CaruselAds from "../components/layouts/carouselAds/caruselAds";
 import axios from "axios";
-import ListProducts from "@/components/products/ListProducts";
-import { dbConnect } from "@/backend/config/dbConnect";
-import Carusel from "../components/layouts/carusel/myCarusel";
-import queryString from "query-string";
 
-export async function generateMetadata({ searchParams }) {
-    const category = searchParams.category;
-    const inputTitle = category ? ` ${category}` : "";
-    const inputUrlQuery = category ? `/?category=${category}` : "";
-
+export function metadata() {
     return {
-        title: `Интернет-магазин товаров Кемер-онлайн  ${inputTitle}`,
-        description: `Онлайн магазин в Кемере, Анталия, Турция, бесплатная доставка по городу Кемер ${inputTitle}`,
+        title: "Интернет-магазин товаров Кемер-онлайн",
+        description:
+            "Онлайн магазин в Кемере, Анталия, Турция, доставка по городу Кемер",
         alternates: {
-            canonical: `${process.env.API_URL}${inputUrlQuery}`,
+            canonical: `${process.env.API_URL}`,
         },
     };
 }
 
-const HomePage = async ({ searchParams }) => {
-    dbConnect();
+const HomePage = async () => {
+    let productData;
+    let adsData;
+
+    try {
+        const productResponse = await axios.get(
+            `${process.env.API_URL}/api/products`
+        );
+        productData = productResponse.data;
+    } catch (error) {
+        console.error("Ошибка запроса продуктов на главной странице:", error);
+        productData = {
+            products: [],
+            filteredProductsCount: 0,
+            productsCount: 0,
+        };
+    }
+
+    try {
+        const adsResponse = await axios.get(`${process.env.API_URL}/api/ads`);
+        adsData = adsResponse.data.advertisers;
+    } catch (error) {
+        console.error("Ошибка запроса рекламы на главной странице:", error);
+        adsData = [];
+    }
 
     return (
         <>
             <div style={{ visibility: "hidden" }}>
                 <h1 className='hiddenTitle'>
-                    Продукты, товары и услуги в Кемере{" "}
-                    {searchParams.category
-                        ? `категория ${searchParams.category}`
-                        : ""}
+                    Продукты, товары и услуги в Кемере
                 </h1>
             </div>
-            <Carusel />
-            <ListProducts searchParams={searchParams} />
+            <CaruselAds ads={adsData} />
+            <MainList data={productData} />
         </>
     );
 };

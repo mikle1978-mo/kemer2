@@ -1,9 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CartContext from "@/context/CartContext";
 import { mark } from "@/lib/const/const";
-import dynamic from "next/dynamic";
 import cl from "./ProductItem.module.css";
 import MyButton from "../UI/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +10,17 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useInView } from "react-intersection-observer";
 
 const ProductItem = ({ product }) => {
-    const StarRatings = dynamic(() => import("react-star-ratings"), {
-        ssr: false,
-    });
     const { addItemToCart } = useContext(CartContext);
+    if (!addItemToCart) {
+        throw new Error(" me page sidebar page ошибка контекста");
+    }
+    useEffect(() => {
+        const savedPosition = sessionStorage.getItem("scrollPosition");
+        if (savedPosition) {
+            window.scrollTo(0, parseInt(savedPosition));
+            sessionStorage.removeItem("scrollPosition");
+        }
+    }, []);
 
     const addToCartHandler = () => {
         addItemToCart({
@@ -32,9 +38,17 @@ const ProductItem = ({ product }) => {
         triggerOnce: true,
     });
 
+    const handleButtonClick = () => {
+        sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+    };
+
     return (
         <article className={cl.card}>
-            <Link href={`/product/${product._id}`} className={cl.card__top}>
+            <Link
+                href={`/catalog/${product._id}`}
+                className={cl.card__top}
+                onClick={handleButtonClick}
+            >
                 <div className={cl.card__image} ref={ref}>
                     {inView ? (
                         <Image

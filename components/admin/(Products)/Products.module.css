@@ -30,7 +30,8 @@
     padding-bottom: 0.1rem;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
-    font-size: x-small;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .table_row {
@@ -77,4 +78,18 @@
     .products {
         border-radius: 0.5rem;
     }
+}
+
+.newProduct_button {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 10px;
+    top: 10px;
+    color: var(--primary-4);
+    background-color: var(--primary-0);
+    border-radius: 50px;
+    padding: 0.1rem;
+    text-align: center;
+    line-height: 1.5;
 }

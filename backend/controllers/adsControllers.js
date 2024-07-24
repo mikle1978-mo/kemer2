@@ -12,17 +12,36 @@ export const newAds = async (req) => {
     };
 };
 
-export const getAllAds = async () => {
-    const adsCount = await Ads.countDocuments();
-    const allAds = await Ads.find().lean();
+export const getAdvertisers = async () => {
+    const advertisersCount = await Ads.countDocuments();
+    const advertisers = await Ads.find().lean();
 
     return {
-        adsCount,
-        allAds,
+        advertisersCount,
+        advertisers,
     };
 };
 
-export const getAds = async (req, id) => {
+export const getAllCarouselAds = async () => {
+    const adsCarouselCount = await Ads.countDocuments();
+    const allCarouselAds = await Ads.find({ type: "Карусель" }).lean();
+
+    return {
+        adsCarouselCount,
+        allCarouselAds,
+    };
+};
+export const getAllListAds = async () => {
+    const adsCarouselCount = await Ads.countDocuments();
+    const allCarouselAds = await Ads.find({ type: "Карусель" }).lean();
+
+    return {
+        adsCarouselCount,
+        allCarouselAds,
+    };
+};
+
+export const getOneAds = async (req, id) => {
     const ads = await Ads.findById(id);
     if (!ads) {
         return new ErrorHandler("Ads not found.", 404);

@@ -2,7 +2,7 @@
 
 import React, { useState, useContext, useEffect } from "react";
 
-import { countries } from "countries-list";
+
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
 import cl from "./UpdateAddress.module.css";
@@ -19,8 +19,7 @@ const UpdateAddress = ({ id, address }) => {
         clearErrors,
     } = useContext(AuthContext);
 
-    const countriesList = Object.values(countries);
-
+    
     const [street, setStreet] = useState(address.street);
     const [city, setCity] = useState(address.city);
     const [state, setState] = useState(address.state);

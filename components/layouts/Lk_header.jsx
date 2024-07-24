@@ -1,13 +1,47 @@
 "use client";
 
-import { useContext, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/context/AuthContext";
+import SellerContext from "@/context/SellerContext";
+import axios from "axios";
 
 import cl from "./Lk_header.module.css";
 
 export default function LkHeader() {
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const { setSellers } = useContext(SellerContext);
+    const [sellerName, setSellerName] = useState("");
+
+    useEffect(() => {
+        const fetchSellers = async () => {
+            try {
+                const { data } = await axios.get("/api/sellers");
+
+                setSellers(data.sellers);
+            } catch (error) {
+                console.error("Ошибка при запросе продавцов", error);
+            }
+        };
+
+        fetchSellers();
+    }, [setSellers]);
+
+    useEffect(() => {
+        const fetchSellerName = async () => {
+            if (user?.sellerId) {
+                try {
+                    const { data } = await axios.get(
+                        `/api/sellers/${user.sellerId}`
+                    );
+                    setSellerName(data.seller.name);
+                } catch (error) {
+                    console.error("Ошибка при запросе продавца", error);
+                }
+            }
+        };
+
+        fetchSellerName();
+    }, [user?.sellerId]);
 
     return (
         <>
@@ -24,11 +58,26 @@ export default function LkHeader() {
                     />
                 </div>
                 <figcaption className={cl.figcaption}>
-                    <h5 className={cl.figcaption_name}>{user?.name}</h5>
+                    <h5 className={cl.figcaption_name}>
+                        <p>
+                            <b>Пользователь:</b> {user?.name}
+                        </p>
+                    </h5>
                     <p>
-                        <b>Email:</b> {user?.email} | <b>Зарегистрирован: </b>
+                        <b>Email:</b> {user?.email}
+                    </p>
+                    <p>
+                        <b>Регистрация: </b>
                         {user?.createdAt?.substring(0, 10)}
                     </p>
+                    <p>
+                        <b>Роль:</b> {user?.role}
+                    </p>
+                    {user?.role === "seller" && sellerName && (
+                        <p>
+                            <b>Продавец:</b> <i>{sellerName}</i>
+                        </p>
+                    )}
                 </figcaption>
             </figure>
 

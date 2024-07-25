@@ -4,6 +4,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ProductContext from "@/context/ProductContext";
 import CategoryContext from "@/context/CategoryContext";
+import SellerContext from "@/context/SellerContext";
 import AuthContext from "@/context/AuthContext";
 import cl from "./NewProduct.module.css";
 import MyButton from "../../UI/myButton/myButton";
@@ -16,6 +17,7 @@ const NewProduct = () => {
         useContext(ProductContext);
     const { categories } = useContext(CategoryContext);
     const { user } = useContext(AuthContext);
+    const { sellers } = useContext(SellerContext);
     useEffect(() => {
         if (!user) {
             router.push("/auth/login");
@@ -44,11 +46,6 @@ const NewProduct = () => {
         if (updated) {
             toast.success("Продукт создан");
             setUpdated(false);
-            router.push(
-                `/me/admin/products${
-                    user.sellerId ? `/seller/${user.sellerId}` : ""
-                }`
-            );
         }
 
         if (error) {
@@ -102,10 +99,10 @@ const NewProduct = () => {
 
     return (
         <>
-            <h1 className={cl.title}>
-                {" "}
-                <BackButton /> Создать новый продукт
-            </h1>
+            <div className={cl.top_row}>
+                <BackButton />
+                <h1 className='title'> Создать новый продукт</h1>
+            </div>
 
             <form className={cl.form} onSubmit={submitHandler}>
                 <div className={cl.input_wrap}>
@@ -313,6 +310,45 @@ const NewProduct = () => {
                             </div>
                         </label>
                     </div>
+                    {user?.role === "admin" && (
+                        <div className={cl.input_wrap}>
+                            <label className={cl.label}>
+                                Продавец
+                                <div className={cl.relative}>
+                                    <select
+                                        style={{ display: "block" }}
+                                        className={cl.input}
+                                        name='sellerId'
+                                        value={""}
+                                        onChange={onChange}
+                                        required
+                                    >
+                                        <option value={"undefind"}>
+                                            {"Выберите продавца"}
+                                        </option>
+                                        {sellers.sellers.map((seller) => (
+                                            <option
+                                                key={seller._id}
+                                                value={seller._id}
+                                            >
+                                                {seller.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <i className={cl.arrow}>
+                                        <svg
+                                            width='22'
+                                            height='22'
+                                            className='fill-current'
+                                            viewBox='0 0 20 20'
+                                        >
+                                            <path d='M7 10l5 5 5-5H7z'></path>
+                                        </svg>
+                                    </i>
+                                </div>
+                            </label>
+                        </div>
+                    )}
                 </div>
                 <MyButton type='submit' disabled={loading}>
                     {loading ? "Создание..." : "Создать продукт"}

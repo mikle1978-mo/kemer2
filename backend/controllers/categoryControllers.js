@@ -1,4 +1,5 @@
 import Category from "../models/categories";
+import ErrorHandler from "../utils/errorHandler";
 
 export const getCategories = async () => {
     const categories = await Category.find().lean();
@@ -10,7 +11,7 @@ export const getCategories = async () => {
     };
 };
 
-export const getCategory = async (req, id) => {
+export const getCategory = async (id) => {
     const category = await Category.findById(id);
 
     if (!category) {

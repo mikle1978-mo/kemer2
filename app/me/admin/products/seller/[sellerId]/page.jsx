@@ -10,10 +10,14 @@ const SellerPage = async ({ params }) => {
         );
         const products = response.data;
 
+        const { data } = await axios.get(
+            `${process.env.API_URL}/api/sellers/${sellerId}`
+        );
+        const seller = data.seller;
 
         return (
             <div>
-                <h1>Продукты от продавца {sellerId}</h1>
+                <h1 className='title'>Продукты продавца "{seller.name}"</h1>
                 <Products data={products} />
             </div>
         );

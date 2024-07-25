@@ -10,13 +10,15 @@ import cl from "./UpdateProduct.module.css";
 import MyButton from "../../UI/myButton/myButton";
 import { useRouter } from "next/navigation";
 import { byField } from "@/helpers/helpers";
+import BackButton from "@/components/UI/myButton/backButton";
 
 const UpdateProduct = ({ data }) => {
+    const { user } = useContext(AuthContext);
+
     const { updateProduct, error, updated, setUpdated, clearErrors } =
         useContext(ProductContext);
     const { categories } = useContext(CategoryContext);
     const { sellers } = useContext(SellerContext);
-    const { user } = useContext(AuthContext);
 
     const router = useRouter();
 
@@ -70,8 +72,11 @@ const UpdateProduct = ({ data }) => {
     };
 
     return (
-        <section>
-            <h1 className={cl.title}>Обновление продукта</h1>
+        <>
+            <div className={cl.top_row}>
+                <BackButton />
+                <h1 className='title'>Обновление продукта</h1>
+            </div>
 
             <form onSubmit={submitHandler}>
                 <div className={cl.input_wrap}>
@@ -305,7 +310,7 @@ const UpdateProduct = ({ data }) => {
 
                 <MyButton type='submit'>Обновить продукт</MyButton>
             </form>
-        </section>
+        </>
     );
 };
 

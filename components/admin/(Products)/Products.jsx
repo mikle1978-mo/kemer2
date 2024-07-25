@@ -17,16 +17,14 @@ import MyIconButton from "../../UI/myButton/myIconButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getCategoryName, formatDate } from "@/helpers/helpers";
+import BackButton from "@/components/UI/myButton/backButton";
 
 const Products = ({
     data = { products: [], filteredProductsCount: 0, ProductsCount: 0 },
 }) => {
-    console.log("Data:", data);
-    console.log("Products:", data.products);
-
     const { deleteProduct, error, clearErrors } = useContext(ProductContext);
     const { categories } = useContext(CategoryContext);
-    console.log("categories:", categories);
     const [sortConfig, setSortConfig] = useState({
         key: "name",
         direction: "asc",
@@ -45,11 +43,6 @@ const Products = ({
             deleteProduct(id);
             toast.success("Продукт удален");
         }
-    };
-
-    const getCategoryName = (categoryId) => {
-        const category = categories.find((cat) => cat._id === categoryId);
-        return category ? category.name : "Неизвестная категория";
     };
 
     const requestSort = (key) => {
@@ -86,28 +79,26 @@ const Products = ({
           })
         : [];
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString("ru-RU", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-        });
-    };
-
     return (
         <div className={cl.products}>
-            <h1 className='title'>
-                {" "}
-                Всего товаров: {data?.filteredProductsCount}
-            </h1>
+            <div className={cl.top_row}>
+                <BackButton />
+                <h2 className='title'>
+                    {" "}
+                    Всего наименований: {data?.products.length} шт.
+                </h2>
 
-            <Link
-                href='/me/admin/products/new'
-                className={cl.newProduct_button}
-            >
-                <FontAwesomeIcon icon={faPlus} />
-            </Link>
+                <button
+                    type='button'
+                    className={cl.newProduct_button}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/me/admin/products/new`);
+                    }}
+                >
+                    <FontAwesomeIcon icon={faPlus} />
+                </button>
+            </div>
 
             <table className={cl.table}>
                 <thead className={cl.table_head}>
@@ -205,7 +196,10 @@ const Products = ({
                             </td>
                             <td className={cl.item}>
                                 {" "}
-                                {getCategoryName(product?.categoryId)}
+                                {getCategoryName(
+                                    product?.categoryId,
+                                    categories
+                                )}
                             </td>
                             <td className={cl.item}>
                                 {formatDate(product?.createdAt)}

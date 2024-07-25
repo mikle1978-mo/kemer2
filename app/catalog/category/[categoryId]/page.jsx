@@ -9,10 +9,13 @@ const CategoryPage = async ({ params }) => {
             `${process.env.API_URL}/api/products/category/${categoryId}`
         );
         const products = response.data;
+        const { data } = await axios.get(
+            `${process.env.API_URL}/api/categories/${categoryId}`
+        );
 
         return (
             <>
-                <h1>Продукты в категории {categoryId}</h1>
+                <h1 className='title'> Категория "{data.category.name}"</h1>
                 <MainList data={products} />
             </>
         );

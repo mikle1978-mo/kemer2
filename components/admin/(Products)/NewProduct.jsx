@@ -94,7 +94,9 @@ const NewProduct = () => {
             setProduct({ ...product, categoryId: selectedSubcategory });
         }
         newProduct(product);
-        router.push(`/me/admin/products/seller/${user.sellerId}`);
+        user?.role === "seller"
+            ? router.push(`/me/admin/products/seller/${user?.sellerId}`)
+            : router.push("/me/admin/products");
     };
 
     return (

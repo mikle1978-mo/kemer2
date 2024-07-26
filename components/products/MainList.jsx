@@ -7,7 +7,11 @@ import { useInView } from "react-intersection-observer";
 import { shuffleArray } from "@/helpers/helpers";
 
 export default function MainList({ data }) {
-    const [items, setItems] = useState(shuffleArray(data.products));
+    const products = Array.isArray(data?.products) ? data.products : [];
+    const [items, setItems] = useState(
+        products.length > 0 ? shuffleArray(products) : []
+    );
+
     const [itemsCount, setItemsCount] = useState(data.productsCount);
     const [visibleItems, setVisibleItems] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -45,18 +49,23 @@ export default function MainList({ data }) {
     return (
         <main className='listProduct'>
             {loading && <div>Загрузка...</div>}
-            {visibleItems.map((item) => (
-                <ProductItem key={item._id} product={item} />
-            ))}
 
-            {visibleItems.length > 0 && (
-                <div ref={ref}>
-                    {visibleItems.length >= itemsCount ? (
-                        <div>Пока это всё 🤷‍♂️</div>
-                    ) : (
-                        <div>Листайте дальше...</div>
-                    )}
-                </div>
+            {visibleItems.length > 0 ? (
+                <>
+                    {visibleItems.map((item) => (
+                        <ProductItem key={item._id} product={item} />
+                    ))}
+
+                    <div ref={ref}>
+                        {visibleItems.length >= items.length ? (
+                            <div>Пока это всё 🤷‍♂️</div>
+                        ) : (
+                            <div>Листайте дальше...</div>
+                        )}
+                    </div>
+                </>
+            ) : (
+                <div>Продукты пока не добавлены</div>
             )}
         </main>
     );

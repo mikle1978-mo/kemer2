@@ -67,8 +67,10 @@ const UpdateProduct = ({ data }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
         updateProduct(product, data?._id);
+        user?.role === "seller"
+            ? router.push(`/me/admin/products/seller/${user?.sellerId}`)
+            : router.push("/me/admin/products");
     };
 
     return (

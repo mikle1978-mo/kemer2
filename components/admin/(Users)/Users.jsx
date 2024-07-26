@@ -67,7 +67,9 @@ const Users = ({ data }) => {
                                         style={{ color: "#d97706" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            window.location.href = `/me/admin/users/${user?._id}`;
+                                            router.push(
+                                                `/me/admin/users/${user?._id}`
+                                            );
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />

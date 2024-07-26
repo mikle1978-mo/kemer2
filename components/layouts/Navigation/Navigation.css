@@ -1,13 +1,14 @@
 .navigation {
     position: fixed;
     width: 100vw;
-    height: 100vh;
     background-color: var(--primary-4);
     top: 0px;
     right: 0;
     left: 0;
     bottom: 0;
     z-index: 3;
+    overflow-y: auto;
+    margin-bottom: 3rem;
 }
 
 .categoryList {
@@ -40,6 +41,8 @@
 }
 
 .buttonBack {
+    position: fixed;
+    top: 0;
     border: none;
     width: 100%;
     background-color: var(--complement-0);

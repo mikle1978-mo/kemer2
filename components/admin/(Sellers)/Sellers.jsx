@@ -9,8 +9,10 @@ import MyIconButton from "../../UI/myButton/myIconButton";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import MyButton from "../../UI/myButton/myButton";
+import { useRouter } from "next/navigation";
 
 const Sellers = ({ data }) => {
+    const router = useRouter();
     const { error, deleteSeller, clearErrors } = useContext(SellerContext);
     if (!error && !deleteSeller && !clearErrors) {
         throw new Error(" components admin Sellers ошибка контекста");
@@ -70,7 +72,9 @@ const Sellers = ({ data }) => {
                                             style={{ color: "#d97706" }}
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                window.location.href = `/me/admin/sellers/${seller?._id}`;
+                                                router.push(
+                                                    `/me/admin/sellers/${seller?._id}`
+                                                );
                                             }}
                                         >
                                             <FontAwesomeIcon icon={faPencil} />

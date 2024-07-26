@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const CategoryContext = createContext();
 
@@ -13,6 +13,24 @@ export const CategoryProvider = ({ children }) => {
     const [updated, setUpdated] = useState(false);
 
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                setLoading(true);
+                const { data } = await axios.get(
+                    `${process.env.API_URL}/api/categories`
+                );
+                setCategories(data.categories);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                setError(error?.response?.data?.message);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const newCategory = async (category) => {
         try {
@@ -26,9 +44,13 @@ export const CategoryProvider = ({ children }) => {
             );
 
             if (data) {
+                setCategories((prevCategories) => [
+                    ...prevCategories,
+                    data.category,
+                ]);
                 setUpdated(true);
                 setLoading(false);
-                router.replace("/admin/categories");
+                router.replace("/me/admin/categories");
             }
         } catch (error) {
             setLoading(false);
@@ -45,11 +67,17 @@ export const CategoryProvider = ({ children }) => {
             );
 
             if (data) {
+                setCategories((prevCategories) =>
+                    prevCategories.map((cat) =>
+                        cat._id === id ? data.category : cat
+                    )
+                );
                 setUpdated(true);
                 setLoading(false);
-                router.replace(`/admin/categories`);
+                router.replace(`/me/admin/categories`);
             }
         } catch (error) {
+            setLoading(false);
             setError(error?.response?.data?.message);
         }
     };
@@ -62,11 +90,15 @@ export const CategoryProvider = ({ children }) => {
             );
 
             if (data?.success) {
+                setCategories((prevCategories) =>
+                    prevCategories.filter((cat) => cat._id !== id)
+                );
                 setUpdated(true);
                 setLoading(false);
                 router.refresh();
             }
         } catch (error) {
+            setLoading(false);
             setError(error?.response?.data?.message);
         }
     };

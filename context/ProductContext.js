@@ -24,7 +24,6 @@ export const ProductProvider = ({ children }) => {
             if (data) {
                 setUpdated(true);
                 setLoading(false);
-                router.refresh();
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -42,7 +41,6 @@ export const ProductProvider = ({ children }) => {
             if (data) {
                 setUpdated(true);
                 setLoading(false);
-                router.back();
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -66,7 +64,6 @@ export const ProductProvider = ({ children }) => {
             if (data?.data) {
                 setUpdated(true);
                 setLoading(false);
-                router.back();
             }
         } catch (error) {
             setError(error?.response?.data?.message);

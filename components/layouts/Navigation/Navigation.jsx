@@ -11,6 +11,7 @@ import NavigationContext from "@/context/NavigationContext";
 import CategoryContext from "@/context/CategoryContext";
 import Search from "../Search";
 import "./Navigation.css";
+import { byField } from "@/helpers/helpers";
 
 const Navigation = () => {
     const { categories, setCategories } = useContext(CategoryContext);
@@ -26,8 +27,9 @@ const Navigation = () => {
                     `${process.env.API_URL}/api/categories`
                 );
                 const data = await res.json();
-                setCategories(data.categories);
-                setItems(data.categories.filter((item) => !item.parent));
+                const sortedCategories = data.categories.sort(byField("name")); // Сортировка категорий по имени
+                setCategories(sortedCategories);
+                setItems(sortedCategories.filter((item) => !item.parent));
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -46,7 +48,7 @@ const Navigation = () => {
                 ...prevBreadcrumb,
                 { id: category._id, name: category.name, items },
             ]);
-            setItems(subcategories);
+            setItems(subcategories.sort(byField("name")));
         } else {
             router.push(`/catalog/category/${category._id}`);
             setOpen(!open);

@@ -16,7 +16,6 @@ import cl from "./Products.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { getCategoryName, formatDate } from "@/helpers/helpers";
 import BackButton from "@/components/UI/myButton/backButton";
 
@@ -26,8 +25,8 @@ const Products = ({
     const { deleteProduct, error, clearErrors } = useContext(ProductContext);
     const { categories } = useContext(CategoryContext);
     const [sortConfig, setSortConfig] = useState({
-        key: "name",
-        direction: "asc",
+        key: "createdAt",
+        direction: "desc",
     });
     const router = useRouter();
 

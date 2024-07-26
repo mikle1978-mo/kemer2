@@ -39,11 +39,15 @@ const Header = () => {
 
     return (
         <footer className='footer'>
-            <Link href='/' className={isActiveHome ? "active" : "links"}>
+            <Link
+                href='/'
+                className={isActiveHome ? "active" : "links"}
+                onClick={() => setOpen(false)}
+            >
                 <FontAwesomeIcon icon={faHouse} />
             </Link>
             <p
-                className={isActiveFilters ? "active" : "links"}
+                className={open ? "active" : "links"}
                 onClick={() => setOpen(!open)}
             >
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -52,6 +56,7 @@ const Header = () => {
             <Link
                 href='/cart'
                 className={isActiveCart ? " cart active" : " cart links"}
+                onClick={() => setOpen(false)}
             >
                 {cartItems?.length ? (
                     <>
@@ -67,6 +72,7 @@ const Header = () => {
                 <Link
                     href='/login'
                     className={isActiveLogin ? "active" : "links"}
+                    onClick={() => setOpen(false)}
                 >
                     <FontAwesomeIcon icon={faUser} />
                 </Link>

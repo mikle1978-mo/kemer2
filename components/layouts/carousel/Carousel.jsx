@@ -5,7 +5,9 @@ import ImageWrapper from "./ImageWrapper";
 export default function Carousel({ data }) {
     return (
         <div className={cl.main_container}>
-            <BackButton />
+            <div className={cl.btn_wrap}>
+                <BackButton />
+            </div>
             <div className={cl.window}>
                 <div className={cl.all_pages_container}>
                     {data.images.map((child) => (

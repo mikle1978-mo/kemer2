@@ -7,14 +7,12 @@ import "../admin.css";
 import MyButton from "../../UI/myButton/myButton";
 import { useRouter } from "next/navigation";
 
-const UpdateAds = ({ data, item }) => {
-
-
+const UpdateCategory = ({ data, item }) => {
     const { updateCategory, error, updated, setUpdated, clearErrors } =
         useContext(CategoryContext);
-        if (!updateCategory && !updated && !setUpdated && !clearErrors && !error) {
-            throw new Error(" components admin ads NewCategories ошибка контекста");
-        }
+    if (!updateCategory && !updated && !setUpdated && !clearErrors && !error) {
+        throw new Error(" components admin ads NewCategories ошибка контекста");
+    }
 
     const router = useRouter();
 
@@ -136,4 +134,4 @@ const UpdateAds = ({ data, item }) => {
     );
 };
 
-export default UpdateAds;
+export default UpdateCategory;

@@ -2,35 +2,34 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const SellerContext = createContext();
 
 export const SellerProvider = ({ children }) => {
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(null);
-    const [updated, setUpdated] = useState(false);
     const [sellers, setSellers] = useState([]);
+    const [updated, setUpdated] = useState(false);
+    const [loading, setLoading] = useState(null);
+    const [error, setError] = useState(null);
 
     const router = useRouter();
 
-    const updateSeller = async (seller, id) => {
-        try {
-            setLoading(true);
-            const { data } = await axios.put(
-                `${process.env.API_URL}/api/admin/sellers/${id}/update`,
-                seller
-            );
-
-            if (data) {
-                setUpdated(true);
+    useEffect(() => {
+        const fetchSellers = async () => {
+            try {
+                setLoading(true);
+                const { data } = await axios.get(
+                    `${process.env.API_URL}/api/sellers`
+                );
+                setSellers(data.sellers);
                 setLoading(false);
-                router.replace(`/me/admin/sellers`);
+            } catch (error) {
+                setLoading(false);
+                setError(error?.response?.data?.message);
             }
-        } catch (error) {
-            setError(error?.response?.data?.message);
-        }
-    };
+        };
+        fetchSellers();
+    }, []);
 
     const newSeller = async (seller) => {
         try {
@@ -46,6 +45,26 @@ export const SellerProvider = ({ children }) => {
                 router.replace("/me/admin/sellers");
             }
         } catch (error) {
+            setLoading(false);
+            setError(error?.response?.data?.message);
+        }
+    };
+
+    const updateSeller = async (seller, id) => {
+        try {
+            setLoading(true);
+            const { data } = await axios.put(
+                `${process.env.API_URL}/api/admin/sellers/${id}/update`,
+                seller
+            );
+
+            if (data) {
+                setUpdated(true);
+                setLoading(false);
+                router.replace(`/me/admin/sellers`);
+            }
+        } catch (error) {
+            setLoading(false);
             setError(error?.response?.data?.message);
         }
     };
@@ -60,9 +79,10 @@ export const SellerProvider = ({ children }) => {
             if (data?.success) {
                 setUpdated(true);
                 setLoading(false);
-                router.refresh(`/me/admin/sellers`);
+                router.refresh();
             }
         } catch (error) {
+            setLoading(false);
             setError(error?.response?.data?.message);
         }
     };

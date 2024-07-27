@@ -43,3 +43,10 @@
 .arrow {
     cursor: pointer;
 }
+
+.btn_wrap {
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    z-index: 3;
+}

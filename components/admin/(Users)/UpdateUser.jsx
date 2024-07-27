@@ -37,7 +37,7 @@ const UpdateUser = ({ user }) => {
             role,
             sellerId: role === "seller" ? sellerId : undefined,
         };
-        console.log(userData);
+
         updateUser(user?._id, userData);
     };
 
@@ -126,7 +126,7 @@ const UpdateUser = ({ user }) => {
                                     <option value={"undefind"}>
                                         {"Выберите продавца"}
                                     </option>
-                                    {sellers.map((seller) => (
+                                    {sellers.sellers.map((seller) => (
                                         <option
                                             key={seller._id}
                                             value={seller._id}

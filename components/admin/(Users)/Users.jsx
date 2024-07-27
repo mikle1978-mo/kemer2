@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
-// import CustomPagination from "../layouts/CustomPagination";
 import AuthContext from "@/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +8,13 @@ import cl from "./Users.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import SellerContext from "@/context/SellerContext";
+import { getCategoryName } from "@/helpers/helpers";
 
 const Users = ({ data }) => {
+    const { sellers } = useContext(SellerContext);
+    console.log(sellers);
+
     const { error, deleteUser, clearErrors } = useContext(AuthContext);
     if (!error && !deleteUser && !clearErrors) {
         throw new Error(" components admin Users ошибка контекста");
@@ -50,6 +54,9 @@ const Users = ({ data }) => {
                             Роль
                         </th>
                         <th scope='col' className={cl.th}>
+                            Продавец
+                        </th>
+                        <th scope='col' className={cl.th}>
                             {" "}
                         </th>
                     </tr>
@@ -60,6 +67,12 @@ const Users = ({ data }) => {
                             <td className={cl.td}>{user?.name}</td>
                             <td className={cl.td}>{user?.email}</td>
                             <td className={cl.td}>{user?.role}</td>
+                            <td className={cl.td}>
+                                {getCategoryName(
+                                    user?.sellerId,
+                                    sellers.sellers
+                                )}
+                            </td>
                             <td className={cl.td}>
                                 <div className={cl.btn_wrap}>
                                     <MyIconButton
@@ -87,13 +100,6 @@ const Users = ({ data }) => {
                     ))}
                 </tbody>
             </table>
-
-            {/* <div className='mb-6'>
-                <CustomPagination
-                    resPerPage={data?.resPerPage}
-                    productsCount={data?.usersCount}
-                />
-            </div> */}
         </div>
     );
 };

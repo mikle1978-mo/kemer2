@@ -101,8 +101,7 @@ export const AuthProvider = ({ children }) => {
 
             if (data?.success) {
                 setUpdated(true);
-
-                router.replace(`/admin/users/${id}`);
+                router.replace(`/me/admin/users`);
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -116,7 +115,7 @@ export const AuthProvider = ({ children }) => {
             );
 
             if (data?.success) {
-                router.replace(`/admin/users`);
+                router.refresh();
             }
         } catch (error) {
             setError(error?.response?.data?.message);

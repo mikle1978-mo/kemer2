@@ -83,7 +83,7 @@ export const lifeFilter = function (keyword, data) {
 
 export const getCategoryName = (categoryId, categories) => {
     const category = categories.find((cat) => cat._id === categoryId);
-    return category ? category.name : "Неизвестная категория";
+    return category ? category.name : "-------";
 };
 
 export const formatDate = (dateString) => {

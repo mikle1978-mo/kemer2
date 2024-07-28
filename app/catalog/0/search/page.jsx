@@ -23,7 +23,7 @@ const Search = ({ searchParams }) => {
                 const response = await axios.get(
                     `${process.env.API_URL}/api/products/search?keyword=${searchParams.keyword}`
                 );
-                console.log("response", response.data);
+
                 setData(response.data);
             } catch (error) {
                 console.error("Ошибка запроса на странице search:", error);

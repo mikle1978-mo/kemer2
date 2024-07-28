@@ -48,9 +48,6 @@ export const getProductById = async (id) => {
 export const getProductsByCategory = async (categoryId) => {
     try {
         const products = await Product.find({ categoryId });
-        if (!products || products.length === 0) {
-            throw new ErrorHandler("Нет продуктов в этой категории.", 404);
-        }
 
         return {
             products,
@@ -64,10 +61,6 @@ export const getProductsByCategory = async (categoryId) => {
 export const getProductsBySeller = async (sellerId) => {
     try {
         const products = await Product.find({ sellerId });
-
-        if (!products || products.length === 0) {
-            throw new ErrorHandler("Нет продуктов в этой категории.", 404);
-        }
 
         return {
             products,

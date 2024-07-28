@@ -1,24 +1,21 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import "./MainList.css";
 import { useInView } from "react-intersection-observer";
 import { shuffleArray } from "@/helpers/helpers";
 
-export default function MainList({ data }) {
+export default function SearchResults({ data }) {
     const products = Array.isArray(data?.products) ? data.products : [];
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(
+        products.length > 0 ? shuffleArray(products) : []
+    );
+
     const [visibleItems, setVisibleItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (products.length > 0) {
-            setItems(shuffleArray(products));
-        } else {
-            setItems([]);
-        }
-    }, [products]);
+        setItems(products.length > 0 ? shuffleArray(products) : []);
+    }, [data]); // Update items when data changes
 
     useEffect(() => {
         setVisibleItems(items.slice(0, 10));

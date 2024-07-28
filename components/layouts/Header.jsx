@@ -23,7 +23,7 @@ const Header = () => {
         if (data) {
             setUser(data?.user);
         }
-    }, [data]);
+    }, [data]); 
 
     const { cart } = useContext(CartContext);
     const cartItems = cart?.cartItems;

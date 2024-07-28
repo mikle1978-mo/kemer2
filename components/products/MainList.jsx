@@ -41,7 +41,7 @@ export default function MainList({ data }) {
     };
 
     useEffect(() => {
-        if (inView && visibleItems.length < itemsCount) {
+        if (inView && visibleItems.length < items.length) {
             loadMoreProducts();
         }
     }, [inView]);

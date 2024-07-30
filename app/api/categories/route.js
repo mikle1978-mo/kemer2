@@ -2,6 +2,7 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import { getCategories } from "@/backend/controllers/categoryControllers";
 import onError from "@/backend/middlewares/errors";
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 
 export async function GET(req) {
     dbConnect();

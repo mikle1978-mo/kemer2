@@ -1,19 +1,36 @@
-import axios from "axios";
 import Products from "@/components/admin/(Products)/Products";
+
+export const revalidate = 60; // Обновление данных каждые 10 секунд
 
 const SellerPage = async ({ params }) => {
     const { sellerId } = params;
 
     try {
-        const response = await axios.get(
-            `${process.env.API_URL}/api/products/seller/${sellerId}`
+        const response = await fetch(
+            `${process.env.API_URL}/api/products/seller/${sellerId}`,
+            { next: { revalidate: 60 } }
         );
-        const products = response.data;
+        if (!response.ok) {
+            throw new Error("Ошибка при загрузке продуктов");
+        }
 
-        const { data } = await axios.get(
-            `${process.env.API_URL}/api/sellers/${sellerId}`
+        // Получаем данные в формате JSON
+        const products = await response.json();
+
+        // Запрос информации о продавце
+        const sellerResponse = await fetch(
+            `${process.env.API_URL}/api/sellers/${sellerId}`,
+            {
+                next: { revalidate: 60 * 2 }, // Ревалидировать данные каждые 2 минуты
+            }
         );
-        const seller = data.seller;
+
+        if (!sellerResponse.ok) {
+            throw new Error("Ошибка при загрузке информации о продавце");
+        }
+
+        // Получаем данные продавца в формате JSON
+        const { seller } = await sellerResponse.json();
 
         return (
             <div>

@@ -1,4 +1,4 @@
-"use client";
+// use client
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -41,6 +41,7 @@ export const SellerProvider = ({ children }) => {
 
             if (data) {
                 setUpdated(true);
+                setSellers((prevSellers) => [...prevSellers, data.seller]); // Обновляем состояние
                 setLoading(false);
                 router.replace("/me/admin/sellers");
             }
@@ -60,6 +61,9 @@ export const SellerProvider = ({ children }) => {
 
             if (data) {
                 setUpdated(true);
+                setSellers((prevSellers) =>
+                    prevSellers.map((s) => (s._id === id ? data.seller : s))
+                ); // Обновляем состояние
                 setLoading(false);
                 router.replace(`/me/admin/sellers`);
             }
@@ -78,6 +82,9 @@ export const SellerProvider = ({ children }) => {
 
             if (data?.success) {
                 setUpdated(true);
+                setSellers((prevSellers) =>
+                    prevSellers.filter((seller) => seller._id !== id)
+                ); // Обновляем состояние
                 setLoading(false);
                 router.refresh();
             }

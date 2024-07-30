@@ -222,6 +222,7 @@ const Products = ({
                                         style={{ color: "orange" }}
                                         onClick={(e) => {
                                             e.preventDefault();
+                                            console.log("click!!!");
                                             router.push(
                                                 `/me/admin/products/${product?._id}`
                                             );

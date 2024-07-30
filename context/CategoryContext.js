@@ -13,7 +13,7 @@ export const CategoryProvider = ({ children }) => {
     const [updated, setUpdated] = useState(false);
 
     const router = useRouter();
- 
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {

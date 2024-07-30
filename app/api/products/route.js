@@ -1,6 +1,7 @@
 import { getProducts } from "@/backend/controllers/productControllers";
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/backend/config/dbConnect";
+export const dynamic = "force-dynamic";
 
 export async function GET(req) {
     dbConnect();

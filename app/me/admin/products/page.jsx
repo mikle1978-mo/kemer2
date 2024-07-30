@@ -1,10 +1,18 @@
-import axios from "axios";
 import Products from "@/components/admin/(Products)/Products";
 
 const AdminProductsPage = async () => {
     try {
-        const response = await axios.get(`${process.env.API_URL}/api/products`);
-        const products = response.data;
+        const response = await fetch(`${process.env.API_URL}/api/products`, {
+            next: { revalidate: 60 },
+        });
+
+        // Проверяем, что запрос успешен
+        if (!response.ok) {
+            throw new Error("Ошибка при загрузке продуктов");
+        }
+
+        // Получаем данные в формате JSON
+        const products = await response.json();
 
         return (
             <div>

@@ -29,7 +29,6 @@ const UpdateProduct = ({ data }) => {
         brand: data?.brand,
         price: data?.price,
         discount: data?.discount,
-        deliveryPrice: data?.deliveryPrice,
         deliveryTime: data?.deliveryTime,
         stock: data?.stock,
         categoryId: data?.categoryId,
@@ -38,8 +37,10 @@ const UpdateProduct = ({ data }) => {
     useEffect(() => {
         if (updated) {
             toast.success("Продукт обновлен");
-            router.refresh();
             setUpdated(false);
+            user?.role === "seller"
+                ? router.push(`/me/admin/products/seller/${user?.sellerId}`)
+                : router.push("/me/admin/products");
         }
 
         if (error) {
@@ -55,7 +56,6 @@ const UpdateProduct = ({ data }) => {
         brand,
         price,
         discount,
-        deliveryPrice,
         deliveryTime,
         stock,
         categoryId,
@@ -68,9 +68,6 @@ const UpdateProduct = ({ data }) => {
     const submitHandler = (e) => {
         e.preventDefault();
         updateProduct(product, data?._id);
-        user?.role === "seller"
-            ? router.push(`/me/admin/products/seller/${user?.sellerId}`)
-            : router.push("/me/admin/products");
     };
 
     return (
@@ -219,21 +216,7 @@ const UpdateProduct = ({ data }) => {
                             />
                         </label>
                     </div>
-                    <div className={cl.input_wrap}>
-                        <label className={cl.label}>
-                            {" "}
-                            Стоимость доставки
-                            <input
-                                type='text'
-                                className={cl.input}
-                                placeholder='Стоимость доставки в лирах'
-                                name='deliveryPrice'
-                                value={deliveryPrice}
-                                onChange={onChange}
-                                required
-                            />
-                        </label>
-                    </div>
+
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}

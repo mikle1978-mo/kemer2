@@ -22,7 +22,7 @@ const NewProduct = () => {
         if (!user) {
             router.push("/auth/login");
         }
-    }, [user]);
+    }, [user]); 
 
     const topCategories = categories.filter((item) => item.parent === null); // Фильтрация верхнеуровневых категорий
 

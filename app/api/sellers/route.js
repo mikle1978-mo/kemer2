@@ -8,9 +8,7 @@ export async function GET(req) {
     try {
         const sellers = await getSellers();
 
-        return NextResponse.json({
-            sellers,
-        });
+        return NextResponse.json(sellers);
     } catch (error) {
         console.error(error);
         return NextResponse.json(

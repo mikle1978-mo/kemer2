@@ -10,7 +10,7 @@ export async function DELETE(req, { params }) {
     dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");
-    const data = await deleteSeller(req, params.id);
+    const data = await deleteSeller(params.id);
 
     return NextResponse.json(data, { status: 200 });
 }

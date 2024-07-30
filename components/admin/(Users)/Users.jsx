@@ -13,7 +13,6 @@ import { getCategoryName } from "@/helpers/helpers";
 
 const Users = ({ data }) => {
     const { sellers } = useContext(SellerContext);
-    console.log(sellers);
 
     const { error, deleteUser, clearErrors } = useContext(AuthContext);
     if (!error && !deleteUser && !clearErrors) {
@@ -68,10 +67,9 @@ const Users = ({ data }) => {
                             <td className={cl.td}>{user?.email}</td>
                             <td className={cl.td}>{user?.role}</td>
                             <td className={cl.td}>
-                                {getCategoryName(
-                                    user?.sellerId,
-                                    sellers.sellers
-                                )}
+                                {sellers
+                                    ? getCategoryName(user?.sellerId, sellers)
+                                    : ""}
                             </td>
                             <td className={cl.td}>
                                 <div className={cl.btn_wrap}>

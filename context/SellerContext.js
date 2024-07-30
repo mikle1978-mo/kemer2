@@ -1,4 +1,4 @@
-// use client
+"use client";
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { createContext, useState, useEffect } from "react";
 const SellerContext = createContext();
 
 export const SellerProvider = ({ children }) => {
-    const [sellers, setSellers] = useState([]);
+    const [sellers, setSellers] = useState([]); // Начальное состояние как пустой массив
     const [updated, setUpdated] = useState(false);
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
@@ -21,7 +21,8 @@ export const SellerProvider = ({ children }) => {
                 const { data } = await axios.get(
                     `${process.env.API_URL}/api/sellers`
                 );
-                setSellers(data.sellers);
+
+                setSellers(data.sellers || []); // Обработка данных
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -41,7 +42,7 @@ export const SellerProvider = ({ children }) => {
 
             if (data) {
                 setUpdated(true);
-                setSellers((prevSellers) => [...prevSellers, data.seller]); // Обновляем состояние
+                setSellers((prevSellers) => [...prevSellers, data.seller]);
                 setLoading(false);
                 router.replace("/me/admin/sellers");
             }
@@ -63,7 +64,7 @@ export const SellerProvider = ({ children }) => {
                 setUpdated(true);
                 setSellers((prevSellers) =>
                     prevSellers.map((s) => (s._id === id ? data.seller : s))
-                ); // Обновляем состояние
+                );
                 setLoading(false);
                 router.replace(`/me/admin/sellers`);
             }
@@ -84,7 +85,7 @@ export const SellerProvider = ({ children }) => {
                 setUpdated(true);
                 setSellers((prevSellers) =>
                     prevSellers.filter((seller) => seller._id !== id)
-                ); // Обновляем состояние
+                );
                 setLoading(false);
                 router.refresh();
             }

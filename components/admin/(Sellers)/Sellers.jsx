@@ -36,7 +36,7 @@ const Sellers = ({ data }) => {
         <>
             <div className='wrap'>
                 <h1 className='title'>
-                    {data?.sellerss?.length} Продавцов на странице
+                    Продавцов на странице: {data?.sellers?.length}
                 </h1>
                 <table className='table'>
                     <thead className='table_head'>

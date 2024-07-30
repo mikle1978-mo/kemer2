@@ -11,7 +11,6 @@ const UpdateUser = ({ user }) => {
     const { error, updateUser, clearErrors, updated, setUpdated } =
         useContext(AuthContext);
     const { sellers } = useContext(SellerContext);
-
     const [name, setName] = useState(user?.name);
     const [email, setEmail] = useState(user?.email);
     const [role, setRole] = useState(user?.role);
@@ -126,7 +125,7 @@ const UpdateUser = ({ user }) => {
                                     <option value={"undefind"}>
                                         {"Выберите продавца"}
                                     </option>
-                                    {sellers.sellers.map((seller) => (
+                                    {sellers.map((seller) => (
                                         <option
                                             key={seller._id}
                                             value={seller._id}

@@ -26,7 +26,7 @@ export default function Canyon() {
             <AboutUs />
             <SpecialMenu />
             <Chef />
-            <Intro />
+            {/* <Intro /> */}
             <Gallery />
             <FindUs />
             <Footer />

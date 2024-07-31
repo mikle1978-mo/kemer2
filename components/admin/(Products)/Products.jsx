@@ -162,6 +162,15 @@ const Products = ({
                             {sortConfig.key === "createdAt" &&
                                 (sortConfig.direction === "asc" ? "↑" : "↓")}
                         </th>
+                        <th
+                            scope='col'
+                            className={cl.head_item}
+                            onClick={() => requestSort("sellerId")}
+                        >
+                            SellerID{" "}
+                            {sortConfig.key === "sellerId" &&
+                                (sortConfig.direction === "asc" ? "↑" : "↓")}
+                        </th>
                         <th scope='col' className={cl.head_item}>
                             Дей
                         </th>
@@ -202,6 +211,9 @@ const Products = ({
                             </td>
                             <td className={cl.item}>
                                 {formatDate(product?.createdAt)}
+                            </td>
+                            <td className={cl.item}>
+                                {product?.sellerId.slice(0, 6)}
                             </td>
                             <td className={cl.item}>
                                 <div className={cl.btn_wrap}>

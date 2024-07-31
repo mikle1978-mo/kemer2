@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useContext, useEffect } from "react";
-import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
 import cl from "./NewAddress.module.css";

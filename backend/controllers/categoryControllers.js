@@ -3,6 +3,7 @@ import ErrorHandler from "../utils/errorHandler";
 
 export const getCategories = async () => {
     const categories = await Category.find().lean();
+
     if (!categories) {
         return new ErrorHandler("Категории не найдены.", 404);
     }

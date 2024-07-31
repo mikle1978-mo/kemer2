@@ -21,7 +21,7 @@ const SellerPage = async ({ params }) => {
         const sellerResponse = await fetch(
             `${process.env.API_URL}/api/sellers/${sellerId}`,
             {
-                next: { revalidate: 60 * 2 }, // Ревалидировать данные каждые 2 минуты
+                next: { revalidate: 60 }, // Ревалидировать данные каждые 2 минуты
             }
         );
 
@@ -35,7 +35,7 @@ const SellerPage = async ({ params }) => {
         return (
             <div>
                 <h1 className='title'>Продукты продавца "{seller.name}"</h1>
-                <Products data={products} />
+                {/* <Products data={products} /> */}
             </div>
         );
     } catch (error) {

@@ -43,7 +43,7 @@ const HomePage = async () => {
                 </h1>
             </div>
             <CaruselAds ads={adsData} />
-            <MainList data={productData} />
+            {/* <MainList data={productData} /> */}
         </>
     );
 };

@@ -17,7 +17,7 @@ const AdminProductsPage = async () => {
         return (
             <div>
                 <h1 className='title'>Продукты </h1>
-                <Products data={products} />
+                {/* <Products data={products} /> */}
             </div>
         );
     } catch (error) {

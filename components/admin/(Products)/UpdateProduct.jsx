@@ -269,7 +269,7 @@ const UpdateProduct = ({ data }) => {
                                     <option value={"undefind"}>
                                         {"Выберите продавца"}
                                     </option>
-                                    {sellers.sellers.map((seller) => (
+                                    {sellers.map((seller) => (
                                         <option
                                             key={seller._id}
                                             value={seller._id}

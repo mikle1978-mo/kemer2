@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { slugs_top, slugs_middle, slugs_buttom } from "@/lib/slugs/slugs";
-import cl from "./slugSelector.module.css";
+import cl from "./SlugSelector.module.css";
 
 const slugsByLevel = {
     0: slugs_top,

@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
     dbConnect();
-    const { categoryId } = params;
+    const { slug } = params;
 
     try {
-        const products = await getProductsByCategory(categoryId);
+        const products = await getProductsByCategory(slug);
         return NextResponse.json(products);
     } catch (error) {
         console.error(error);

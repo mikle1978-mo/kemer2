@@ -31,6 +31,8 @@ export const ProductProvider = ({ children }) => {
     };
 
     const newProduct = async (product) => {
+        console.log(product);
+
         try {
             setLoading(true);
             const { data } = await axios.post(

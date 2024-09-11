@@ -19,7 +19,7 @@ const HomePage = async () => {
 
     try {
         const [productResponse, adsResponse] = await Promise.all([
-            axios.get(`${process.env.API_URL}/api/products`),
+            axios.get(`${process.env.API_URL}/api/catalog`),
             axios.get(`${process.env.API_URL}/api/ads`),
         ]);
 

@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Footer.css";
 
-const Header = () => {
+const Footer = () => {
     const { user, setUser } = useContext(AuthContext);
     const { open, setOpen } = useContext(NavigationContext);
     const pathname = usePathname() || "";
@@ -93,4 +93,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Footer;

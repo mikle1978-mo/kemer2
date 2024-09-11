@@ -16,7 +16,7 @@ import cl from "./Products.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { getCategoryName, formatDate } from "@/helpers/helpers";
+import { getSlugName, formatDate } from "@/helpers/helpers";
 import BackButton from "@/components/UI/myButton/backButton";
 
 const Products = ({
@@ -24,6 +24,7 @@ const Products = ({
 }) => {
     const { deleteProduct, error, clearErrors } = useContext(ProductContext);
     const { categories } = useContext(CategoryContext);
+
     const [sortConfig, setSortConfig] = useState({
         key: "createdAt",
         direction: "desc",
@@ -54,11 +55,25 @@ const Products = ({
 
     const sortedProducts = Array.isArray(data?.products)
         ? [...data.products].sort((a, b) => {
+              if (sortConfig.key === "categories") {
+                  const categoryA = a.categories?.at(-1) || "";
+                  const categoryB = b.categories?.at(-1) || "";
+                  const nameA = getCategoryName(categoryA, categories);
+                  const nameB = getCategoryName(categoryB, categories);
+                  return (
+                      nameA.localeCompare(nameB, "ru", {
+                          sensitivity: "base",
+                      }) * (sortConfig.direction === "asc" ? 1 : -1)
+                  );
+              }
+
+              // Для других ключей
               if (typeof a[sortConfig.key] === "number") {
                   return sortConfig.direction === "asc"
                       ? a[sortConfig.key] - b[sortConfig.key]
                       : b[sortConfig.key] - a[sortConfig.key];
               }
+
               if (sortConfig.key === "createdAt") {
                   const dateA = new Date(a[sortConfig.key]);
                   const dateB = new Date(b[sortConfig.key]);
@@ -66,6 +81,7 @@ const Products = ({
                       ? dateA - dateB
                       : dateB - dateA;
               }
+
               return (
                   (a[sortConfig.key] || "").localeCompare(
                       b[sortConfig.key] || "",
@@ -84,7 +100,7 @@ const Products = ({
                 <BackButton />
                 <h2 className='title'>
                     {" "}
-                    Всего наименований: {data?.products.length} шт.
+                    Всего наименований: {data?.products?.length} шт.
                 </h2>
 
                 <button
@@ -147,10 +163,10 @@ const Products = ({
                         <th
                             scope='col'
                             className={cl.head_item}
-                            onClick={() => requestSort("categoryId")}
+                            onClick={() => requestSort("categories")}
                         >
                             Кат{" "}
-                            {sortConfig.key === "categoryId" &&
+                            {sortConfig.key === "categories" &&
                                 (sortConfig.direction === "asc" ? "↑" : "↓")}
                         </th>
                         <th
@@ -193,7 +209,7 @@ const Products = ({
                                 />
                             </td>
                             <td className={cl.item}>
-                                {product?.images.length}
+                                {product?.images?.length}
                             </td>
                             <td className={cl.item}>{product?.name}</td>
                             <td className={cl.item}>{product?.brand}</td>
@@ -204,10 +220,7 @@ const Products = ({
                             </td>
                             <td className={cl.item}>
                                 {" "}
-                                {getCategoryName(
-                                    product?.categoryId,
-                                    categories
-                                )}
+                                {getSlugName(product?.categories?.at(-1))}
                             </td>
                             <td className={cl.item}>
                                 {formatDate(product?.createdAt)}

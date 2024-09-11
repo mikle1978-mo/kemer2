@@ -8,7 +8,7 @@ const SellerPage = async ({ params }) => {
     try {
         const response = await fetch(
             `${process.env.API_URL}/api/products/seller/${sellerId}`,
-            { next: { revalidate: 60 } }
+            { next: { revalidate: 0 } }
         );
         if (!response.ok) {
             throw new Error("Ошибка при загрузке продуктов");
@@ -21,7 +21,7 @@ const SellerPage = async ({ params }) => {
         const sellerResponse = await fetch(
             `${process.env.API_URL}/api/sellers/${sellerId}`,
             {
-                next: { revalidate: 60 }, // Ревалидировать данные каждые 2 минуты
+                next: { revalidate: 0 }, // Ревалидировать данные каждые 2 минуты
             }
         );
 
@@ -35,7 +35,7 @@ const SellerPage = async ({ params }) => {
         return (
             <div>
                 <h1 className='title'>Продукты продавца "{seller.name}"</h1>
-                {/* <Products data={products} /> */}
+                <Products data={products} />
             </div>
         );
     } catch (error) {

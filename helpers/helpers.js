@@ -1,3 +1,5 @@
+import { slugs_top, slugs_middle, slugs_buttom } from "@/lib/slugs/slugs";
+
 export const getPriceQueryParams = (queryParams, key, value) => {
     const hasValueInParam = queryParams.has(key);
 
@@ -81,9 +83,15 @@ export const lifeFilter = function (keyword, data) {
     });
 };
 
-export const getCategoryName = (categoryId, categories) => {
-    const category = categories.find((cat) => cat._id === categoryId);
+export const getCategoryName = (categorySlug, categories) => {
+    const category = categories.find((cat) => cat.slug === categorySlug);
     return category ? category.name : "-------";
+};
+export const getSlugName = (categorySlug) => {
+    const slugs = [...slugs_top, ...slugs_middle, ...slugs_buttom];
+
+    const slug = slugs.find((slug) => slug.slug === categorySlug);
+    return slug ? slug.name : "-------";
 };
 
 export const formatDate = (dateString) => {

@@ -2,7 +2,7 @@ import Products from "@/components/admin/(Products)/Products";
 
 const AdminProductsPage = async () => {
     try {
-        const response = await fetch(`${process.env.API_URL}/api/products`, {
+        const response = await fetch(`${process.env.API_URL}/api/catalog`, {
             next: { revalidate: 60 },
         });
 
@@ -17,7 +17,7 @@ const AdminProductsPage = async () => {
         return (
             <div>
                 <h1 className='title'>Продукты </h1>
-                {/* <Products data={products} /> */}
+                <Products data={products} />
             </div>
         );
     } catch (error) {

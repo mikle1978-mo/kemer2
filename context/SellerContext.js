@@ -7,9 +7,9 @@ import { createContext, useState, useEffect } from "react";
 const SellerContext = createContext();
 
 export const SellerProvider = ({ children }) => {
-    const [sellers, setSellers] = useState([]); // Начальное состояние как пустой массив
+    const [sellers, setSellers] = useState([]);
     const [updated, setUpdated] = useState(false);
-    const [loading, setLoading] = useState(null);
+    const [loadingSellers, setLoadingSellers] = useState(false);
     const [error, setError] = useState(null);
 
     const router = useRouter();
@@ -17,15 +17,15 @@ export const SellerProvider = ({ children }) => {
     useEffect(() => {
         const fetchSellers = async () => {
             try {
-                setLoading(true);
+                setLoadingSellers(true);
                 const { data } = await axios.get(
                     `${process.env.API_URL}/api/sellers`
                 );
 
-                setSellers(data.sellers || []); // Обработка данных
-                setLoading(false);
+                setSellers(data.sellers || []);
+                setLoadingSellers(false);
             } catch (error) {
-                setLoading(false);
+                setLoadingSellers(false);
                 setError(error?.response?.data?.message);
             }
         };
@@ -34,7 +34,7 @@ export const SellerProvider = ({ children }) => {
 
     const newSeller = async (seller) => {
         try {
-            setLoading(true);
+            setLoadingSellers(true);
             const { data } = await axios.post(
                 `${process.env.API_URL}/api/admin/sellers/new`,
                 seller
@@ -43,18 +43,18 @@ export const SellerProvider = ({ children }) => {
             if (data) {
                 setUpdated(true);
                 setSellers((prevSellers) => [...prevSellers, data.seller]);
-                setLoading(false);
+                setLoadingSellers(false);
                 router.replace("/me/admin/sellers");
             }
         } catch (error) {
-            setLoading(false);
+            setLoadingSellers(false);
             setError(error?.response?.data?.message);
         }
     };
 
     const updateSeller = async (seller, id) => {
         try {
-            setLoading(true);
+            setLoadingSellers(true);
             const { data } = await axios.put(
                 `${process.env.API_URL}/api/admin/sellers/${id}/update`,
                 seller
@@ -65,18 +65,18 @@ export const SellerProvider = ({ children }) => {
                 setSellers((prevSellers) =>
                     prevSellers.map((s) => (s._id === id ? data.seller : s))
                 );
-                setLoading(false);
+                setLoadingSellers(false);
                 router.replace(`/me/admin/sellers`);
             }
         } catch (error) {
-            setLoading(false);
+            setLoadingSellers(false);
             setError(error?.response?.data?.message);
         }
     };
 
     const deleteSeller = async (id) => {
         try {
-            setLoading(true);
+            setLoadingSellers(true);
             const { data } = await axios.delete(
                 `${process.env.API_URL}/api/admin/sellers/${id}/delete`
             );
@@ -86,11 +86,11 @@ export const SellerProvider = ({ children }) => {
                 setSellers((prevSellers) =>
                     prevSellers.filter((seller) => seller._id !== id)
                 );
-                setLoading(false);
+                setLoadingSellers(false);
                 router.refresh();
             }
         } catch (error) {
-            setLoading(false);
+            setLoadingSellers(false);
             setError(error?.response?.data?.message);
         }
     };
@@ -104,7 +104,7 @@ export const SellerProvider = ({ children }) => {
             value={{
                 sellers,
                 error,
-                loading,
+                loadingSellers,
                 updated,
                 setSellers,
                 setUpdated,

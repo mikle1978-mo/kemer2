@@ -45,10 +45,11 @@ export const getProductById = async (id) => {
     };
 };
 
-export const getProductsByCategory = async (categoryId) => {
+export const getProductsByCategory = async (slug) => {
     try {
-        const products = await Product.find({ categoryId });
-
+        const products = await Product.find({
+            categories: { $all: slug },
+        }).exec();
         return {
             products,
         };

@@ -119,7 +119,7 @@ const ProductDetails = ({ product }) => {
                             {" "}
                             <b className={cl.category}>Категория:</b>
                             <span className={cl.category_value}>
-                                {product?.category}
+                                {/* {product?.category} */}
                             </span>
                         </li>
                         <li className={cl.li_wrap}>

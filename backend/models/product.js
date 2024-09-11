@@ -27,11 +27,15 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-    categoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: [true, "Пожалуйста введите категорию продукта"],
+    categories: {
+        type: [String], // Массив строк для хранения путей к категориям
+        required: true,
     },
+    tags: [
+        {
+            type: String,
+        },
+    ],
     sellerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Seller",

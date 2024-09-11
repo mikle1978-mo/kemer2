@@ -3,28 +3,26 @@
 import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ProductContext from "@/context/ProductContext";
-import CategoryContext from "@/context/CategoryContext";
 import SellerContext from "@/context/SellerContext";
 import AuthContext from "@/context/AuthContext";
 import cl from "./NewProduct.module.css";
 import MyButton from "../../UI/myButton/myButton";
 import BackButton from "@/components/UI/myButton/backButton";
 import { useRouter } from "next/navigation";
+import CategorySelector from "@/components/UI/CategorySelector/CategorySelector";
 
 const NewProduct = () => {
+    const { user } = useContext(AuthContext);
     const router = useRouter();
     const { newProduct, updated, setUpdated, loading, error } =
         useContext(ProductContext);
-    const { categories } = useContext(CategoryContext);
-    const { user } = useContext(AuthContext);
-    const { sellers } = useContext(SellerContext);
+    const { sellers, loadingSellers } = useContext(SellerContext);
+
     useEffect(() => {
         if (!user) {
-            router.push("/auth/login");
+            router.push("/login");
         }
-    }, [user]); 
-
-    const topCategories = categories.filter((item) => item.parent === null); // Фильтрация верхнеуровневых категорий
+    }, [user]);
 
     const [product, setProduct] = useState({
         name: "",
@@ -35,51 +33,26 @@ const NewProduct = () => {
         discount: "",
         deliveryTime: "",
         stock: "",
-        categoryId: "",
+        categories: [], // массив категорий
     });
 
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [selectedSubcategory, setSelectedSubcategory] = useState("");
-    const [subcategories, setSubcategories] = useState([]);
-
     useEffect(() => {
-        if (updated) {
+        if (!loading && updated) {
             toast.success("Продукт создан");
-            setUpdated(false);
+            setUpdated(false); // Сбрасываем состояние после показа тоста
         }
 
         if (error) {
             toast.error(error);
             clearErrors();
         }
-    }, [error, updated, setUpdated]);
+    }, [error, updated, loading]);
 
-    const handleCategoryChange = (e) => {
-        const categoryId = e.target.value;
-        setSelectedCategory(categoryId);
-
-        // Найдем выбранную категорию по categoryId
-        const selectedCat = categories.find((cat) => cat._id === categoryId);
-
-        if (selectedCat) {
-            // Устанавливаем выбранную категорию в state продукта
-            setProduct({ ...product, categoryId: categoryId });
-            setSelectedSubcategory(""); // Сбрасываем выбранную подкатегорию при изменении категории
-
-            // Фильтруем подкатегории по выбранной категории (сравниваем по URI родительской категории)
-            const filteredSubcategories = categories.filter(
-                (cat) => cat.parent === selectedCat.uri
-            );
-            if (filteredSubcategories.length > 0) {
-                setSubcategories(filteredSubcategories);
-            }
-        }
-    };
-
-    const handleSubcategoryChange = (e) => {
-        const subcategoryId = e.target.value;
-        setSelectedSubcategory(subcategoryId);
-        setProduct({ ...product, categoryId: subcategoryId });
+    const handleCategorySelect = (selectedCategorySlug) => {
+        setProduct({
+            ...product,
+            categories: [...product.categories, ...selectedCategorySlug],
+        });
     };
 
     const onChange = (e) => {
@@ -88,11 +61,6 @@ const NewProduct = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
-        if (selectedSubcategory) {
-            // Если есть, сохраняем её как последнюю в иерархии выбранную категорию
-            setProduct({ ...product, categoryId: selectedSubcategory });
-        }
         newProduct(product);
         user?.role === "seller"
             ? router.push(`/me/admin/products/seller/${user?.sellerId}`)
@@ -107,6 +75,7 @@ const NewProduct = () => {
             </div>
 
             <form className={cl.form} onSubmit={submitHandler}>
+                <CategorySelector onCategoryChange={handleCategorySelect} />
                 <div className={cl.input_wrap}>
                     <label className={cl.label}>
                         Наименование
@@ -181,83 +150,7 @@ const NewProduct = () => {
                             </div>
                         </label>
                     </div>
-                    <div className={cl.input_wrap}>
-                        <label className={cl.label}>
-                            Категория
-                            <div className={cl.relative}>
-                                <select
-                                    id='category'
-                                    style={{ display: "block" }}
-                                    className={cl.select}
-                                    name='category'
-                                    value={selectedCategory}
-                                    onChange={handleCategoryChange}
-                                    required
-                                >
-                                    <option value=''>
-                                        --Выберите категорию--
-                                    </option>
-                                    {topCategories.map((item) => (
-                                        <option key={item._id} value={item._id}>
-                                            {item.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <i className={cl.select_arrow}>
-                                    <svg
-                                        width='22'
-                                        height='22'
-                                        className='fill-current'
-                                        viewBox='0 0 20 20'
-                                    >
-                                        <path d='M7 10l5 5 5-5H7z'></path>
-                                    </svg>
-                                </i>
-                            </div>
-                        </label>
-                    </div>
-                    {subcategories.length > 0 && (
-                        <div className={cl.input_wrap}>
-                            <label className={cl.label}>
-                                Подкатегория
-                                <div className={cl.relative}>
-                                    <select
-                                        id='subcategory'
-                                        style={{ display: "block" }}
-                                        className={cl.select}
-                                        name='subcategory'
-                                        value={selectedSubcategory}
-                                        onChange={handleSubcategoryChange}
-                                        required
-                                    >
-                                        <option value=''>
-                                            --Выберите подкатегорию--
-                                        </option>
-                                        {subcategories.map((subcat) => (
-                                            <option
-                                                key={subcat._id}
-                                                value={subcat._id}
-                                            >
-                                                {subcat.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <i className={cl.select_arrow}>
-                                        <svg
-                                            width='22'
-                                            height='22'
-                                            className='fill-current'
-                                            viewBox='0 0 20 20'
-                                        >
-                                            <path d='M7 10l5 5 5-5H7z'></path>
-                                        </svg>
-                                    </i>
-                                </div>
-                            </label>
-                        </div>
-                    )}
                 </div>
-
                 <div className={cl.input_seller_cont}>
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
@@ -317,27 +210,34 @@ const NewProduct = () => {
                             <label className={cl.label}>
                                 Продавец
                                 <div className={cl.relative}>
-                                    <select
-                                        style={{ display: "block" }}
-                                        className={cl.input}
-                                        name='sellerId'
-                                        value={""}
-                                        onChange={onChange}
-                                        required
-                                    >
-                                        <option value={"undefind"}>
-                                            {"Выберите продавца"}
-                                        </option>
-                                        {sellers.sellers.map((seller) => (
+                                    {loadingSellers ? (
+                                        <p>Загрузка продавцов...</p>
+                                    ) : (
+                                        <select
+                                            style={{ display: "block" }}
+                                            className={cl.input}
+                                            name='sellerId'
+                                            value={product.sellerId}
+                                            onChange={onChange}
+                                            required
+                                        >
                                             <option
-                                                key={seller._id}
-                                                value={seller._id}
+                                                value=''
+                                                className={cl.input}
                                             >
-                                                {seller.name}
+                                                Выберите продавца
                                             </option>
-                                        ))}
-                                    </select>
-                                    <i className={cl.arrow}>
+                                            {sellers.map((seller) => (
+                                                <option
+                                                    key={seller._id}
+                                                    value={seller._id}
+                                                >
+                                                    {seller.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    )}
+                                    <i className={cl.select_arrow}>
                                         <svg
                                             width='22'
                                             height='22'

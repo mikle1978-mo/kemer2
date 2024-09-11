@@ -1,7 +1,6 @@
 "use client";
 
 import ProductContext from "@/context/ProductContext";
-import CategoryContext from "@/context/CategoryContext";
 import SellerContext from "@/context/SellerContext";
 import AuthContext from "@/context/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -9,15 +8,16 @@ import { toast } from "react-toastify";
 import cl from "./UpdateProduct.module.css";
 import MyButton from "../../UI/myButton/myButton";
 import { useRouter } from "next/navigation";
-import { byField } from "@/helpers/helpers";
 import BackButton from "@/components/UI/myButton/backButton";
+import CategorySelector from "@/components/UI/CategorySelector/CategorySelector";
+import { getSlugName } from "@/helpers/helpers";
 
 const UpdateProduct = ({ data }) => {
     const { user } = useContext(AuthContext);
 
     const { updateProduct, error, updated, setUpdated, clearErrors } =
         useContext(ProductContext);
-    const { categories } = useContext(CategoryContext);
+
     const { sellers } = useContext(SellerContext);
 
     const router = useRouter();
@@ -32,6 +32,7 @@ const UpdateProduct = ({ data }) => {
         deliveryTime: data?.deliveryTime,
         stock: data?.stock,
         categoryId: data?.categoryId,
+        categories: data?.categories,
     });
 
     useEffect(() => {
@@ -58,11 +59,17 @@ const UpdateProduct = ({ data }) => {
         discount,
         deliveryTime,
         stock,
-        categoryId,
+        categories,
     } = product;
 
     const onChange = (e) => {
         setProduct({ ...product, [e.target.name]: e.target.value });
+    };
+    const handleCategorySelect = (selectedCategorySlug) => {
+        setProduct({
+            ...product,
+            categories: [...selectedCategorySlug],
+        });
     };
 
     const submitHandler = (e) => {
@@ -78,6 +85,22 @@ const UpdateProduct = ({ data }) => {
             </div>
 
             <form onSubmit={submitHandler}>
+                <CategorySelector onCategoryChange={handleCategorySelect} />
+                <div className={cl.input_wrap}>
+                    <label className={cl.label}>
+                        {" "}
+                        Категория
+                        <input
+                            type='text'
+                            className={cl.input}
+                            placeholder='Категория продукта'
+                            name='categories'
+                            value={categories.map((cat) => getSlugName(cat))}
+                            onChange={onChange}
+                            required
+                        />
+                    </label>
+                </div>
                 <div className={cl.input_wrap}>
                     <label className={cl.label}>
                         {" "}
@@ -148,59 +171,9 @@ const UpdateProduct = ({ data }) => {
                             </div>
                         </label>
                     </div>
-                    <div className={cl.input_wrap}>
-                        <label className={cl.label}>
-                            {" "}
-                            Category
-                            <div className={cl.relative}>
-                                <select
-                                    className={cl.input}
-                                    style={{ display: "block" }}
-                                    name='categoryId'
-                                    value={categoryId}
-                                    onChange={onChange}
-                                    required
-                                >
-                                    <option value=''>
-                                        --Выберите категорию--
-                                    </option>
-                                    {categories.map((item) => (
-                                        <option key={item._id} value={item._id}>
-                                            {item.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <i className={cl.arrow}>
-                                    <svg
-                                        width='22'
-                                        height='22'
-                                        className='fill-current'
-                                        viewBox='0 0 20 20'
-                                    >
-                                        <path d='M7 10l5 5 5-5H7z'></path>
-                                    </svg>
-                                </i>
-                            </div>
-                        </label>
-                    </div>
                 </div>
 
                 <div className={cl.wrap_top}>
-                    {/* <div className={cl.input_wrap}>
-                        <label className={cl.label}>
-                            {" "}
-                            Продавец
-                            <input
-                                type='text'
-                                className={cl.input}
-                                placeholder='Продавец'
-                                name='seller'
-                                value={seller}
-                                onChange={onChange}
-                                required
-                            />
-                        </label>
-                    </div> */}
                     <div className={cl.input_wrap}>
                         <label className={cl.label}>
                             {" "}

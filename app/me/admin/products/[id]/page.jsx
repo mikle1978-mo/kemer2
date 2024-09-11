@@ -12,7 +12,7 @@ const HomePage = async ({ params }) => {
         return redirect("/");
     }
     const { data } = await axios.get(
-        `${process.env.API_URL}/api/products/${params?.id}`
+        `${process.env.API_URL}/api/catalog/${params?.id}`
     );
 
     return <UpdateProduct data={data.product} />;

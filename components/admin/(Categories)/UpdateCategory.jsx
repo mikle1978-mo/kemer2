@@ -11,7 +11,7 @@ const UpdateCategory = ({ data, item }) => {
     const { updateCategory, error, updated, setUpdated, clearErrors } =
         useContext(CategoryContext);
     if (!updateCategory && !updated && !setUpdated && !clearErrors && !error) {
-        throw new Error(" components admin ads NewCategories ошибка контекста");
+        throw new Error(" components admin NewCategories ошибка контекста");
     }
 
     const router = useRouter();
@@ -19,13 +19,13 @@ const UpdateCategory = ({ data, item }) => {
     const [category, setCategory] = useState({
         name: item?.name,
         parent: item?.parent,
-        uri: item?.uri,
+        slug: item?.slug,
     });
 
     useEffect(() => {
         if (updated) {
             toast.success("Категория обновлена");
-            router.push("/admin/categories");
+            router.push("/me/admin/categories");
             setUpdated(false);
         }
 
@@ -35,7 +35,7 @@ const UpdateCategory = ({ data, item }) => {
         }
     }, [error, updated]);
 
-    const { name, parent, uri } = category;
+    const { name, parent, slug } = category;
 
     const onChange = (e) => {
         setCategory({ ...category, [e.target.name]: e.target.value });
@@ -68,8 +68,8 @@ const UpdateCategory = ({ data, item }) => {
                                 <option value=''>
                                     --Выберите родительскую категорию--
                                 </option>
-                                {data.allCategories.map((item) => (
-                                    <option key={item._id} value={item.uri}>
+                                {data.categories.map((item) => (
+                                    <option key={item._id} value={item.slug}>
                                         {item.name}
                                     </option>
                                 ))}
@@ -108,17 +108,17 @@ const UpdateCategory = ({ data, item }) => {
                     <div className='input_wrap'>
                         <label className='label'>
                             {" "}
-                            URI
+                            SLUG
                             <div className='relative'>
                                 <div className='col-span-2'>
                                     <input
-                                        id='uri'
+                                        id='slug'
                                         type='text'
                                         className='input'
-                                        placeholder='транскрипция на английском, например: zamorozka'
+                                        placeholder='категория на английском'
                                         autoComplete='off'
-                                        name='uri'
-                                        value={uri || ""}
+                                        name='slug'
+                                        value={slug || ""}
                                         onChange={onChange}
                                         required
                                     />

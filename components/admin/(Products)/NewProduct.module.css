@@ -10,6 +10,9 @@
 
 .form {
     margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .input_wrap {
@@ -38,6 +41,7 @@
     width: 100%;
     background-color: #f3f4f6;
     appearance: none;
+    font-size: 1rem;
 }
 .input:hover {
     border-color: #9ca3af;
@@ -86,6 +90,7 @@
 .relative {
     position: relative;
 }
+
 @media (min-width: 768px) {
     .title {
         font-size: 1.875rem;

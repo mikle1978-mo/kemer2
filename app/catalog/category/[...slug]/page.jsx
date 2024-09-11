@@ -2,20 +2,21 @@ import MainList from "@/components/products/MainList";
 import axios from "axios";
 
 const CategoryPage = async ({ params }) => {
-    const { categoryId } = params;
+    const { slug } = params; // массив slug (пример: ['men', 'shoes', 'boots'])
+    console.log(slug);
 
+    // Собираем полный путь из массива slug
+    const categoryPath = slug.join("/");
+    console.log(categoryPath);
     try {
+        // Используем categoryPath для запроса на API
         const response = await axios.get(
-            `${process.env.API_URL}/api/products/category/${categoryId}`
+            `${process.env.API_URL}/api/catalog/category/${categoryPath}`
         );
         const products = response.data;
-        const { data } = await axios.get(
-            `${process.env.API_URL}/api/categories/${categoryId}`
-        );
 
         return (
             <>
-                <h1 className='title'> Категория "{data.category.name}"</h1>
                 <MainList data={products} />
             </>
         );

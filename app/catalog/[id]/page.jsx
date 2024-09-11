@@ -7,6 +7,14 @@ import { cache } from "react";
 
 export async function generateMetadata({ params }) {
     const product = await getProductDetails(params?.id);
+
+    if (!product) {
+        return {
+            title: "Продукт не найден",
+            description: "Извините, этот продукт не найден.",
+        };
+    }
+
     return {
         title: `${product.name} ${""}${product?.brand}`,
         description: `${product?.name} купить за ${product?.price} ${mark} на кемер-онлайн. Фирма ${product?.brand}. Постоянные скидки, оптовые цены!`,
@@ -14,24 +22,25 @@ export async function generateMetadata({ params }) {
             images: [product.images[0]],
         },
         alternates: {
-            canonical: `${process.env.API_URL}/product/${product._id}`,
+            canonical: `${process.env.API_URL}/catalog/${product._id}`,
         },
         keywords: [`${product.name} `],
     };
 }
 
 export async function generateStaticParams() {
-    const { data } = await axios.get(`${process.env.API_URL}/api/products`);
-    console.log(
-        "GSP",
-        data.products.map(({ _id }) => _id)
-    );
-    return data.products.map(({ _id }) => _id);
+    try {
+        const { data } = await axios.get(`${process.env.API_URL}/api/catalog`);
+        return data.products.map(({ _id }) => _id);
+    } catch (error) {
+        console.error("Failed to fetch catalog:", error);
+        return [];
+    }
 }
 
 const getProductDetails = cache(async (id) => {
     const { data } = await axios.get(
-        `${process.env.API_URL}/api/products/${id}`
+        `${process.env.API_URL}/api/catalog/${id}`
     );
 
     return data?.product;

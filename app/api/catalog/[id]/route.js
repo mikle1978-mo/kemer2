@@ -3,8 +3,6 @@ import { getProductById } from "@/backend/controllers/productControllers";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!");
-
     dbConnect();
     const { id } = params;
     try {

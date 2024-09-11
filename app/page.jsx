@@ -24,8 +24,6 @@ const HomePage = async () => {
         ]);
 
         productData = productResponse.data;
-        console.log(productData);
-
         adsData = adsResponse.data.advertisers;
     } catch (error) {
         console.error("Ошибка запроса на главной странице:", error);

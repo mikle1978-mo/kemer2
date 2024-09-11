@@ -7,8 +7,6 @@ import {
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-    console.log(req);
-
     dbConnect();
     await isAuthenticatedUser(req);
     authorizeRoles(req, "admin");

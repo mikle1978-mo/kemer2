@@ -3,11 +3,11 @@ import axios from "axios";
 
 const CategoryPage = async ({ params }) => {
     const { slug } = params; // массив slug (пример: ['men', 'shoes', 'boots'])
-    console.log(slug);
+  
 
     // Собираем полный путь из массива slug
     const categoryPath = slug.join("/");
-    console.log(categoryPath);
+   
     try {
         // Используем categoryPath для запроса на API
         const response = await axios.get(

@@ -28,7 +28,6 @@ const getFullCategoryPath = (categorySlug, categories) => {
                 : false
         );
     }
-    console.log(path);
 
     return path;
 };

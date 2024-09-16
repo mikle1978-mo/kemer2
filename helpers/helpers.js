@@ -1,4 +1,5 @@
 import { slugs_top, slugs_middle, slugs_buttom } from "@/lib/slugs/slugs";
+import { regions } from "@/lib/regions/region";
 
 export const getPriceQueryParams = (queryParams, key, value) => {
     const hasValueInParam = queryParams.has(key);
@@ -101,4 +102,9 @@ export const formatDate = (dateString) => {
         month: "2-digit",
         year: "numeric",
     });
+};
+
+export const getDeliveryPrice = (region) => {
+    const deliveryRegion = regions.find((item) => item.region == region);
+    return deliveryRegion?.delivery;
 };

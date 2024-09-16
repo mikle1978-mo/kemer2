@@ -1,5 +1,4 @@
 import Order from "../models/order";
-import APIFilters from "../utils/APIFilters";
 import ErrorHandler from "../utils/errorHandler";
 
 export const newOrder = async (req, res) => {
@@ -37,8 +36,9 @@ export const getOrder = async (req, id, res) => {
 export const myOrders = async (req, res) => {
     const ordersCount = await Order.countDocuments();
 
-    const orders = await Order.find({ user: req.user._id })
-    .populate("shippingInfo user");
+    const orders = await Order.find({ user: req.user._id }).populate(
+        "shippingInfo user"
+    );
 
     return {
         ordersCount,
@@ -97,14 +97,16 @@ export const canReview = async (req) => {
 export const checkoutSession = async (req, res) => {
     const body = await req.json();
     body.user = req.user;
+    console.log(body);
 
     const shippingInfo = body?.shippingInfo;
 
     const paymentInfo = {
         status: "в процессе",
         method: body.paymentMethod,
-        amountPaid: body?.checkoutInfo.totalAmount,
-        taxPaid: body?.checkoutInfo.tax,
+        totalPaid: body?.checkoutInfo.totalAmount,
+        amountPaid: body?.checkoutInfo.amount,
+        deliveryPaid: body?.checkoutInfo.deliveryPrice,
     };
 
     const orderData = {

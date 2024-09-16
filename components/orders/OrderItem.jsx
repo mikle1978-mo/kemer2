@@ -1,9 +1,10 @@
 import React from "react";
-import Image from "next/image";
 import cl from "./OrderItem.module.css";
 import { mark } from "@/lib/const/const";
 
 const OrderItem = ({ order }) => {
+    console.log(order);
+
     return (
         <article className={cl.wrap}>
             <div className={cl.card}>
@@ -68,12 +69,16 @@ const OrderItem = ({ order }) => {
                                     {order?.paymentInfo?.status?.toUpperCase()}
                                 </li>
                                 <li>
-                                    НДС: {mark}
-                                    {order?.paymentInfo?.taxPaid}
+                                    Стоимость: {mark}
+                                    {order?.paymentInfo?.amountPaid}
+                                </li>
+                                <li>
+                                    Доставка: {mark}
+                                    {order?.paymentInfo?.deliveryPaid}
                                 </li>
                                 <li>
                                     Итого: {mark}
-                                    {order?.paymentInfo?.amountPaid}
+                                    {order?.paymentInfo?.totalPaid}
                                 </li>
                             </ul>
                         </div>

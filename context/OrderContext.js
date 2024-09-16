@@ -40,7 +40,7 @@ export const OrderProvider = ({ children }) => {
 
             if (data.success) {
                 setUpdated(true);
-                router.replace(`/admin/orders/${id}`);
+                router.push(`orders/${id}`);
             }
         } catch (error) {
             setError(error?.response?.data?.message);
@@ -54,7 +54,7 @@ export const OrderProvider = ({ children }) => {
             );
 
             if (data?.success) {
-                router.replace(`/admin/orders`);
+                router.push(`orders`);
             }
         } catch (error) {
             setError(error?.response?.data?.message);

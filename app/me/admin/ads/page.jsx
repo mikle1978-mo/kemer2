@@ -8,11 +8,13 @@ const AdminAdsPage = async () => {
     const cookieName = getCookieName();
     const nextAuthSessionToken = nextCookies.get(cookieName);
 
-    const { data } = await axios.get(`${process.env.API_URL}/api/admin/ads`, {
+    const { data } = await axios.get(`${process.env.API_URL}/api/ads`, {
         headers: {
             Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
         },
     });
+
+    console.log(data);
 
     return <AdsList data={data} />;
 };

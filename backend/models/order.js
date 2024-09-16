@@ -49,9 +49,16 @@ const orderSchema = mongoose.Schema({
         },
         taxPaid: {
             type: Number,
+        },
+        deliveryPaid: {
+            type: Number,
             required: true,
         },
         amountPaid: {
+            type: Number,
+            required: true,
+        },
+        totalPaid: {
             type: Number,
             required: true,
         },

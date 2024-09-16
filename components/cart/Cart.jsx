@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-
+import { useRouter } from "next/navigation";
 import CartContext from "@/context/CartContext";
 import { mark } from "@/lib/const/const";
 import cl from "./Cart.module.css";
@@ -12,48 +12,33 @@ import CartFooter from "./CartFooter";
 import LandingsContact from "../landings/LandingsContact";
 
 const Cart = () => {
+    const router = useRouter();
     const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
         useContext(CartContext);
-    if (!addItemToCart && !deleteItemFromCart && !cart && !saveOnCheckout) {
-        throw new Error(" component cart ошибка контекста");
-    }
 
     const increaseQty = (cartItem) => {
         const newQty = cartItem?.quantity + 1;
         const item = { ...cartItem, quantity: newQty };
-
         if (newQty > Number(cartItem.stock)) return;
-
         addItemToCart(item);
     };
 
     const decreaseQty = (cartItem) => {
         const newQty = cartItem?.quantity - 1;
         const item = { ...cartItem, quantity: newQty };
-
         if (newQty <= 0) return;
-
         addItemToCart(item);
     };
 
-    const amountWithoutTax = cart?.cartItems?.reduce(
+    const amount = cart?.cartItems?.reduce(
         (acc, item) => acc + item.quantity * item.price,
         0
     );
 
-    const taxAmount = (amountWithoutTax * 0.15).toFixed(2);
-
-    const totalAmount = (Number(amountWithoutTax) + Number(taxAmount)).toFixed(
-        2
-    );
-
     const checkoutHandler = () => {
         const data = {
-            amount: amountWithoutTax,
-            tax: taxAmount,
-            totalAmount,
+            amount,
         };
-
         saveOnCheckout(data);
     };
 
@@ -80,7 +65,7 @@ const Cart = () => {
                         style={{ backgroundColor: "mediumblue" }}
                         onClick={(e) => {
                             e.preventDefault();
-                            window.location.href = `/`;
+                            router.push(`/`);
                         }}
                     >
                         На главную
@@ -197,10 +182,10 @@ const Cart = () => {
                         <article className={cl.checkInfo_wrap}>
                             <ul className={cl.checkInfo_ul}>
                                 <li className={cl.checkInfo_li}>
-                                    <span>Стоимость без НДС:</span>
+                                    <span>Стоимость:</span>
                                     <span>
                                         {mark}
-                                        {amountWithoutTax.toFixed(2)}
+                                        {amount.toFixed(2)}
                                     </span>
                                 </li>
                                 <li className={cl.checkInfo_li}>
@@ -213,18 +198,11 @@ const Cart = () => {
                                         шт.
                                     </span>
                                 </li>
-                                <li className={cl.checkInfo_li}>
-                                    <span>НДС:</span>
-                                    <span>
-                                        {mark}
-                                        {taxAmount}
-                                    </span>
-                                </li>
                                 <li className={cl.checkInfo_total}>
                                     <span>Стоимость:</span>
                                     <span>
                                         {mark}
-                                        {totalAmount}
+                                        {amount}
                                     </span>
                                 </li>
                             </ul>
@@ -237,7 +215,7 @@ const Cart = () => {
                                     }}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        window.location.href = `/`;
+                                        router.back();
                                     }}
                                 >
                                     Назад

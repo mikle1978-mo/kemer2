@@ -3,7 +3,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { getCookieName } from "@/helpers/helpers";
 
-const ProfilePage = async () => {
+const AddressPage = async () => {
     const nextCookies = cookies();
     const cookieName = getCookieName();
     const nextAuthSessionToken = nextCookies.get(cookieName);
@@ -23,11 +23,11 @@ const ProfilePage = async () => {
                     fontSize: "smaller",
                 }}
             >
-                Выбирите адрес для редактирования или добавьте новый адрес{" "}
+                Выбeрите адрес для редактирования или добавьте новый адрес{" "}
             </div>
             <Addresses addresses={data?.addresses} />
         </>
     );
 };
 
-export default ProfilePage;
+export default AddressPage;

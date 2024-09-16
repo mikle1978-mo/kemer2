@@ -5,11 +5,9 @@ import { useRouter } from "next/navigation";
 import OrderContext from "@/context/OrderContext";
 import Image from "next/image";
 import { mark } from "@/lib/const/const";
-import Link from "next/link";
 import { toast } from "react-toastify";
 import axios from "axios";
 import TGMessage from "@/backend/utils/tgMessage";
-import PayingInfo from "./PayingIBAN";
 import cl from "./Paying.module.css";
 import MyButton from "../UI/myButton/myButton";
 import PayingIBAN from "./PayingIBAN";
@@ -20,7 +18,6 @@ const Paying = () => {
     const { tempOrder } = useContext(OrderContext);
     const { clearCart } = useContext(CartContext);
     const router = useRouter();
-
     const order = tempOrder.orderData;
 
     const newOrderHandler = async () => {
@@ -72,8 +69,8 @@ const Paying = () => {
                         <li>Оплата: {order?.paymentInfo?.method}</li>
 
                         <li>
-                            Налог: {mark}
-                            {order?.paymentInfo?.taxPaid}
+                            Доставка: {mark}
+                            {order?.paymentInfo?.deliveryPaid}
                         </li>
                         <li>
                             Итого: {mark}

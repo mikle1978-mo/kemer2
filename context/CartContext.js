@@ -6,98 +6,80 @@ import { createContext, useState, useEffect } from "react";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState([]);
+    const router = useRouter();
 
-  const router = useRouter();
+    useEffect(() => {
+        const storedCart = localStorage.getItem("cart");
+        if (storedCart) {
+            setCart(JSON.parse(storedCart));
+        }
+    }, []);
 
-  useEffect(() => {
-    setCartToState();
-  }, []);
+    const addItemToCart = ({
+        product,
+        name,
+        price,
+        image,
+        stock,
+        seller,
+        quantity = 1,
+    }) => {
+        const item = { product, name, price, image, stock, seller, quantity };
 
-  const setCartToState = () => {
-    setCart(
-      localStorage.getItem("cart")
-        ? JSON.parse(localStorage.getItem("cart"))
-        : []
-    );
-  };
+        const isItemExist = cart?.cartItems?.find(
+            (i) => i.product === item.product
+        );
 
-  const addItemToCart = async ({
-    product,
-    name,
-    price,
-    image,
-    stock,
-    seller,
-    quantity = 1,
-  }) => {
-    const item = {
-      product,
-      name,
-      price,
-      image,
-      stock,
-      seller,
-      quantity,
+        let newCartItems;
+        if (isItemExist) {
+            newCartItems = cart?.cartItems?.map((i) =>
+                i.product === isItemExist.product ? item : i
+            );
+        } else {
+            newCartItems = [...(cart?.cartItems || []), item];
+        }
+
+        const newCart = { cartItems: newCartItems };
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        setCart(newCart);
     };
 
-    const isItemExist = cart?.cartItems?.find(
-      (i) => i.product === item.product
-    );
+    const deleteItemFromCart = (id) => {
+        const newCartItems = cart?.cartItems?.filter((i) => i.product !== id);
+        const newCart = { cartItems: newCartItems };
 
-    let newCartItems;
-
-    if (isItemExist) {
-      newCartItems = cart?.cartItems?.map((i) =>
-        i.product === isItemExist.product ? item : i
-      );
-    } else {
-      newCartItems = [...(cart?.cartItems || []), item];
-    }
-
-    localStorage.setItem("cart", JSON.stringify({ cartItems: newCartItems }));
-    setCartToState();
-  };
-
-  const deleteItemFromCart = (id) => {
-    const newCartItems = cart?.cartItems?.filter((i) => i.product !== id);
-
-    localStorage.setItem("cart", JSON.stringify({ cartItems: newCartItems }));
-    setCartToState();
-  };
-
-  const saveOnCheckout = ({ amount, tax, totalAmount }) => {
-    const checkoutInfo = {
-      amount,
-      tax,
-      totalAmount,
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        setCart(newCart);
     };
 
-    const newCart = { ...cart, checkoutInfo };
+    const saveOnCheckout = ({ amount }) => {
+        const checkoutInfo = { amount };
+        const newCart = { ...cart, checkoutInfo };
 
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setCartToState();
-    router.push("/shipping");
-  };
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        setCart(newCart);
+        router.push("/shipping");
+    };
 
-  const clearCart = () => {
-    localStorage.removeItem("cart");
-    setCartToState();
-  };
+    const clearCart = () => {
+        localStorage.removeItem("cart");
+        setCart([]);
+    };
 
-  return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addItemToCart,
-        saveOnCheckout,
-        deleteItemFromCart,
-        clearCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+    return (
+        <CartContext.Provider
+            value={{
+                cart,
+                addItemToCart,
+                saveOnCheckout,
+                deleteItemFromCart,
+                clearCart,
+            }}
+        >
+            {children}
+        </CartContext.Provider>
+    );
 };
 
 export default CartContext;

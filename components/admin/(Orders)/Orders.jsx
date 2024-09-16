@@ -1,22 +1,17 @@
 "use client";
 
-
 import React, { useContext, useEffect } from "react";
-// import CustomPagination from "../layouts/CustomPagination";
-import OrderContext from "@/context/OrderContext";
 import { useRouter } from "next/navigation";
+import OrderContext from "@/context/OrderContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 import cl from "./Orders.module.css";
 import MyIconButton from "../../UI/myButton/myIconButton";
 import { toast } from "react-toastify";
+import { mark } from "@/lib/const/const";
 
 const Orders = ({ orders }) => {
     const { deleteOrder, error, clearErrors } = useContext(OrderContext);
-    if (!deleteOrder && !clearErrors && !error) {
-        throw new Error(" components Orders ошибка контекста");
-    }
-
     const router = useRouter();
 
     useEffect(() => {
@@ -25,10 +20,6 @@ const Orders = ({ orders }) => {
             clearErrors();
         }
     }, [error]);
-
-    useEffect(() => {
-        router.refresh();
-    }, [orders]);
 
     const deleteHandler = (id) => {
         if (confirm("Удалить заказ?")) {
@@ -54,7 +45,7 @@ const Orders = ({ orders }) => {
                             User
                         </th>
                         <th scope='col' className={cl.th}>
-                            ₽
+                            {mark}
                         </th>
                         <th scope='col' className={cl.th}>
                             Статус
@@ -81,7 +72,8 @@ const Orders = ({ orders }) => {
                             </td>
                             <td className={cl.td}>{order?.user.name}</td>
                             <td className={cl.td}>
-                                ${order?.paymentInfo?.amountPaid}
+                                {mark}
+                                {order?.paymentInfo?.amountPaid}
                             </td>
                             <td className={cl.td}>{order?.orderStatus}</td>
                             <td className={cl.td}>
@@ -91,7 +83,9 @@ const Orders = ({ orders }) => {
                                         style={{ color: "#d97706" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            window.location.href = `/me/admin/orders/${order?._id}`;
+                                            router.push(
+                                                `/me/admin/orders/${order?._id}`
+                                            );
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faPencil} />
@@ -110,13 +104,6 @@ const Orders = ({ orders }) => {
                     ))}
                 </tbody>
             </table>
-
-            {/* <div className='mb-6'>
-                <CustomPagination
-                    resPerPage={orders?.resPerPage}
-                    productsCount={orders?.ordersCount}
-                />
-            </div> */}
         </div>
     );
 };

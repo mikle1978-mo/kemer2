@@ -33,7 +33,7 @@ const AdsList = ({ data }) => {
         <>
             <div className={cl.wrap}>
                 <h1 className={cl.title}>
-                    Количество рекламы {data?.adsCount}
+                    Количество рекламы {data?.advertisersCount}
                 </h1>
                 <table className={cl.table}>
                     <thead className={cl.table_head}>
@@ -63,7 +63,7 @@ const AdsList = ({ data }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data?.allAds?.map((ads) => (
+                        {data?.advertisers?.map((ads) => (
                             <tr key={ads._id} className={cl.tr}>
                                 <td className={cl.td}>
                                     {ads?._id.substring(0, 6)}

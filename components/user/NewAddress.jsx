@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import cl from "./NewAddress.module.css";
 import MyButton from "../UI/myButton/myButton";
 import { regions } from "@/lib/regions/region";
+import { getDeliveryPrice } from "@/helpers/helpers";
+import { mark } from "@/lib/const/const";
 
 const NewAddress = () => {
     const { error, addNewAddress, clearErrors } = useContext(AuthContext);
@@ -111,6 +113,10 @@ const NewAddress = () => {
                                         ))}
                                     </select>
                                 </label>
+                                <div>
+                                    Стоимость доставки: {mark}
+                                    {getDeliveryPrice(state)}
+                                </div>
                             </div>
 
                             <div className={cl.input_section}>
@@ -154,7 +160,7 @@ const NewAddress = () => {
                                             rows='4'
                                             className={cl.input}
                                             defaultValue=''
-                                            placeholder='Все что желаете дополнительно указать'
+                                            placeholder='что желаете дополнительно указать'
                                             // value='Кемер'
                                             onChange={(e) =>
                                                 setAddInfo(e.target.value)

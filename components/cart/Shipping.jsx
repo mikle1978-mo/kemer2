@@ -14,6 +14,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { mark } from "@/lib/const/const";
 import MyButton from "../UI/myButton/myButton";
 import Image from "next/image";
+import { getDeliveryPrice } from "@/helpers/helpers";
 
 const Shipping = ({ addresses }) => {
     const { cart } = useContext(CartContext);
@@ -23,6 +24,15 @@ const Shipping = ({ addresses }) => {
     const [paymentMethod, setPaymentMethod] = useState("");
 
     const router = useRouter();
+
+    const getTotalAmount = () => {
+        const deliveryPrice = getDeliveryPrice(shippingInfo?.state);
+        const amount = cart?.checkoutInfo?.amount || 0;
+        // Рассчитаем итоговую сумму с учётом доставки
+        const totalAmount = amount + (deliveryPrice || 0);
+        return totalAmount;
+    };
+
     const paymentMethods = [
         {
             _id: 1,
@@ -52,13 +62,24 @@ const Shipping = ({ addresses }) => {
         if (!paymentMethod) {
             return toast.error("Выберите способ оплаты");
         }
+        // Рассчитаем стоимость доставки и итоговую сумму
+        const deliveryPrice = getDeliveryPrice(shippingInfo?.state);
+        const amount = cart?.checkoutInfo?.amount || 0;
+        const totalAmount = amount + (deliveryPrice || 0);
+
+        // Обновляем checkoutInfo с учётом стоимости доставки и итоговой суммы
+        const checkoutInfo = {
+            ...cart?.checkoutInfo,
+            deliveryPrice,
+            totalAmount,
+        };
 
         try {
             const { data } = await axios.post(
                 `${process.env.API_URL}/api/orders/checkoutSession`,
                 {
                     items: cart?.cartItems,
-                    checkoutInfo: cart?.checkoutInfo,
+                    checkoutInfo,
                     shippingInfo,
                     paymentMethod,
                 }
@@ -167,7 +188,7 @@ const Shipping = ({ addresses }) => {
                                 }}
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    window.location.href = `/cart`;
+                                    router.back();
                                 }}
                             >
                                 Назад
@@ -184,26 +205,27 @@ const Shipping = ({ addresses }) => {
                         <h2 className='title'>Итого:</h2>
                         <ul>
                             <li className={cl.paymentInfo_li}>
-                                <span>Стоимость без НДС:</span>
+                                <span>Стоимость:</span>
                                 <span>
-                                    $
+                                    {mark}
                                     {cart?.checkoutInfo?.amount !== undefined
                                         ? cart.checkoutInfo.amount.toFixed(2)
                                         : "N/A"}
                                 </span>
                             </li>
                             <li className={cl.paymentInfo_li}>
-                                <span>НДС:</span>
+                                <span>Стоимость доставки:</span>
                                 <span>
                                     {mark}
-                                    {cart?.checkoutInfo?.tax}
+                                    {getDeliveryPrice(shippingInfo?.state)}
                                 </span>
                             </li>
+
                             <li className={cl.paymentInfo_li_total}>
-                                <span>Стоимость:</span>
+                                <span>Итого:</span>
                                 <span className={cl.total}>
                                     {mark}
-                                    {cart?.checkoutInfo?.totalAmount}
+                                    {getTotalAmount().toFixed(2)}
                                 </span>
                             </li>
                         </ul>

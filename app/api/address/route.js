@@ -7,5 +7,6 @@ export async function GET(req) {
     dbConnect();
     await isAuthenticatedUser(req);
     const data = await getAddresses(req);
+
     return NextResponse.json(data, { status: 200 });
 }

@@ -17,6 +17,8 @@ import Image from "next/image";
 import { getDeliveryPrice } from "@/helpers/helpers";
 
 const Shipping = ({ addresses }) => {
+    console.log(addresses);
+
     const { cart } = useContext(CartContext);
     const { addTempOrderToStore } = useContext(OrderContext);
 
@@ -103,6 +105,79 @@ const Shipping = ({ addresses }) => {
             <BreadCrumbs breadCrumbs={breadCrumbs} />
 
             <div className={cl.wrap}>
+                <aside className={cl.paymentInfo_wrap}>
+                    <article
+                        className={cl.asaid_article}
+                        style={{ maxWidth: "350px" }}
+                    >
+                        <h2 className='title'>Стоимсоть заказа:</h2>
+                        <ul>
+                            <li className={cl.paymentInfo_li}>
+                                <span>Товар:</span>
+                                <span>
+                                    {mark}
+                                    {cart?.checkoutInfo?.amount !== undefined
+                                        ? cart.checkoutInfo.amount.toFixed(2)
+                                        : "N/A"}
+                                </span>
+                            </li>
+                            <li className={cl.paymentInfo_li}>
+                                <span>Доставка:</span>
+                                {shippingInfo?.state ? (
+                                    <span className={cl.delivery}>
+                                        {mark}
+                                        {getDeliveryPrice(shippingInfo?.state)}
+                                    </span>
+                                ) : (
+                                    <span className={cl.delivery}>
+                                        Выберите адрес
+                                    </span>
+                                )}
+                            </li>
+
+                            <li className={cl.paymentInfo_li_total}>
+                                <span>Итого:</span>
+                                <span className={cl.total}>
+                                    {mark}
+                                    {getTotalAmount().toFixed(2)}
+                                </span>
+                            </li>
+                        </ul>
+
+                        <hr className={cl.hr} />
+
+                        <h2 className='title'>Товаров в корзине</h2>
+
+                        {cart?.cartItems?.map((item) => (
+                            <figure key={item.product} className={cl.figure}>
+                                <div className={cl.img_wrap}>
+                                    <Image
+                                        src={
+                                            item?.image
+                                                ? item?.image
+                                                : "/images/default_product.png"
+                                        }
+                                        className={cl.img}
+                                        alt={item?.name}
+                                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
+                                        fill
+                                        // height="240"
+                                        // width="240"
+                                    />
+                                    <span className={cl.img_wrap_span}>
+                                        {item.quantity}
+                                    </span>
+                                </div>
+                                <figcaption className={cl.figcaption}>
+                                    <p>{item.name.substring(0, 50)}</p>
+                                    <p className={cl.figcaption_total}>
+                                        Total: ${item.quantity * item.price}
+                                    </p>
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </article>
+                </aside>
                 <main className={cl.main}>
                     <article className={cl.article}>
                         <h2 className='title'>Адрес доставки</h2>
@@ -134,6 +209,14 @@ const Shipping = ({ addresses }) => {
                                                 <br />
                                                 {address.phoneNo}
                                             </small>
+                                        </p>
+                                        <p className={cl.delivery}>
+                                            <span>
+                                                Доставка: {mark}
+                                                {getDeliveryPrice(
+                                                    address?.state
+                                                )}
+                                            </span>
                                         </p>
                                     </label>
                                 ))}
@@ -197,73 +280,6 @@ const Shipping = ({ addresses }) => {
                         </div>
                     </article>
                 </main>
-                <aside className={cl.paymentInfo_wrap}>
-                    <article
-                        className={cl.asaid_article}
-                        style={{ maxWidth: "350px" }}
-                    >
-                        <h2 className='title'>Итого:</h2>
-                        <ul>
-                            <li className={cl.paymentInfo_li}>
-                                <span>Стоимость:</span>
-                                <span>
-                                    {mark}
-                                    {cart?.checkoutInfo?.amount !== undefined
-                                        ? cart.checkoutInfo.amount.toFixed(2)
-                                        : "N/A"}
-                                </span>
-                            </li>
-                            <li className={cl.paymentInfo_li}>
-                                <span>Стоимость доставки:</span>
-                                <span>
-                                    {mark}
-                                    {getDeliveryPrice(shippingInfo?.state)}
-                                </span>
-                            </li>
-
-                            <li className={cl.paymentInfo_li_total}>
-                                <span>Итого:</span>
-                                <span className={cl.total}>
-                                    {mark}
-                                    {getTotalAmount().toFixed(2)}
-                                </span>
-                            </li>
-                        </ul>
-
-                        <hr className={cl.hr} />
-
-                        <h2 className='title'>Товаров в корзине</h2>
-
-                        {cart?.cartItems?.map((item) => (
-                            <figure key={item.product} className={cl.figure}>
-                                <div className={cl.img_wrap}>
-                                    <Image
-                                        src={
-                                            item?.image
-                                                ? item?.image
-                                                : "/images/default_product.png"
-                                        }
-                                        className={cl.img}
-                                        alt={item?.name}
-                                        sizes='(max-width: 768px) 30vw, (max-width: 1200px)  33vw'
-                                        fill
-                                        // height="240"
-                                        // width="240"
-                                    />
-                                    <span className={cl.img_wrap_span}>
-                                        {item.quantity}
-                                    </span>
-                                </div>
-                                <figcaption className={cl.figcaption}>
-                                    <p>{item.name.substring(0, 50)}</p>
-                                    <p className={cl.figcaption_total}>
-                                        Total: ${item.quantity * item.price}
-                                    </p>
-                                </figcaption>
-                            </figure>
-                        ))}
-                    </article>
-                </aside>
             </div>
         </>
     );

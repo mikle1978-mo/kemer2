@@ -3,6 +3,8 @@ import React from "react";
 import cl from "./UserAddresses.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { getDeliveryPrice } from "@/helpers/helpers";
+import { mark } from "@/lib/const/const";
 
 const UserAddresses = ({ addresses }) => {
     return addresses?.map((address) => (
@@ -23,6 +25,10 @@ const UserAddresses = ({ addresses }) => {
                             Тел: {address.phoneNo}
                         </p>
                     </figcaption>
+                    <div className={cl.delivery}>
+                        Доставка: {mark}
+                        {getDeliveryPrice(address.state)}
+                    </div>
                 </figure>
             </div>
         </Link>

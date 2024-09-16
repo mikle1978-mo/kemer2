@@ -67,6 +67,10 @@ const Paying = () => {
                     <p className={cl.info_title}>Платежная информация</p>
                     <ul className={cl.info_ul}>
                         <li>Оплата: {order?.paymentInfo?.method}</li>
+                        <li>
+                            Товар: {mark}
+                            {order?.paymentInfo?.amountPaid}
+                        </li>
 
                         <li>
                             Доставка: {mark}
@@ -74,7 +78,7 @@ const Paying = () => {
                         </li>
                         <li>
                             Итого: {mark}
-                            {order?.paymentInfo?.amountPaid}
+                            {order?.paymentInfo?.totalPaid}
                         </li>
                     </ul>
                 </div>

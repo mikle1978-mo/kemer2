@@ -3,16 +3,20 @@ import axios from "axios";
 
 const SellerPage = async ({ params }) => {
     const { sellerId } = params;
+    const res = await axios.get(
+        `${process.env.API_URL}/api/sellers/${sellerId}`
+    );
+    const seller = res.data.seller;
 
     try {
         const response = await axios.get(
-            `${process.env.API_URL}/api/products/seller/${sellerId}`
+            `${process.env.API_URL}/api/catalog/seller/${sellerId}`
         );
         const products = response.data;
 
         return (
             <div>
-                <h1>Продукты от продавца {sellerId}</h1>
+                <h1>Продукты от продавца "{seller.name}"</h1>
                 <MainList data={products} />
             </div>
         );

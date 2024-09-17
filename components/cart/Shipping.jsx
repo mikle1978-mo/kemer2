@@ -17,9 +17,7 @@ import Image from "next/image";
 import { getDeliveryPrice } from "@/helpers/helpers";
 
 const Shipping = ({ addresses }) => {
-    console.log(addresses);
-
-    const { cart } = useContext(CartContext);
+        const { cart } = useContext(CartContext);
     const { addTempOrderToStore } = useContext(OrderContext);
 
     const [shippingInfo, setShippinInfo] = useState("");
@@ -110,7 +108,7 @@ const Shipping = ({ addresses }) => {
                         className={cl.asaid_article}
                         style={{ maxWidth: "350px" }}
                     >
-                        <h2 className='title'>Стоимсоть заказа:</h2>
+                        <h2 className='title'>Стоимость заказа:</h2>
                         <ul>
                             <li className={cl.paymentInfo_li}>
                                 <span>Товар:</span>

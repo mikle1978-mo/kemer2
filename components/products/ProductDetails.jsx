@@ -7,7 +7,7 @@ import NewReview from "../review/NewReview";
 import OrderContext from "@/context/OrderContext";
 import Reviews from "../review/Reviews";
 import { mark } from "@/lib/const/const";
-
+import { useRouter } from "next/navigation";
 import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
 import Carousel from "../layouts/carousel/Carousel";
@@ -15,6 +15,7 @@ import BackButton from "../UI/myButton/backButton";
 // export const dynamic = "force-dinamic";
 
 const ProductDetails = ({ product }) => {
+    const router = useRouter();
     const { addItemToCart } = useContext(CartContext);
     const { canUserReview, canReview } = useContext(OrderContext);
 
@@ -73,7 +74,14 @@ const ProductDetails = ({ product }) => {
                         )}
                     </div>
                     <div className={cl.li_wrap}>
-                        <span className={cl.brand_value}>
+                        <span
+                            className={cl.seller_value}
+                            onClick={() =>
+                                router.push(
+                                    `/catalog/seller/${product?.sellerId}`
+                                )
+                            }
+                        >
                             {product?.seller}
                         </span>
                     </div>

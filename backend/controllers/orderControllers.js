@@ -97,10 +97,7 @@ export const canReview = async (req) => {
 export const checkoutSession = async (req, res) => {
     const body = await req.json();
     body.user = req.user;
-    console.log(body);
-
     const shippingInfo = body?.shippingInfo;
-
     const paymentInfo = {
         status: "в процессе",
         method: body.paymentMethod,
@@ -108,7 +105,6 @@ export const checkoutSession = async (req, res) => {
         amountPaid: body?.checkoutInfo.amount,
         deliveryPaid: body?.checkoutInfo.deliveryPrice,
     };
-
     const orderData = {
         user: body.user,
         shippingInfo,

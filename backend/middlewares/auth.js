@@ -5,8 +5,7 @@ import { getServerSession } from "next-auth";
 
 const isAuthenticatedUser = async (req, res) => {
     const session = await getServerSession(AuthOptions);
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@", session);
-
+  
     if (!session) {
         console.log(
             "There is no session in middleware isAuthentificatedUser!!!!!"

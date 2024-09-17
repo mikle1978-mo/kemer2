@@ -3,8 +3,6 @@ import cl from "./OrderItem.module.css";
 import { mark } from "@/lib/const/const";
 
 const OrderItem = ({ order }) => {
-    console.log(order);
-
     return (
         <article className={cl.wrap}>
             <div className={cl.card}>

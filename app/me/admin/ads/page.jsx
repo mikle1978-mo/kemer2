@@ -13,9 +13,7 @@ const AdminAdsPage = async () => {
             Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
         },
     });
-
-    console.log(data);
-
+ 
     return <AdsList data={data} />;
 };
 

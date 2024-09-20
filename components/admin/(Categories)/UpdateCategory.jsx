@@ -11,15 +11,21 @@ const UpdateCategory = ({ data, item }) => {
     const { updateCategory, error, updated, setUpdated, clearErrors } =
         useContext(CategoryContext);
     if (!updateCategory && !updated && !setUpdated && !clearErrors && !error) {
-        throw new Error(" components admin NewCategories ошибка контекста");
+        throw new Error("components admin UpdateCategory ошибка контекста");
     }
 
     const router = useRouter();
 
     const [category, setCategory] = useState({
-        name: item?.name,
-        parent: item?.parent,
-        slug: item?.slug,
+        name: item?.name || "",
+        parent: item?.parent || "",
+        slug: item?.slug || [],
+        description: item?.description || "",
+        seo: {
+            title: item?.seo?.title || "",
+            description: item?.seo?.description || "",
+            keywords: item?.seo?.keywords || [""],
+        },
     });
 
     useEffect(() => {
@@ -35,15 +41,49 @@ const UpdateCategory = ({ data, item }) => {
         }
     }, [error, updated]);
 
-    const { name, parent, slug } = category;
+    const { name, parent, slug, description, seo } = category;
 
+    // Общий обработчик изменений полей
     const onChange = (e) => {
         setCategory({ ...category, [e.target.name]: e.target.value });
     };
 
+    // Обработчик изменений SEO данных
+    const onSeoChange = (e) => {
+        setCategory({
+            ...category,
+            seo: { ...seo, [e.target.name]: e.target.value },
+        });
+    };
+
+    // Обработка изменения ключевых слов SEO
+    const onSeoKeywordChange = (index, e) => {
+        const newKeywords = [...seo.keywords];
+        newKeywords[index] = e.target.value;
+        setCategory({
+            ...category,
+            seo: { ...seo, keywords: newKeywords },
+        });
+    };
+
+    const addSeoKeyword = () => {
+        setCategory({
+            ...category,
+            seo: { ...seo, keywords: [...seo.keywords, ""] },
+        });
+    };
+
+    const removeSeoKeyword = (index) => {
+        const newKeywords = [...seo.keywords];
+        newKeywords.splice(index, 1);
+        setCategory({
+            ...category,
+            seo: { ...seo, keywords: newKeywords },
+        });
+    };
+
     const submitHandler = (e) => {
         e.preventDefault();
-
         updateCategory(category, item?._id);
     };
 
@@ -52,9 +92,9 @@ const UpdateCategory = ({ data, item }) => {
             <h1 className='title'>Обновление категории</h1>
 
             <form className='form' onSubmit={submitHandler}>
+                {/* Родительская категория */}
                 <div className='input_wrap'>
                     <label className='label'>
-                        {" "}
                         Родительская категория
                         <div className='relative'>
                             <select
@@ -88,44 +128,111 @@ const UpdateCategory = ({ data, item }) => {
                     </label>
                 </div>
 
+                {/* Наименование категории */}
                 <div className='input_wrap'>
                     <label className='label'>
-                        {" "}
                         Наименование категории
                         <input
                             id='name'
                             type='text'
                             className='input'
-                            placeholder='По русски сбольшой буквы'
+                            placeholder='Введите название категории'
                             autoComplete='off'
                             name='name'
                             value={name || ""}
                             onChange={onChange}
+                            required
                         />
                     </label>
                 </div>
-                <div className='input_seller_cont'>
-                    <div className='input_wrap'>
-                        <label className='label'>
-                            {" "}
-                            SLUG
-                            <div className='relative'>
-                                <div className='col-span-2'>
+
+                {/* Описание категории */}
+                <div className='input_wrap'>
+                    <label className='label'>
+                        Описание категории
+                        <textarea
+                            id='description'
+                            className='textarea'
+                            placeholder='Описание категории'
+                            name='description'
+                            value={description || ""}
+                            onChange={onChange}
+                        />
+                    </label>
+                </div>
+
+                {/* SEO Заголовок */}
+                <div className='input_wrap'>
+                    <label className='label'>
+                        SEO Заголовок
+                        <input
+                            id='seo-title'
+                            type='text'
+                            className='input'
+                            placeholder='SEO заголовок'
+                            autoComplete='off'
+                            name='title'
+                            value={seo.title || ""}
+                            onChange={onSeoChange}
+                        />
+                    </label>
+                </div>
+
+                {/* SEO Описание */}
+                <div className='input_wrap'>
+                    <label className='label'>
+                        SEO Описание
+                        <textarea
+                            id='seo-description'
+                            className='textarea'
+                            placeholder='SEO описание'
+                            name='description'
+                            value={seo.description || ""}
+                            onChange={onSeoChange}
+                        />
+                    </label>
+                </div>
+
+                {/* SEO Ключевые слова */}
+                <div className='input_wrap'>
+                    <label className='label'>
+                        SEO Ключевые слова
+                        <div>
+                            {seo.keywords.map((keyword, index) => (
+                                <div key={index} className='seo-keyword'>
                                     <input
-                                        id='slug'
                                         type='text'
                                         className='input'
-                                        placeholder='категория на английском'
-                                        autoComplete='off'
-                                        name='slug'
-                                        value={slug || ""}
-                                        onChange={onChange}
-                                        required
+                                        placeholder={`Ключевое слово ${
+                                            index + 1
+                                        }`}
+                                        value={keyword || ""}
+                                        onChange={(e) =>
+                                            onSeoKeywordChange(index, e)
+                                        }
                                     />
+                                    {index > 0 && (
+                                        <button
+                                            type='button'
+                                            className='remove-seo-keyword'
+                                            onClick={() =>
+                                                removeSeoKeyword(index)
+                                            }
+                                        >
+                                            Удалить
+                                        </button>
+                                    )}
                                 </div>
-                            </div>
-                        </label>
-                    </div>
+                            ))}
+                            <button
+                                type='button'
+                                className='add-seo-keyword'
+                                onClick={addSeoKeyword}
+                            >
+                                Добавить ключевое слово
+                            </button>
+                        </div>
+                    </label>
                 </div>
 
                 <MyButton type='submit'>Обновить категорию</MyButton>

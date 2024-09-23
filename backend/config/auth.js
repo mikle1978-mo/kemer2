@@ -3,6 +3,9 @@ import User from "@/backend/models/user";
 import bcrypt from "bcryptjs";
 
 export const AuthOptions = {
+    jwt: {
+        maxAge: 30 * 24 * 60 * 60, // 30 дней в секундах
+    },
     session: {
         strategy: "jwt",
     },

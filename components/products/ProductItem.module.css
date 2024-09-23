@@ -6,7 +6,6 @@
     border-radius: var(--border-radius);
     position: relative;
     margin-bottom: var(--dist-small);
-    padding: var(--dist-mini);
 }
 @media (max-width: 768px) {
     .card {

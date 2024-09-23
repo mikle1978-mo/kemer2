@@ -2,17 +2,6 @@ import MainList from "@/components/products/MainList";
 import CaruselAds from "../components/layouts/carouselAds/caruselAds";
 import axios from "axios";
 
-export function metadata() {
-    return {
-        title: "Интернет-магазин товаров Кемер-онлайн",
-        description:
-            "Онлайн магазин в Кемере, Анталия, Турция, доставка по городу Кемер",
-        alternates: {
-            canonical: `${process.env.API_URL}`,
-        },
-    };
-}
-
 const HomePage = async () => {
     let productData;
     let adsData;
@@ -24,7 +13,7 @@ const HomePage = async () => {
         ]);
 
         productData = productResponse.data;
-        adsData = adsResponse.data.advertisers;
+        adsData = adsResponse.data;
     } catch (error) {
         console.error("Ошибка запроса на главной странице:", error);
         productData = {
@@ -32,7 +21,7 @@ const HomePage = async () => {
             filteredProductsCount: 0,
             productsCount: 0,
         };
-        adsData = [];
+        adsData = { advertisersCount: 0, advertisers: [] };
     }
 
     return (
@@ -42,7 +31,7 @@ const HomePage = async () => {
                     Продукты, товары и услуги в Кемере
                 </h1>
             </div>
-            <CaruselAds ads={adsData} />
+            <CaruselAds data={adsData} />
             <MainList data={productData} />
         </>
     );

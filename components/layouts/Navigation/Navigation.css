@@ -1,6 +1,6 @@
 .navigation {
     position: fixed;
-    width: 100vw;
+    width: 100%;
     background-color: var(--primary-4);
     top: 0px;
     right: 0;

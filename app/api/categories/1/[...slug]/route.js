@@ -4,10 +4,7 @@ import { dbConnect } from "@/backend/config/dbConnect";
 import Category from "@/backend/models/categories";
 
 export async function GET(req, { params }) {
-    console.log("55555", params);
-
     const { slug } = params; // массив slug
-    console.log("333333", slug);
 
     await dbConnect(); // Подключение к базе данных
 

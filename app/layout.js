@@ -8,6 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+    metadataBase: new URL(process.env.API_URL),
     title: {
         default: 'Интернет магазин "Кемер-онлайн"',
         template: "%s - Кемер-онлайн",

@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import BreadCrumbs from "../layouts/BreadCrumbs";
+import BreadCrumbs from "../layouts/BreadCrumbs/BreadCrumbs";
 import cl from "./Shipping.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ import Image from "next/image";
 import { getDeliveryPrice } from "@/helpers/helpers";
 
 const Shipping = ({ addresses }) => {
-        const { cart } = useContext(CartContext);
+    const { cart } = useContext(CartContext);
     const { addTempOrderToStore } = useContext(OrderContext);
 
     const [shippingInfo, setShippinInfo] = useState("");

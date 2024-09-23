@@ -1,19 +1,36 @@
+"use client";
+
 import cl from "./caruselAds.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { shuffleArray } from "@/helpers/helpers";
+import { useState, useEffect } from "react";
 
-export default function CaruselAds(adsData) {
-    let sortedAds = [];
+export default function CaruselAds({ data }) {
+    const advertisers = Array.isArray(data?.advertisers)
+        ? data.advertisers
+        : [];
 
-    if (adsData && Array.isArray(adsData.ads)) {
-        sortedAds = adsData.ads.sort(() => Math.random() - 0.5);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        if (advertisers.length > 0) {
+            setItems(shuffleArray(advertisers));
+        } else {
+            setItems([]);
+        }
+    }, [advertisers]);
+
+    // Если data нет, отображаем, например, заглушку или пустое состояние
+    if (!data || advertisers.length === 0) {
+        return <div>Нет рекламодателей для отображения</div>;
     }
 
     return (
         <div className={cl.main_container}>
             <div className={cl.window}>
                 <div className={cl.all_pages_container}>
-                    {sortedAds.map((child) => (
+                    {items.map((child) => (
                         <Link
                             key={child._id}
                             href={child.siteUrl}
@@ -24,7 +41,7 @@ export default function CaruselAds(adsData) {
                             <Image
                                 src={
                                     child?.images[0]
-                                        ? child?.images[0].url
+                                        ? child.images[0].url
                                         : "/images/default_product.png"
                                 }
                                 alt={child.name}

@@ -1,4 +1,6 @@
+import BreadCrumbs from "@/components/layouts/BreadCrumbs/BreadCrumbs";
 import MainList from "@/components/products/MainList";
+import { getSlugName } from "@/helpers/helpers";
 import axios from "axios";
 
 export async function generateMetadata({ params }) {
@@ -13,13 +15,15 @@ export async function generateMetadata({ params }) {
 
         if (!category) {
             return {
-                title: "Категория не найдена",
-                description: "Извините, эта категория не найдена.",
+                title: 'Интернет магазин "Кемер-онлайн"',
+                description:
+                    "Купите и продайте продукты и товары онлайн в Кемере! Удобный магазин с бесплатной доставкой по городу. Большой выбор товаров по низким ценам, быстрая доставка и легкость покупок. Идеально для тех, кто ищет выгодные предложения и удобство шопинга!",
             };
         }
 
         // Генерируем метаданные на основе данных категории
         return {
+            metadataBase: new URL(process.env.API_URL),
             title: category.seo?.title || category.name,
             description:
                 category.seo?.description || `Категория ${category.name}`,
@@ -34,8 +38,9 @@ export async function generateMetadata({ params }) {
     } catch (error) {
         console.error("Ошибка при получении категории:", error.message);
         return {
-            title: "Ошибка",
-            description: "Произошла ошибка при загрузке категории.",
+            title: 'Интернет магазин "Кемер-онлайн"',
+            description:
+                "Купите и продайте продукты и товары онлайн в Кемере! Удобный магазин с бесплатной доставкой по городу. Большой выбор товаров по низким ценам, быстрая доставка и легкость покупок. Идеально для тех, кто ищет выгодные предложения и удобство шопинга!",
         };
     }
 }
@@ -45,6 +50,23 @@ const CategoryPage = async ({ params }) => {
 
     // Собираем полный путь из массива slug
     const categoryPath = slug.join("/");
+    const slugForBreadcrumbs = slug;
+    slugForBreadcrumbs.pop();
+    console.log(slugForBreadcrumbs);
+
+    const breadCrumbs = [
+        { name: "Главная", url: "/" }, // Первая крошка — Главная страница
+    ];
+
+    let accumulatedPath = "/catalog/category"; // Переменная для накопления пути
+
+    slugForBreadcrumbs.forEach((item) => {
+        accumulatedPath += `/${item}`; // Накапливаем путь
+        breadCrumbs.push({
+            name: getSlugName(item), // Получаем имя для текущего сегмента
+            url: accumulatedPath, // Формируем URL для текущего сегмента
+        });
+    });
 
     try {
         // Используем categoryPath для запроса на API
@@ -55,6 +77,7 @@ const CategoryPage = async ({ params }) => {
 
         return (
             <>
+                <BreadCrumbs breadCrumbs={breadCrumbs} />
                 <MainList data={products} />
             </>
         );

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect } from "react";
-import BreadCrumbs from "../layouts/BreadCrumbs";
+import BreadCrumbs from "../layouts/BreadCrumbs/BreadCrumbs";
 import CartContext from "@/context/CartContext";
 import NewReview from "../review/NewReview";
 import OrderContext from "@/context/OrderContext";
@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
 import Carousel from "../layouts/carousel/Carousel";
-import BackButton from "../UI/myButton/backButton";
+import { getSlugName } from "@/helpers/helpers";
+
 // export const dynamic = "force-dinamic";
 
 const ProductDetails = ({ product }) => {
@@ -37,12 +38,18 @@ const ProductDetails = ({ product }) => {
     };
 
     const breadCrumbs = [
-        { name: "Home", url: "/" },
-        {
-            name: `${product?.category}`,
-            url: `/?category=${product?.category}`,
-        },
+        { name: "Главная", url: "/" }, // Первая крошка — Главная страница
     ];
+
+    let accumulatedPath = "/catalog/category"; // Переменная для накопления пути
+
+    product.categories.forEach((item) => {
+        accumulatedPath += `/${item}`; // Накапливаем путь
+        breadCrumbs.push({
+            name: getSlugName(item), // Получаем имя для текущего сегмента
+            url: accumulatedPath, // Формируем URL для текущего сегмента
+        });
+    });
 
     return (
         <>

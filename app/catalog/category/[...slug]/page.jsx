@@ -52,7 +52,6 @@ const CategoryPage = async ({ params }) => {
     const categoryPath = slug.join("/");
     const slugForBreadcrumbs = slug;
     slugForBreadcrumbs.pop();
-    console.log(slugForBreadcrumbs);
 
     const breadCrumbs = [
         { name: "Главная", url: "/" }, // Первая крошка — Главная страница

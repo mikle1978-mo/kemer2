@@ -1,11 +1,11 @@
 .card {
     width: 100%;
-    min-height: 325px;
+    /* min-height: 325px; */
     display: flex;
-    flex-direction: column; /* Размещаем элементы в колонку */
+    flex-direction: column;
     border-radius: var(--border-radius);
     position: relative;
-    margin-bottom: var(--dist-small);
+    gap: 0.2rem;
 }
 @media (max-width: 768px) {
     .card {
@@ -18,7 +18,6 @@
     aspect-ratio: 3/4;
     position: relative;
     overflow: hidden; /* Скрываем, что выходит за пределы */
-    margin-bottom: 5px;
 }
 
 /* Контейнер для картинки */
@@ -31,34 +30,30 @@
     background-color: var(--primary-3-05);
     border-radius: var(--border-radius);
     overflow: hidden;
+    transition: all 0.5s;
+}
+.card__image:hover {
+    transform: scale(1.1);
 }
 
-/* .card__image > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Встраиваем картинку в контейнер card__image */
-/* transition: 0.2s; */
-/* } */
-
-/* Размещаем скидку на товар относительно изображения */
 .card__label {
-    padding: 2px 4px;
+    padding: 0 4px;
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 5px;
+    left: 5px;
     background: var(--complement-0);
-    border-radius: var(--border-radius);
-    font-weight: 400;
-    font-size: 0.8rem;
     color: var(--primary-4);
+    border-radius: var(--border-radius);
+    font-weight: bolder;
+    line-height: 1.5;
+    font-size: 0.8rem;
+    text-align: center;
 }
 
 .card__bottom {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     flex: 1 0 auto; /* Занимаем всю оставшуюся высоту карточки */
-    margin: 0 0 0.25rem 0;
 }
 
 .card__prices {
@@ -118,6 +113,7 @@
 }
 
 .card__ratingStar {
+    font-size: 0.9rem;
     color: var(--complement-0);
 }
 

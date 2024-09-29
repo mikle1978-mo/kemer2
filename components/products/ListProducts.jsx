@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
-import "./MainList.css";
+import cl from "./ListProducts.module.css";
 import { useInView } from "react-intersection-observer";
 import { shuffleArray } from "@/helpers/helpers";
 
@@ -49,7 +49,7 @@ export default function ListProducts({ data }) {
     }, [inView]);
 
     return (
-        <main className='listProduct'>
+        <main className={cl.listProduct}>
             {loading && <div>Загрузка...</div>}
             {visibleItems.map((item) => (
                 <ProductItem key={item._id} product={item} />

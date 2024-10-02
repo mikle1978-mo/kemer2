@@ -34,7 +34,6 @@
         "react-toastify": "^10.0.5",
         "semver": "^7.6.3",
         "sharp": "^0.33.5",
-        "star-ratings-react": "^1.4.0",
         "tar": "^7.4.3",
         "vercel": "^37.3.0"
     },

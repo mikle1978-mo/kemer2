@@ -8,7 +8,6 @@
     bottom: 0;
     z-index: 3;
     overflow-y: auto;
-    margin-bottom: 3rem;
 }
 
 .categoryList {
@@ -21,7 +20,6 @@
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     padding: 1rem;
     list-style-type: none;
-    line-height: 1.25;
     border: 1px solid var(--secondary-a-3);
     background: var(--primary-3);
     border-radius: 0.3rem;
@@ -43,10 +41,10 @@
 .buttonBack {
     position: fixed;
     top: 0;
-    border: none;
+    border: 1px solid var(--primary-4);
     width: 100%;
-    background-color: var(--complement-0);
+    background-color: var(--primary-4);
+    color: var(--primary-3);
     padding: 1rem;
     font-size: inherit;
-    border-radius: 0.3rem;
 }

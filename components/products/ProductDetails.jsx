@@ -12,6 +12,30 @@ import cl from "./ProductDetails.module.css";
 import MyButton from "../UI/myButton/myButton";
 import Carousel from "../layouts/carousel/Carousel";
 import { getSlugName } from "@/helpers/helpers";
+import StarRating from "../UI/StarRating/StarRating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
+const getFormattedDate = () => {
+    const today = new Date();
+    const day = today.getDate();
+    const monthNames = [
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря",
+    ];
+    const month = monthNames[today.getMonth()];
+    return `${day} ${month}`;
+};
 
 // export const dynamic = "force-dinamic";
 
@@ -54,9 +78,9 @@ const ProductDetails = ({ product }) => {
     return (
         <>
             <BreadCrumbs breadCrumbs={breadCrumbs} />
-            <Carousel data={product} />
 
-            <main>
+            <Carousel data={product} />
+            <div className={cl.productDetails}>
                 <div className={cl.price_wrap}>
                     <p className={cl.price}>
                         {mark}
@@ -86,34 +110,25 @@ const ProductDetails = ({ product }) => {
                             router.push(`/catalog/seller/${product?.sellerId}`)
                         }
                     >
-                        {product?.seller}
-                    </span>
-                </div>
-                <h1 className='title'>{product?.name}</h1>
-
-                <div className={cl.main_wrap}>
-                    {/* <div className='ratings'>
-                            <StarRatings
-                                rating={product?.ratings}
-                                starRatedColor='#ffb829'
-                                numberOfStars={5}
-                                starDimension='18px'
-                                starSpacing='1px'
-                                name={`rating-${product?._id}`}
-                            />
-                        </div> */}
-                    <span className={cl.rating}>{product?.ratings}</span>
-
-                    <svg
-                        width='6px'
-                        height='6px'
-                        viewBox='0 0 6 6'
-                        xmlns='http://www.w3.org/2000/svg'
-                    >
-                        <circle cx='3' cy='3' r='3' fill='#DBDBDB' />
-                    </svg>
+                        {product?.seller}{" "}
+                        <FontAwesomeIcon
+                            icon={faChevronRight}
+                            className='icon'
+                        />
+                    </span>{" "}
+                    <div className='ratings'>
+                        <StarRating
+                            rating={product?.ratings}
+                            maxRating={5}
+                            size={18}
+                            starColor='#ffb829'
+                            textColor='black'
+                            isInteractive={false} // запрет изменения при наведении
+                        />
+                    </div>
                 </div>
 
+                <h1>{product?.name}</h1>
                 <ul className={cl.ul_wrap}>
                     {" "}
                     {product?.brand ? (
@@ -128,19 +143,21 @@ const ProductDetails = ({ product }) => {
                         ""
                     )}
                     <li className={cl.li_wrap}>
-                        {" "}
-                        <b className={cl.category}>Категория:</b>
-                        <span className={cl.category_value}>
-                            {/* {product?.category} */}
-                        </span>
-                    </li>
-                    <li className={cl.li_wrap}>
-                        {" "}
                         <b className={cl.stock}>Склад</b>
                         {inStock ? (
                             <span className={cl.stock_green}>В наличии</span>
                         ) : (
                             <span className={cl.stock_red}>Отсутвует</span>
+                        )}
+                    </li>
+                    <li className={cl.li_wrap}>
+                        {product?.articul ? (
+                            <>
+                                <b className={cl.stock}>Артикул</b>{" "}
+                                <span> {product?.articul}</span>
+                            </>
+                        ) : (
+                            ""
                         )}
                     </li>
                 </ul>
@@ -152,12 +169,35 @@ const ProductDetails = ({ product }) => {
                     <p className={cl.desc}>{product?.description}</p>
                 </details>
                 <div className={cl.btn_wrap}>
+                    <div className={cl.price_wrap}>
+                        <p className={cl.price}>
+                            {mark}
+                            {product?.price}
+                        </p>
+                        {product.discount ? (
+                            <>
+                                <p className={cl.old_price}>
+                                    {mark}
+                                    {(
+                                        (product?.price * 100) /
+                                        (100 - product?.discount)
+                                    ).toFixed(2)}
+                                </p>
+                                <p className={cl.discount}>
+                                    Скидка: {product?.discount}%
+                                </p>
+                            </>
+                        ) : (
+                            ""
+                        )}
+                        <date>{getFormattedDate()}</date>
+                    </div>
                     <MyButton onClick={addToCartHandler} disabled={!inStock}>
                         {/* <i className='fa fa-shopping-cart mr-2'></i> */}В
                         корзину
                     </MyButton>
                 </div>
-            </main>
+            </div>
             {canReview && <NewReview product={product} />}
             <hr />
             <div className={cl.review_wrap}>

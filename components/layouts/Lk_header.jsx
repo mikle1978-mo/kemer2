@@ -58,30 +58,28 @@ export default function LkHeader() {
                     />
                 </div>
                 <figcaption className={cl.figcaption}>
-                    <h5 className={cl.figcaption_name}>
-                        <p>
-                            <b>Пользователь:</b> {user?.name}
-                        </p>
-                    </h5>
                     <p>
-                        <b>Email:</b> {user?.email}
+                        <span>Пользователь:</span> {user?.name}
                     </p>
+                    {/* <p>
+                        <span>Email:</span> {user?.email}
+                    </p> */}
                     <p>
-                        <b>Регистрация: </b>
+                        <span>Регистрация: </span>
                         {user?.createdAt?.substring(0, 10)}
                     </p>
                     <p>
-                        <b>Роль:</b> {user?.role}
+                        <span>Роль:</span> {user?.role}
                     </p>
                     {user?.role === "seller" && sellerName && (
                         <p>
-                            <b>Продавец:</b> <i>{sellerName}</i>
+                            <span>Продавец:</span> <i>{sellerName}</i>
                         </p>
                     )}
                 </figcaption>
             </figure>
 
-            <hr className='hr' />
+            <hr />
         </>
     );
 }

@@ -16,8 +16,6 @@
     display: block;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
     border-radius: 0.375rem;
     color: #1f2937;
 }
@@ -31,8 +29,6 @@
     display: block;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
     border-radius: 0.375rem;
     color: #991b1b;
     cursor: pointer;

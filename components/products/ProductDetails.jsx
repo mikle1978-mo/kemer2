@@ -56,46 +56,43 @@ const ProductDetails = ({ product }) => {
             <BreadCrumbs breadCrumbs={breadCrumbs} />
             <Carousel data={product} />
 
-            <div className={cl.grid}>
-                <main>
-                    <div className={cl.price_wrap}>
-                        <p className={cl.price}>
-                            {mark}
-                            {product?.price}
-                        </p>
-                        {product.discount ? (
-                            <>
-                                <p className={cl.old_price}>
-                                    {mark}
-                                    {(
-                                        (product?.price * 100) /
-                                        (100 - product?.discount)
-                                    ).toFixed(2)}
-                                </p>
-                                <p className={cl.discount}>
-                                    Скидка: {product?.discount}%
-                                </p>
-                            </>
-                        ) : (
-                            ""
-                        )}
-                    </div>
-                    <div className={cl.li_wrap}>
-                        <span
-                            className={cl.seller_value}
-                            onClick={() =>
-                                router.push(
-                                    `/catalog/seller/${product?.sellerId}`
-                                )
-                            }
-                        >
-                            {product?.seller}
-                        </span>
-                    </div>
-                    <h1 className='title'>{product?.name}</h1>
+            <main>
+                <div className={cl.price_wrap}>
+                    <p className={cl.price}>
+                        {mark}
+                        {product?.price}
+                    </p>
+                    {product.discount ? (
+                        <>
+                            <p className={cl.old_price}>
+                                {mark}
+                                {(
+                                    (product?.price * 100) /
+                                    (100 - product?.discount)
+                                ).toFixed(2)}
+                            </p>
+                            <p className={cl.discount}>
+                                Скидка: {product?.discount}%
+                            </p>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </div>
+                <div className={cl.li_wrap}>
+                    <span
+                        className={cl.seller_value}
+                        onClick={() =>
+                            router.push(`/catalog/seller/${product?.sellerId}`)
+                        }
+                    >
+                        {product?.seller}
+                    </span>
+                </div>
+                <h1 className='title'>{product?.name}</h1>
 
-                    <div className={cl.main_wrap}>
-                        {/* <div className='ratings'>
+                <div className={cl.main_wrap}>
+                    {/* <div className='ratings'>
                             <StarRatings
                                 rating={product?.ratings}
                                 starRatedColor='#ffb829'
@@ -105,68 +102,62 @@ const ProductDetails = ({ product }) => {
                                 name={`rating-${product?._id}`}
                             />
                         </div> */}
-                        <span className={cl.rating}>{product?.ratings}</span>
+                    <span className={cl.rating}>{product?.ratings}</span>
 
-                        <svg
-                            width='6px'
-                            height='6px'
-                            viewBox='0 0 6 6'
-                            xmlns='http://www.w3.org/2000/svg'
-                        >
-                            <circle cx='3' cy='3' r='3' fill='#DBDBDB' />
-                        </svg>
-                    </div>
+                    <svg
+                        width='6px'
+                        height='6px'
+                        viewBox='0 0 6 6'
+                        xmlns='http://www.w3.org/2000/svg'
+                    >
+                        <circle cx='3' cy='3' r='3' fill='#DBDBDB' />
+                    </svg>
+                </div>
 
-                    <ul className={cl.ul_wrap}>
-                        {" "}
-                        {product?.brand ? (
-                            <li className={cl.li_wrap}>
-                                {" "}
-                                <b className={cl.category}>Производитель:</b>
-                                <span className={cl.category_value}>
-                                    {product?.brand}
-                                </span>
-                            </li>
-                        ) : (
-                            ""
-                        )}
+                <ul className={cl.ul_wrap}>
+                    {" "}
+                    {product?.brand ? (
                         <li className={cl.li_wrap}>
                             {" "}
-                            <b className={cl.category}>Категория:</b>
+                            <b className={cl.category}>Производитель:</b>
                             <span className={cl.category_value}>
-                                {/* {product?.category} */}
+                                {product?.brand}
                             </span>
                         </li>
-                        <li className={cl.li_wrap}>
-                            {" "}
-                            <b className={cl.stock}>Склад</b>
-                            {inStock ? (
-                                <span className={cl.stock_green}>
-                                    В наличии
-                                </span>
-                            ) : (
-                                <span className={cl.stock_red}>Отсутвует</span>
-                            )}
-                        </li>
-                    </ul>
-                    <details className={cl.details}>
-                        <summary>
-                            <h2>Развернуть описание</h2>
-                        </summary>
+                    ) : (
+                        ""
+                    )}
+                    <li className={cl.li_wrap}>
+                        {" "}
+                        <b className={cl.category}>Категория:</b>
+                        <span className={cl.category_value}>
+                            {/* {product?.category} */}
+                        </span>
+                    </li>
+                    <li className={cl.li_wrap}>
+                        {" "}
+                        <b className={cl.stock}>Склад</b>
+                        {inStock ? (
+                            <span className={cl.stock_green}>В наличии</span>
+                        ) : (
+                            <span className={cl.stock_red}>Отсутвует</span>
+                        )}
+                    </li>
+                </ul>
+                <details className={cl.details}>
+                    <summary>
+                        <h2>Развернуть описание</h2>
+                    </summary>
 
-                        <p className={cl.desc}>{product?.description}</p>
-                    </details>
-                    <div className={cl.btn_wrap}>
-                        <MyButton
-                            onClick={addToCartHandler}
-                            disabled={!inStock}
-                        >
-                            {/* <i className='fa fa-shopping-cart mr-2'></i> */}
-                            В корзину
-                        </MyButton>
-                    </div>
-                </main>
-            </div>
+                    <p className={cl.desc}>{product?.description}</p>
+                </details>
+                <div className={cl.btn_wrap}>
+                    <MyButton onClick={addToCartHandler} disabled={!inStock}>
+                        {/* <i className='fa fa-shopping-cart mr-2'></i> */}В
+                        корзину
+                    </MyButton>
+                </div>
+            </main>
             {canReview && <NewReview product={product} />}
             <hr />
             <div className={cl.review_wrap}>

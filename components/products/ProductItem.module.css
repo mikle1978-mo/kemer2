@@ -19,6 +19,41 @@
     position: relative;
     overflow: hidden; /* Скрываем, что выходит за пределы */
 }
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    position: relative;
+    gap: 0.2rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 0;
+    }
+}
+
+.card__top {
+    aspect-ratio: 3 / 4; /* Соотношение сторон 3:4 */
+    position: relative;
+    overflow: hidden;
+}
+
+.card__image {
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Соотношение сторон картинки 3:4 */
+    background-color: var(--primary-3-05);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.card__image:hover {
+    transform: scale(1.1);
+}
+
+/* Остальной код остается без изменений */
 
 /* Контейнер для картинки */
 .card__image {
@@ -65,7 +100,6 @@
 
 .card__priceDiscount {
     font-weight: 700;
-    font-size: 17px;
     color: var(--primary-0);
     display: flex;
     flex-wrap: wrap-reverse;
@@ -73,7 +107,7 @@
 
 .card__priceCommon {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 0.85rem;
     color: var(--secondary-b-1);
     display: flex;
     flex-wrap: wrap-reverse;
@@ -84,7 +118,6 @@
 .card__titleBox {
     display: block;
     font-weight: 400;
-    font-size: 0.9rem;
     line-height: 150%;
     text-align: start;
     text-overflow: ellipsis;
@@ -99,11 +132,9 @@
     color: #ff6633;
 }
 .card__titleSeller {
-    font-size: 0.9rem;
     color: var(--primary-0);
 }
 .card__titleName {
-    font-size: 0.9rem;
     color: var(--secondary-b-1);
 }
 
@@ -113,11 +144,9 @@
 }
 
 .card__ratingStar {
-    font-size: 0.9rem;
     color: var(--complement-0);
 }
 
 .card__ratingStock {
     color: var(--secondary-b-1);
-    font-size: 0.9rem;
 }

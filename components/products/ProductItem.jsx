@@ -100,9 +100,7 @@ const ProductItem = ({ product }) => {
                     )}
                 </div>
 
-                <h2 className={cl.card__titleBox}>
-                    <span className={cl.card__titleName}>{product.name}</span>
-                </h2>
+                <h2 className={cl.card__titleBox}>{product.name}</h2>
 
                 <div className={cl.card__rating}>
                     <div className={cl.card__ratingStar}>

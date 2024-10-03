@@ -46,12 +46,14 @@ const Footer = () => {
                 aria-label='На главную страницу'
             >
                 <FontAwesomeIcon icon={faHouse} />
+                <span>домой</span>
             </Link>
             <p
                 className={open ? "active" : "links"}
                 onClick={() => setOpen(!open)}
             >
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
+                <span>категории</span>
             </p>
 
             <Link
@@ -63,7 +65,8 @@ const Footer = () => {
                 {cartItems?.length ? (
                     <>
                         <FontAwesomeIcon icon={faCartShopping} />
-                        <span className='cartLength'>{cartItems?.length}</span>
+                        <span>корзина</span>
+                        <p className='cartLength'>{cartItems?.length}</p>
                     </>
                 ) : (
                     <FontAwesomeIcon icon={faCartShopping} />
@@ -78,6 +81,7 @@ const Footer = () => {
                     aria-label='Войти'
                 >
                     <FontAwesomeIcon icon={faUser} />
+                    <span>войти</span>
                 </Link>
             ) : (
                 <Link href='/me' aria-label='В личный кабинет'>
@@ -90,6 +94,7 @@ const Footer = () => {
                             }
                         />
                     </div>
+                    <span>кабинет</span>
                 </Link>
             )}
         </footer>

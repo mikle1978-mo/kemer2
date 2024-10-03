@@ -16,6 +16,7 @@ export default function LandingsContact() {
                     <a
                         href='tel:+905356062642'
                         target='_blank'
+                        rel='noopener noreferrer'
                         className={cl.footer__link}
                     >
                         <FontAwesomeIcon className={cl.icons} icon={faPhone} />
@@ -25,6 +26,7 @@ export default function LandingsContact() {
                         type='email'
                         className={cl.footer__link}
                         target='_blank'
+                        rel='noopener noreferrer'
                     >
                         <FontAwesomeIcon
                             className={cl.icons}
@@ -34,6 +36,7 @@ export default function LandingsContact() {
                     <a
                         href='https://t.me/MikleTurkey'
                         target='_blank'
+                        rel='noopener noreferrer'
                         className={cl.footer__link}
                     >
                         <FontAwesomeIcon
@@ -44,6 +47,7 @@ export default function LandingsContact() {
                     <a
                         href='https://wa.me/905356062642'
                         target='_blank'
+                        rel='noopener noreferrer'
                         className={cl.footer__link}
                     >
                         <FontAwesomeIcon

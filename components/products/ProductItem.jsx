@@ -48,6 +48,7 @@ const ProductItem = ({ product }) => {
                 href={`/catalog/${product._id}`}
                 className={cl.card__top}
                 onClick={handleButtonClick}
+                aria-label='Подробности о товаре'
             >
                 <div className={cl.card__image} ref={ref}>
                     {inView ? (
@@ -117,6 +118,7 @@ const ProductItem = ({ product }) => {
                 name='cart'
                 className={cl.card__add}
                 onClick={addToCartHandler}
+                aria-label='Добавить в корзину'
             >
                 <FontAwesomeIcon icon={faCartShopping} />
             </MyButton>

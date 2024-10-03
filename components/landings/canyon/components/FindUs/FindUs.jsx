@@ -28,6 +28,7 @@ const FindUs = () => (
             <a
                 href='tel:+905322347560'
                 target='_blank'
+                rel='noopener noreferrer'
                 type='button'
                 className='custom__button'
                 style={{ marginTop: "2rem" }}

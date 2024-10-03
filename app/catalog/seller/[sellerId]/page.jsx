@@ -1,5 +1,6 @@
 import MainList from "@/components/products/MainList";
 import axios from "axios";
+import cl from "./page.module.css";
 
 const SellerPage = async ({ params }) => {
     const { sellerId } = params;
@@ -16,7 +17,9 @@ const SellerPage = async ({ params }) => {
 
         return (
             <div>
-                <h1>Продукты от продавца "{seller.name}"</h1>
+                <h1 className={cl.title}>
+                    Продукты от продавца "{seller.name}"
+                </h1>
                 <MainList data={products} />
             </div>
         );

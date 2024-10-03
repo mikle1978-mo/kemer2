@@ -14,7 +14,10 @@ import Carousel from "../layouts/carousel/Carousel";
 import { getSlugName } from "@/helpers/helpers";
 import StarRating from "../UI/StarRating/StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+    faChevronRight,
+    faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 
 const getFormattedDate = () => {
     const today = new Date();
@@ -193,8 +196,10 @@ const ProductDetails = ({ product }) => {
                         <date>{getFormattedDate()}</date>
                     </div>
                     <MyButton onClick={addToCartHandler} disabled={!inStock}>
-                        {/* <i className='fa fa-shopping-cart mr-2'></i> */}В
-                        корзину
+                        <FontAwesomeIcon
+                            icon={faCartShopping}
+                            className='icon'
+                        />
                     </MyButton>
                 </div>
             </div>

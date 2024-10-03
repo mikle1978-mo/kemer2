@@ -16,10 +16,10 @@ const Footer = () => (
             <div className='app__footer-links_contact'>
                 <h2 className='app__footer-headtext'>Свяжитесь с нами</h2>
                 <p className='p__opensans'>Kuzdere, 07982 Kemer/Antalya</p>
-                <a href='tel:+905322347560' target='_blank'>
+                <a href='tel:+905322347560' target='_blank' rel='noopener noreferrer'>
                     <p className='p__phone'>+90 532 234 75 60</p>
                 </a>
-                <a href='tel:+905322347560' target='_blank'>
+                <a href='tel:+905322347560' target='_blank' rel='noopener noreferrer'>
                     <p className='p__phone'>+90 532 234 75 60</p>
                 </a>
             </div>
@@ -33,22 +33,28 @@ const Footer = () => (
                     src={images.spoon.src}
                     className='spoon__img'
                     style={{ marginTop: 15 }}
-                    alt="spoon_footer"
+                    alt='spoon_footer'
                 />
                 <div className='app__footer-links_icons'>
                     <a
                         href='mailto:kesmebogazi@gmail.com?subject=Important-mail:&body=Hello.'
                         type='email'
                         target='_blank'
+                        rel='noopener noreferrer'
                     >
                         <FiMail />
                     </a>
-                    <a href='https://wa.me/905322347560' target='_blank'>
+                    <a
+                        href='https://wa.me/905322347560'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    >
                         <FaWhatsapp />
                     </a>
                     <a
                         href='https://www.instagram.com/kemerkesmebogazi?igsh=c295bWtuMnZnYnF2'
                         target='_blank'
+                        rel='noopener noreferrer'
                     >
                         <FiInstagram />
                     </a>

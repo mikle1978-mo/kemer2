@@ -43,6 +43,7 @@ const Footer = () => {
                 href='/'
                 className={isActiveHome ? "active" : "links"}
                 onClick={() => setOpen(false)}
+                aria-label='На главную страницу'
             >
                 <FontAwesomeIcon icon={faHouse} />
             </Link>
@@ -57,6 +58,7 @@ const Footer = () => {
                 href='/cart'
                 className={isActiveCart ? " cart active" : " cart links"}
                 onClick={() => setOpen(false)}
+                aria-label='В корзину'
             >
                 {cartItems?.length ? (
                     <>
@@ -73,11 +75,12 @@ const Footer = () => {
                     href='/login'
                     className={isActiveLogin ? "active" : "links"}
                     onClick={() => setOpen(false)}
+                    aria-label='Войти'
                 >
                     <FontAwesomeIcon icon={faUser} />
                 </Link>
             ) : (
-                <Link href='/me'>
+                <Link href='/me' aria-label='В личный кабинет'>
                     <div className='me'>
                         <img
                             src={

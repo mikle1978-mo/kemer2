@@ -6,7 +6,7 @@ export const metadata = {
         default: "Размеры комиссий ",
     },
     description:
-        "Размеры комиссий, тарифы, цены на торговой площадке Кемер-онлайн",
+        "Узнайте размеры комиссий, тарифы, цены на торговой площадке Кемер-онлайн.",
     alternates: {
         canonical: `${process.env.API_URL}/landings/tosellers/prices`,
     },

@@ -18,6 +18,7 @@ export default function LandingsContact() {
                         target='_blank'
                         rel='noopener noreferrer'
                         className={cl.footer__link}
+                        aria-label='Позвонить'
                     >
                         <FontAwesomeIcon className={cl.icons} icon={faPhone} />
                     </a>
@@ -27,6 +28,7 @@ export default function LandingsContact() {
                         className={cl.footer__link}
                         target='_blank'
                         rel='noopener noreferrer'
+                        aria-label='Написать на почту'
                     >
                         <FontAwesomeIcon
                             className={cl.icons}
@@ -38,6 +40,7 @@ export default function LandingsContact() {
                         target='_blank'
                         rel='noopener noreferrer'
                         className={cl.footer__link}
+                        aria-label='Написать в телеграм'
                     >
                         <FontAwesomeIcon
                             className={cl.icons}
@@ -49,6 +52,7 @@ export default function LandingsContact() {
                         target='_blank'
                         rel='noopener noreferrer'
                         className={cl.footer__link}
+                        aria-label='Написать в ватсап'
                     >
                         <FontAwesomeIcon
                             className={cl.icons}

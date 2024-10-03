@@ -69,7 +69,10 @@ const Footer = () => {
                         <p className='cartLength'>{cartItems?.length}</p>
                     </>
                 ) : (
-                    <FontAwesomeIcon icon={faCartShopping} />
+                    <>
+                        <FontAwesomeIcon icon={faCartShopping} />
+                        <span>корзина</span>
+                    </>
                 )}
             </Link>
 

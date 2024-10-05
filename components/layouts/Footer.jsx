@@ -20,22 +20,32 @@ const Footer = () => {
     const { user, setUser } = useContext(AuthContext);
     const { open, setOpen } = useContext(NavigationContext);
     const pathname = usePathname() || "";
-    const isActiveHome = pathname === "/";
-    const isActiveCart = pathname.includes("/cart");
-    const isActiveFilters = pathname.includes("/filters");
-    const isActiveMe = pathname.includes("/me");
-    const isActiveLogin = pathname.includes("/login");
-
-    const { data } = useSession();
-
-    useEffect(() => {
-        if (data) {
-            setUser(data?.user);
-        }
-    }, [data]);
-
+    const { data, status } = useSession(); // Используем status для проверки состояния сессии
     const { cart } = useContext(CartContext);
     const cartItems = cart?.cartItems;
+    console.log(data, status);
+
+    const getSession = async () => {
+        const response = await fetch("/api/auth/session");
+        const session = await response.json();
+        console.log("Session data:", session);
+    };
+
+    getSession();
+
+    // Логика для проверки активного маршрута
+    const isActiveHome = pathname === "/";
+    const isActiveCart = pathname.includes("/cart");
+    const isActiveLogin = pathname.includes("/login");
+
+    // Используем эффект для установки пользователя только при успешной аутентификации
+    useEffect(() => {
+        if (status === "authenticated" && data?.user) {
+            setUser(data.user);
+        } else if (status === "unauthenticated") {
+            setUser(null);
+        }
+    }, [data, status, setUser]);
 
     return (
         <footer className='footer'>
@@ -48,6 +58,7 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faHouse} />
                 <span>домой</span>
             </Link>
+
             <p
                 className={open ? "active" : "links"}
                 onClick={() => setOpen(!open)}
@@ -58,7 +69,7 @@ const Footer = () => {
 
             <Link
                 href='/cart'
-                className={isActiveCart ? " cart active" : " cart links"}
+                className={isActiveCart ? "cart active" : "cart links"}
                 onClick={() => setOpen(false)}
                 aria-label='В корзину'
             >
@@ -76,6 +87,7 @@ const Footer = () => {
                 )}
             </Link>
 
+            {/* Пока данные загружаются */}
             {!user ? (
                 <Link
                     href='/login'
@@ -87,12 +99,16 @@ const Footer = () => {
                     <span>войти</span>
                 </Link>
             ) : (
-                <Link href='/me' aria-label='В личный кабинет'>
+                <Link
+                    href='/me'
+                    className={isActiveLogin ? "active" : "links"}
+                    aria-label='В личный кабинет'
+                >
                     <div className='me'>
                         <img
                             src={
                                 user?.avatar
-                                    ? user?.avatar?.url
+                                    ? user.avatar.url
                                     : "/images/default.png"
                             }
                         />

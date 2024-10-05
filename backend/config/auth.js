@@ -3,6 +3,7 @@ import User from "@/backend/models/user";
 import bcrypt from "bcryptjs";
 
 export const AuthOptions = {
+    // Конфигурация для работы с JWT
     jwt: {
         maxAge: 30 * 24 * 60 * 60, // 30 дней в секундах
     },
@@ -43,6 +44,8 @@ export const AuthOptions = {
     ],
     callbacks: {
         jwt: async ({ token, user }) => {
+            console.log(1111);
+
             if (user) {
                 token.user = user;
 
@@ -61,6 +64,8 @@ export const AuthOptions = {
             return token;
         },
         session: async ({ session, token }) => {
+            console.log(2222);
+
             session.user = token.user;
 
             // Удаляем пароль из сессии
@@ -73,4 +78,26 @@ export const AuthOptions = {
         signIn: "/login",
     },
     secret: process.env.NEXTAUTH_SECRET,
+    cookies: {
+        sessionToken: {
+            name: `__Secure-next-auth.session-token`, // Имя куки
+            options: {
+                httpOnly: true, // Запретить доступ к куке через JavaScript
+                sameSite: "lax", // Защита от CSRF-атак
+                path: "/", // Путь для куки
+                secure: process.env.NODE_ENV === "production", // Использовать secure флаг в продакшене
+                maxAge: 30 * 24 * 60 * 60, // Устанавливаем срок действия куки (30 дней)
+            },
+        },
+        csrfToken: {
+            name: `__Secure-next-auth.csrf-token`, // Имя куки для CSRF токена
+            options: {
+                httpOnly: true,
+                sameSite: "lax",
+                path: "/",
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 30 * 24 * 60 * 60, // Устанавливаем срок действия куки (30 дней)
+            },
+        },
+    },
 };

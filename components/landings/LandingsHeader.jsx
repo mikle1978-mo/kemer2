@@ -17,6 +17,7 @@ export default function ToSellersHeader({ navLinks }) {
                         href={link.href}
                         key={link.name}
                         className={isActive ? cl.active : ""}
+                        aria-label={link.name}
                     >
                         {link.name}
                     </Link>

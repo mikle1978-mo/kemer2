@@ -37,6 +37,7 @@ export default function CaruselAds({ data }) {
                             className={cl.item}
                             rel='noopener noreferrer'
                             target='_blank'
+                            aria-label={child.name}
                         >
                             <Image
                                 src={

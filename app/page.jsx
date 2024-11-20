@@ -1,8 +1,11 @@
 import MainList from "@/components/products/MainList";
-import CaruselAds from "../components/layouts/carouselAds/caruselAds";
+import CaruselAds from "@/components/layouts/carouselAds/caruselAds";
 import axios from "axios";
 
-const HomePage = async () => {
+// ISR настроен через опцию revalidate
+export const revalidate = 600; // каждые 10 минут (600 секунд)
+
+const getData = async () => {
     let productData;
     let adsData;
 
@@ -23,6 +26,12 @@ const HomePage = async () => {
         };
         adsData = { advertisersCount: 0, advertisers: [] };
     }
+
+    return { productData, adsData };
+};
+
+const HomePage = async () => {
+    const { productData, adsData } = await getData();
 
     return (
         <>

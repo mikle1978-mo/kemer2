@@ -23,15 +23,6 @@ const Footer = () => {
     const { data, status } = useSession(); // Используем status для проверки состояния сессии
     const { cart } = useContext(CartContext);
     const cartItems = cart?.cartItems;
-    console.log(data, status);
-
-    const getSession = async () => {
-        const response = await fetch("/api/auth/session");
-        const session = await response.json();
-        console.log("Session data:", session);
-    };
-
-    getSession();
 
     // Логика для проверки активного маршрута
     const isActiveHome = pathname === "/";
